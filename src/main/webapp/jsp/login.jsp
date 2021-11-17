@@ -1,4 +1,4 @@
-<%--
+<%@ page import="java.util.Objects" %><%--
   Created by IntelliJ IDEA.
   User: dasith
   Date: 11/17/21
@@ -69,25 +69,60 @@
                 <div class="field">
                     <label class="label">Name</label>
                     <div class="control">
-                        <input class="input" type="text" placeholder="e.g. @alex" name="username">
+                        <input class="input" type="text" placeholder="e.g. @alex" name="username" required>
                     </div>
                 </div>
 
                 <div class="field">
                     <label class="label">Password</label>
                     <div class="control">
-                        <input class="input" type="password" placeholder="********" name="password">
+                        <input class="input" type="password" placeholder="********" name="password" required>
                     </div>
                 </div>
 
                 <button class="button is-primary" type="submit">Log in</button>
             </form>
 
-            <div class="notification is-danger is-light">
-                <button class="delete"></button>
-                Primar lorem ipsum dolor sit amet, consectetur
-                adipiscing elit lorem ipsum dolor. <strong>Pellentesque risus mi</strong>, tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum <a>felis venenatis</a> efficitur.
+
+            <%
+
+                int error = (int) request.getAttribute("error");
+
+
+                // error 1 is for null username or password
+                if(Objects.equals(error, 1)){  %>
+
+                <div class="notification is-danger is-light" id="theError">
+                    <button class="delete" onclick="hideErr()"></button>
+                    The Username Or Password Was Missing make sure you filled the both fields
+                </div>
+            <%
+                }
+                else if(Objects.equals(error, 2)) {
+            %>
+
+            <div class="notification is-danger is-light" id="theError">
+                <button class="delete" onclick="hideErr()"></button>
+                The Username Or password You entered are incorrect Please check your credentials again. If you dont have a account you can always sign up from <a href="/signup"> here</a>
             </div>
+
+
+            <%
+                }
+                else{
+            %>
+
+            <div>
+                <!-- success -->
+            </div>
+
+            <%
+                }
+
+            %>
+
+
+
         </div>
         <!-- /.section -->
 
@@ -97,6 +132,12 @@
     </div>
 </section>
 <!-- /.section -->
+
+<script>
+    function hideErr(){
+        document.getElementById("theError").style.display="none";
+    }
+</script>
 
 </body>
 
