@@ -19,8 +19,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>XYZ Hotel | Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.css" integrity="sha512-7VGuxKU1BFMmA+dC7NiW8jF0YOIe6bibjUBr42unVtEsI/UYzXMS3nkgNvmsY4yqauxeiEs4bXF6fPLsCuxN/A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+
 
     <link rel="stylesheet" href="/css/custom.css">
     <style>
@@ -28,6 +30,10 @@
             display: flex;
             justify-content: center;
             align-items: center;
+        }
+
+        .checked {
+            color: orange;
         }
 
         .is-paddingless-horizontal {
@@ -48,6 +54,11 @@
         .grid-xl {
             grid-column: xl;
         }
+
+        .checked {
+            color: orange;
+        }
+
     </style>
 </head>
 
@@ -119,13 +130,19 @@
                     </div>
                     <footer class="card-footer">
                         <p class="card-footer-item">
-                                    <span>
-                                        View on <a href="#">Twitter</a>
-                                    </span>
+                            <!-- try to display the stars -->
+
+                            <% for(int x = 1; x < review.getReview_starts(); x++) { %>
+                            <tr>
+                                <td><span class="fa fa-star checked"></span></td>
+                            </tr>
+                            <% } %>
+
+
                         </p>
                         <p class="card-footer-item">
-                                    <span>
-                                        Share on <a href="#">Facebook</a>
+                            <span>
+                                        Share on <a href="https://twitter.com/intent/tweet?text=check+out!<%=review.getReview_user()%>+said+<%=review.getReview_content()%>+about+the+XYZ+hotel&hashtags=xyzhotel">Twitter</a>
                                     </span>
                         </p>
                     </footer>
@@ -165,13 +182,17 @@
                         </div>
                         <footer class="card-footer">
                             <p class="card-footer-item">
-                                    <span>
-                                        View on <a href="#">Twitter</a>
-                                    </span>
+                                <% for(int y = 0; y < review2.getReview_starts() ; y++) { %>
+                                <tr>
+                                    <script> console.log(review2.getReview_starts())</script>
+                                    <td><span class="fa fa-star checked"></span></td>
+                                </tr>
+                                <% } %>
+
                             </p>
                             <p class="card-footer-item">
-                                    <span>
-                                        Share on <a href="#">Facebook</a>
+                                   <span>
+                                        Share on <a href="https://twitter.com/intent/tweet?text=check+out!<%=review2.getReview_user()%>+said+<%=review2.getReview_content()%>+about+the+XYZ+hotel&hashtags=xyzhotel">Twitter</a>
                                     </span>
                             </p>
                         </footer>

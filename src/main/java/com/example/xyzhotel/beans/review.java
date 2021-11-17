@@ -3,7 +3,7 @@ package com.example.xyzhotel.beans;
 public class review {
     private int review_id;
     private String review_content;
-    private float review_starts;
+    private int review_starts;
     private String review_user;
 
     public int getReview_id() {
@@ -22,11 +22,11 @@ public class review {
         this.review_content = review_content;
     }
 
-    public float getReview_starts() {
+    public int getReview_starts() {
         return review_starts;
     }
 
-    public void setReview_starts(float review_starts) {
+    public void setReview_starts(int review_starts) {
         this.review_starts = review_starts;
     }
 

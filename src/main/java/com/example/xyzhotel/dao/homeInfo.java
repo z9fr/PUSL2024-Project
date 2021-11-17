@@ -52,7 +52,7 @@ public class homeInfo {
                 review = new review();
                 review.setReview_id(set.getInt("review_id"));
                 review.setReview_content(set.getString("review_content"));
-                review.setReview_starts(set.getFloat("review_starts"));
+                review.setReview_starts(set.getInt("review_starts"));
                 review.setReview_user(set.getString("review_user"));
                 reviews.add(review);
             }
