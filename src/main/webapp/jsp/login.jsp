@@ -13,7 +13,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>XYZ Hotel | Login</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.0/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.css" integrity="sha512-7VGuxKU1BFMmA+dC7NiW8jF0YOIe6bibjUBr42unVtEsI/UYzXMS3nkgNvmsY4yqauxeiEs4bXF6fPLsCuxN/A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
     <!-- <link rel="stylesheet" href="styles/debug.css"> -->
     <style>
@@ -65,23 +65,29 @@
 
 
             <br>
-            <form class="box">
+            <form class="box" action="/login" method="POST">
                 <div class="field">
-                    <label class="label">Email</label>
+                    <label class="label">Name</label>
                     <div class="control">
-                        <input class="input" type="email" placeholder="e.g. alex@example.com">
+                        <input class="input" type="text" placeholder="e.g. @alex" name="username">
                     </div>
                 </div>
 
                 <div class="field">
                     <label class="label">Password</label>
                     <div class="control">
-                        <input class="input" type="password" placeholder="********">
+                        <input class="input" type="password" placeholder="********" name="password">
                     </div>
                 </div>
 
-                <button class="button is-primary">Sign in</button>
+                <button class="button is-primary" type="submit">Log in</button>
             </form>
+
+            <div class="notification is-danger is-light">
+                <button class="delete"></button>
+                Primar lorem ipsum dolor sit amet, consectetur
+                adipiscing elit lorem ipsum dolor. <strong>Pellentesque risus mi</strong>, tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum <a>felis venenatis</a> efficitur.
+            </div>
         </div>
         <!-- /.section -->
 
