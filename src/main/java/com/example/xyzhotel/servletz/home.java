@@ -1,5 +1,6 @@
 package com.example.xyzhotel.servletz;
 
+import com.example.xyzhotel.beans.review;
 import com.example.xyzhotel.beans.room;
 import com.example.xyzhotel.dao.ApplicationDao;
 import com.example.xyzhotel.dao.homeInfo;
@@ -16,11 +17,14 @@ import java.util.List;
 public class home extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        homeInfo dao = new homeInfo();
+
         // last four ratings
+        List<review> reviews = dao.getTopReviews();
+        req.setAttribute("topreviews", reviews);
 
         // need the last three rooms
 
-        homeInfo dao = new homeInfo();
         List<room> rooms = dao.getAllRooms();
 
         req.setAttribute("latestRooms", rooms);

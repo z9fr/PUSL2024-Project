@@ -2,6 +2,7 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Iterator" %>
+<%@ page import="com.example.xyzhotel.beans.review" %>
 <%--
 <%--
   Created by IntelliJ IDEA.
@@ -94,14 +95,26 @@
 
     <div class="container">
         <div class="columns">
+
+            <%
+                List<review> reviews = (ArrayList) request.getAttribute("topreviews");
+
+               // while (iterator.hasNext()) {
+
+                //    review review = iterator.next();
+
+                for( int i =0 ; i < 3; i++){
+                    review review = reviews.get(i);
+            %>
+
             <div class="column">
                 <div class="card">
                     <div class="card-content">
                         <p class="title">
-                            “Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis, perferendis?”
+                            “<%= review.getReview_content()%>”
                         </p>
                         <p class="subtitle">
-                            Lorem, ipsum.
+                            <%= review.getReview_user()%>
                         </p>
                     </div>
                     <footer class="card-footer">
@@ -118,82 +131,66 @@
                     </footer>
                 </div>
             </div>
-            <div class="column">
-                <div class="card">
-                    <div class="card-content">
-                        <p class="title">
-                            “Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis, perferendis?”
-                        </p>
-                        <p class="subtitle">
-                            Lorem, ipsum.
-                        </p>
-                    </div>
-                    <footer class="card-footer">
-                        <p class="card-footer-item">
-                                    <span>
-                                        View on <a href="#">Twitter</a>
-                                    </span>
-                        </p>
-                        <p class="card-footer-item">
-                                    <span>
-                                        Share on <a href="#">Facebook</a>
-                                    </span>
-                        </p>
-                    </footer>
-                </div>
-            </div>
+
+
+<%
+    }
+%>
+
         </div>
-        <div class="columns">
-            <div class="column">
-                <div class="card">
-                    <div class="card-content">
-                        <p class="title">
-                            “Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis, perferendis?”
-                        </p>
-                        <p class="subtitle">
-                            Lorem, ipsum.
-                        </p>
-                    </div>
-                    <footer class="card-footer">
-                        <p class="card-footer-item">
-                                <span>
-                                    View on <a href="#">Twitter</a>
-                                </span>
-                        </p>
-                        <p class="card-footer-item">
-                                <span>
-                                    Share on <a href="#">Facebook</a>
-                                </span>
-                        </p>
-                    </footer>
-                </div>
-            </div>
-            <div class="column">
-                <div class="card">
-                    <div class="card-content">
-                        <p class="title">
-                            “Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis, perferendis?”
-                        </p>
-                        <p class="subtitle">
-                            Lorem, ipsum.
-                        </p>
-                    </div>
-                    <footer class="card-footer">
-                        <p class="card-footer-item">
+
+        <div class="container">
+            <div class="columns">
+
+                <%
+                    List<review> reviews2 = (ArrayList) request.getAttribute("topreviews");
+
+                    // while (iterator.hasNext()) {
+
+                    //    review review = iterator.next();
+
+                    for( int i =3 ; i <= 4; i++){
+                        review review2 = reviews2.get(i);
+                %>
+
+                <div class="column">
+                    <div class="card">
+                        <div class="card-content">
+                            <p class="title">
+                                “<%= review2.getReview_content()%>”
+                            </p>
+                            <p class="subtitle">
+                                <%= review2.getReview_user()%>
+                            </p>
+                        </div>
+                        <footer class="card-footer">
+                            <p class="card-footer-item">
                                     <span>
                                         View on <a href="#">Twitter</a>
                                     </span>
-                        </p>
-                        <p class="card-footer-item">
+                            </p>
+                            <p class="card-footer-item">
                                     <span>
                                         Share on <a href="#">Facebook</a>
                                     </span>
-                        </p>
-                    </footer>
+                            </p>
+                        </footer>
+                    </div>
                 </div>
+
+
+                <%
+                    }
+                %>
+
             </div>
-        </div>
-        <br>
+
+
+
+
+
+
+            <br>
         <center>
             <div class="buttons are-medium" style="margin-left: 42%; margin-right: 42%;">
 
@@ -224,9 +221,9 @@
 
             <%
                 List<room> rooms = (ArrayList) request.getAttribute("latestRooms");
-                Iterator<room> iterator = rooms.iterator();
-                while (iterator.hasNext()) {
-                    room room = iterator.next();
+                Iterator<room> iterator1 = rooms.iterator();
+                while (iterator1.hasNext()) {
+                    room room = iterator1.next();
             %>
 
             <div class="column">

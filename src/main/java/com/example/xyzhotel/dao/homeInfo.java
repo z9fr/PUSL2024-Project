@@ -18,7 +18,8 @@ public class homeInfo {
 
         try{
             Connection connection = dbconnection.getConnectionToDatabase();
-            String sql = "SELECT * FROM room_info WHERE room_id <= (SELECT max(room_id) FROM room_info) LIMIT 3;";
+            String sql = "SELECT * FROM room_info ORDER BY room_id DESC LIMIT 3;";
+
             Statement statement = connection.createStatement();
             ResultSet set = statement.executeQuery(sql);
 
@@ -43,7 +44,7 @@ public class homeInfo {
 
         try{
             Connection connection = dbconnection.getConnectionToDatabase();
-            String sql = "SELECT * FROM reviews WHERE review_id <= (SELECT max(review_id) FROM room_info) LIMIT 4;";
+            String sql = "SELECT * FROM reviews ORDER BY review_id DESC LIMIT 5;";
             Statement statement = connection.createStatement();
             ResultSet set = statement.executeQuery(sql);
 
