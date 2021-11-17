@@ -70,10 +70,10 @@
 
             <div class="buttons">
                 <div class="buttons">
-                    <a class="button is-primary is-medium" href="/signup.html">
+                    <a class="button is-primary is-medium" href="/signup">
                         <strong>Sign up</strong>
                     </a>
-                    <a class="button is-light is-medium" href="/login.html">
+                    <a class="button is-light is-medium" href="/login">
                         Log in
                     </a>
                 </div>
