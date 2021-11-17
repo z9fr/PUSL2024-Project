@@ -9,7 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ApplicationDao {
+public class homeInfo {
 
     public List<room> getAllRooms(){
         room room = null;
@@ -17,7 +17,7 @@ public class ApplicationDao {
 
         try{
             Connection connection = dbconnection.getConnectionToDatabase();
-            String sql = "select * from room_info;";
+            String sql = "SELECT * FROM room_info WHERE room_id <= (SELECT max(room_id) FROM room_info) LIMIT 3;";
             Statement statement = connection.createStatement();
             ResultSet set = statement.executeQuery(sql);
 
@@ -34,6 +34,5 @@ public class ApplicationDao {
             exception.printStackTrace();
         }
         return rooms;
-
     }
 }

@@ -11,7 +11,7 @@
 
 <nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
-        <a class="navbar-item" href="/" style="margin-left: 50%">
+        <a class="navbar-item" href="/home" style="margin-left: 50%">
             <img src="https://img.icons8.com/external-kiranshastry-lineal-color-kiranshastry/64/000000/external-coffee-interface-kiranshastry-lineal-color-kiranshastry.png" >
         </a>
 

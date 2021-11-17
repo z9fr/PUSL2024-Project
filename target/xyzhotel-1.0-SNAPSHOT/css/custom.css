@@ -1,5 +1,5 @@
 .hero-img{
-    background-image: url('../images/hero.webp');
+    background-image: url('../static/img/hero.webp');
     background-size: cover;
 }
 

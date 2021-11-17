@@ -68,7 +68,7 @@
 <section class="quotes section is-medium allItemsCards" style="margin-top: -5%;">
 
     <div class="columns is-multiline is-mobile">
-        <!-- display products through scriptlet and expression -->
+        <!-- display all rooms -->
         <%
             List<room> rooms = (ArrayList) request.getAttribute("rooms");
             Iterator<room> iterator = rooms.iterator();
@@ -77,38 +77,38 @@
         %>
 
         <div class="column is-one-quarter">
-        <div class="card">
-            <div class="card-image">
-                <figure class="image is-4by3">
-                    <img src="<%= room.getRoom_image()%>" alt="room image">
-                </figure>
-            </div>
-            <div class="card-content">
-                <div class="media">
+            <div class="card">
+                <div class="card-image">
+                    <figure class="image is-4by3">
+                        <img src="<%= room.getRoom_image()%>" alt="room image">
+                    </figure>
+                </div>
+                <div class="card-content">
+                    <div class="media">
 
-                    <div class="media-content">
-                        <p class="title is-4"><%= room.getTitle()%></p>
+                        <div class="media-content">
+                            <p class="title is-4"><%= room.getTitle()%></p>
 
+                        </div>
                     </div>
+
+                    <div class="content">
+                        <%= room.getRoom_description()%>
+                        <br>
+                    </div>
+
+                    <div class="content">
+                        <a class="button is-success" href="booknow?room=<%=room.getRoom_id()%>">
+                            <span class="icon is-small">
+                              <i class="fas fa-check"></i>
+                            </span>
+                                <span>Book Now</span>
+                        </a>
+                    </div>
+
+
                 </div>
-
-                <div class="content">
-                    <%= room.getRoom_description()%>
-                    <br>
-                </div>
-
-                <div class="content">
-                    <a class="button is-success" href="booknow?room=<%=room.getRoom_id()%>">
-                        <span class="icon is-small">
-                          <i class="fas fa-check"></i>
-                        </span>
-                            <span>Book Now</span>
-                    </a>
-                </div>
-
-
             </div>
-        </div>
         </div>
 
 
@@ -122,6 +122,8 @@
 
 </section>
 
+
+<jsp:include page="partials/footer.jsp" />
 </body>
 
 </html>
