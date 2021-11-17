@@ -19,7 +19,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.0/css/bulma.min.css">
     <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
 
-    <link rel="stylesheet" href="../css/custom.css">
     <style>
         .center {
             display: flex;
@@ -44,6 +43,11 @@
 
         .grid-xl {
             grid-column: xl;
+        }
+
+        .allItemsCards{
+            margin-left: 5%;
+            margin-right: 5%;
         }
     </style>
 </head>
@@ -119,7 +123,7 @@
 
 <section class="quotes section is-medium allItemsCards" >
 
-    <div class="productContainer">
+    <div class="columns is-multiline is-mobile">
         <!-- display products through scriptlet and expression -->
         <%
             List<room> rooms = (ArrayList) request.getAttribute("rooms");
@@ -128,6 +132,7 @@
                 room room = iterator.next();
         %>
 
+        <div class="column is-one-quarter">
         <div class="card">
             <div class="card-image">
                 <figure class="image is-4by3">
@@ -144,17 +149,29 @@
                 </div>
 
                 <div class="content">
-                    <%= room.getRoom_description()%><a href="booknow?room=<%=room.getRoom_id()%>">Book Now</a>.
+                    <%= room.getRoom_description()%>
                     <br>
                 </div>
+
+                <div class="content">
+                    <a class="button is-success" href="booknow?room=<%=room.getRoom_id()%>">
+                        <span class="icon is-small">
+                          <i class="fas fa-check"></i>
+                        </span>
+                            <span>Book Now</span>
+                    </a>
+                </div>
+
+
             </div>
+        </div>
         </div>
 
 
         <%
             }
         %>
-
+    </div>
     </div>
 
 
