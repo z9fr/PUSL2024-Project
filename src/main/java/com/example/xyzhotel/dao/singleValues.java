@@ -51,5 +51,28 @@ public class singleValues {
         return title;
     }
 
-    //room_description
+    // getting the room description
+
+    public String getRoomDesc(int roomId){
+        String room_description = "";
+        try{
+            Connection connection = dbconnection.getConnectionToDatabase();
+            String sql = "select room_description from room_info where room_id=?";
+
+            java.sql.PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, String.valueOf(roomId));
+
+            ResultSet set = statement.executeQuery();
+
+            while (set.next()){
+                room_description = set.getString("room_description");
+            }
+        }
+        catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+        return room_description;
+    }
+
+
 }

@@ -45,17 +45,56 @@
 
     String imgUrl = singlevalueDao.getRoomImage(booking.getRoom_id());
     String RoomTitle = singlevalueDao.getRoomTitle(booking.getRoom_id());
+    String RoomDesc = singlevalueDao.getRoomDesc(booking.getRoom_id());
 %>
 
     <section class="section">
         <div class="container">
             <div class="columns is-multiline is-centered">
                 <div class="column is-8 has-text-centered">
-                    <span class="has-text-grey-dark">New Feature</span>
+
+                    <nav class="breadcrumb" aria-label="breadcrumbs">
+                        <ul>
+                            <li><a href="/home">Home</a></li>
+                            <li><a href="/user/panel">Dashboard</a></li>
+                            <li class="is-active"><a href="#" aria-current="page"><%=RoomTitle%></a></li>
+                        </ul>
+                    </nav>
+
+
                     <h2 class="mt-2 mb-4 is-size-1 is-size-3-mobile has-text-weight-bold"><%=RoomTitle%></h2>
-                    <p class="subtitle has-text-grey mb-5">If you have ever wondered how to develop your brand, this is the place for you. Take a big step forward in growing your business with this great tool.</p>
+                    <p class="subtitle has-text-grey mb-5"><%= RoomDesc %></p>
 
                     <img class="image is-fullwidth" src="<%=imgUrl%>" alt="">
+                    <br> <br>
+
+                    <div class="notification is-success is-light">
+                        <h2> <b> Order Details </b></h2><br>
+                        You have setup an order to this room on. <strong><%= booking.getStart_date() %></strong> to <strong><%= booking.getEnd_date() %></strong>
+                       we hope you will enjoy your time here! have fun!! we are exited to see you on   <strong><%= booking.getStart_date() %></strong>.
+                    </div>
+
+                    <div class="box">
+                        <b> Start Date : <%= booking.getStart_date() %> </b>
+                    </div>
+                    <div class="box">
+                        <b> Ending Date : <%= booking.getEnd_date() %> </b>
+                    </div>
+
+                    <div class="box">
+                        <b> Payment Amount : <code><%= booking.getPaymentAmount() %></code> </b>
+                    </div>
+
+                    <div class="box">
+                        <b> Payment Status : <%= booking.isComplte_payment() %> </b>
+                    </div>
+
+                    <div class="box">
+                        <b> Order Reason  : <%= booking.getReason() %> </b>
+                    </div>
+
+
+
                 </div>
             </div>
         </div>
@@ -78,6 +117,33 @@ else { %>
 
 </section>
 
+<br>
+<hr>
+<br>
+<!-- header section -->
+<section class="section">
+    <div class="container">
+        <div class="box p-6 has-background-light">
+            <div class="is-vcentered columns is-multiline">
+                <div class="column is-8-desktop mb-3">
+                    <div>
+                        <h3 class="is-size-2 is-size-3-mobile mb-2 has-text-weight-bold">Want To Give us some FeedBack?</h3>
+                        <p class="has-text-grey-dark">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut earum maxime quas voluptatibus quia necessitatibus vel praesentium expedita magni laborum?</p>
+                    </div>
+                </div>
+                <div class="column is-4-desktop">
+                    <form action="#">
+                        <div class="is-flex">
+
+                            <button class="button is-primary" style="margin-left: 40%;">Leave A FeedBack</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<br>
 
 
 
