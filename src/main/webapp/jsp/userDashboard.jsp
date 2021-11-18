@@ -1,7 +1,8 @@
 <%@ page import="com.example.xyzhotel.beans.room" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.List" %>
-<%@ page import="java.util.Iterator" %><%--
+<%@ page import="java.util.Iterator" %>
+<%@ page import="com.example.xyzhotel.dao.randomQuote" %><%--
   Created by IntelliJ IDEA.
   User: dasith
   Date: 11/18/21
@@ -32,7 +33,15 @@
       <div class="column is-8 has-text-centered">
         <span class="has-text-grey-dark">Welcome 😃</span>
         <h2 class="mt-2 mb-4 is-size-1 is-size-3-mobile has-text-weight-bold">Hello, <%= session.getAttribute("username")%>. Welcome Back</h2>
-        <p class="subtitle has-text-grey mb-5"> <%= session.getAttribute("quote") %> </p>
+        <p class="subtitle has-text-grey mb-5">
+            <%
+              randomQuote quote = new randomQuote();
+              String myQuote = quote.getQuote();
+
+            %>
+            <%= myQuote %>
+
+        </p>
         <a class="button"
            href="#">Share with your friends</a></div>
     </div>

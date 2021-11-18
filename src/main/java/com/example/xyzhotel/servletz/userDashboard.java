@@ -18,11 +18,6 @@ public class userDashboard extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        // getting a quote
-        randomQuote quote = new randomQuote();
-        String displayquote = quote.getQuote();
-
-        req.setAttribute("quote", displayquote());
 
 
         // Getting values for posts
