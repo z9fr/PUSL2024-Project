@@ -1,7 +1,9 @@
 package com.example.xyzhotel.servletz;
 
+import com.example.xyzhotel.beans.booking;
 import com.example.xyzhotel.beans.review;
 import com.example.xyzhotel.beans.room;
+import com.example.xyzhotel.dao.getBookings;
 import com.example.xyzhotel.dao.homeInfo;
 import com.example.xyzhotel.dao.randomQuote;
 
@@ -13,12 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "user Dashboard", value = "/user/panel")
+@WebServlet(name = "userDashboard", value = "/user/panel")
 public class userDashboard extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-
 
         // Getting values for posts
         homeInfo dao = new homeInfo();

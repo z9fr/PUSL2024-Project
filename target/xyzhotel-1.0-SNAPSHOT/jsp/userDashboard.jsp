@@ -2,7 +2,9 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Iterator" %>
-<%@ page import="com.example.xyzhotel.dao.randomQuote" %><%--
+<%@ page import="com.example.xyzhotel.dao.randomQuote" %>
+<%@ page import="com.example.xyzhotel.beans.booking" %>
+<%@ page import="com.example.xyzhotel.dao.getBookings" %><%--
   Created by IntelliJ IDEA.
   User: dasith
   Date: 11/18/21
@@ -55,42 +57,41 @@
   <div class="container">
     <div class="is-vcentered columns is-multiline">
 
+      <%
 
-      <div class="column is-6 is-3-desktop">
-        <div class="card" style="padding: 7%;">
-          <h4>Premium</h4>
-          <span class="mb-5 is-inline-block is-size-1 is-size-3-mobile has-text-weight-bold">$99,99</span>
+        getBookings bookingsDao = new getBookings();
 
-          <a class="button is-primary is-fullwidth has-text-centered" href="#">Action</a>
-        </div>
-      </div>
+        List<booking> bookings = bookingsDao.getBookings((Integer) session.getAttribute("user_id"));
 
-      <div class="column is-6 is-3-desktop">
-        <div class="card" style="padding: 7%;">
-          <h4>Premium</h4>
-          <span class="mb-5 is-inline-block is-size-1 is-size-3-mobile has-text-weight-bold">$99,99</span>
+        if(bookings != null){
+            Iterator<booking> iterator2 = bookings.iterator();
+            while (iterator2.hasNext()) {
+              booking booking = iterator2.next();
+          %>
 
-          <a class="button is-primary is-fullwidth has-text-centered" href="#">Action</a>
-        </div>
-      </div>
+          <div class="column is-6 is-3-desktop">
+            <div class="card" style="padding: 7%;">
+              <h4> <%= booking.getStart_date()%> </h4>
+              <p> <%= booking.getReason() %> </p>
+              <span class="mb-5 is-inline-block is-size-1 is-size-3-mobile has-text-weight-bold"> <%=booking.getPaymentAmount()%></span>
 
-      <div class="column is-6 is-3-desktop">
-        <div class="card" style="padding: 7%;">
-          <h4>Premium</h4>
-          <span class="mb-5 is-inline-block is-size-1 is-size-3-mobile has-text-weight-bold">$99,99</span>
+              <a class="button is-primary is-fullwidth has-text-centered" href="/user/order?number=<%=booking.getBooking_id()%>">Action</a>
+            </div>
+          </div>
 
-          <a class="button is-primary is-fullwidth has-text-centered" href="#">Action</a>
-        </div>
-      </div>
 
-      <div class="column is-6 is-3-desktop">
-        <div class="card" style="padding: 7%;">
-          <h4>Premium</h4>
-          <span class="mb-5 is-inline-block is-size-1 is-size-3-mobile has-text-weight-bold">$99,99</span>
 
-          <a class="button is-primary is-fullwidth has-text-centered" href="#">Action</a>
-        </div>
-      </div>
+      <%
+          }
+        }
+        else { %>
+
+    <p> no oders found yet. </p>
+      <%
+        }
+        %>
+
+
 
 
     </div>
