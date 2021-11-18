@@ -52,7 +52,6 @@
 <section class="section is-paddingless-horizontal" style="padding-top: 0;">
     <div class="container grid" style="max-width: 1024px;">
 
-W
         <!-- /.media -->
 
         <!-- .section -->

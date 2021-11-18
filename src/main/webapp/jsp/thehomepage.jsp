@@ -72,9 +72,16 @@
     <div class="hero-body hero-img">
         <div class="" style="margin-left: 15%;">
 
-            <h1 class="title is-2" style="color: white;">
-                Lorem, ipsum dolor.
-            </h1>
+            <% if (session.getAttribute("username") == null) { %>
+                <h1 class="title is-2" style="color: white;">
+                    Lorem, ipsum dolor.
+                </h1>
+            <% } else {%>
+                <h1 class="title is-2" style="color: white;">
+                    Hello, <%= session.getAttribute("username")%>
+                </h1>
+
+            <% } %>
 
             <p class="subtitle" style="color: rgb(238, 238, 238);">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut, quibusdam?
@@ -82,12 +89,30 @@
 
             <div class="buttons">
                 <div class="buttons">
-                    <a class="button is-primary is-medium" href="/signup">
-                        <strong>Sign up</strong>
-                    </a>
-                    <a class="button is-light is-medium" href="/login">
-                        Log in
-                    </a>
+
+                    <% if (session.getAttribute("username") == null) { %>
+                    <div class="buttons">
+                        <a class="button is-primary" href="/signup">
+                            <strong>Sign up</strong>
+                        </a>
+                        <a class="button is-light" href="/login">
+                            Log in
+                        </a>
+                    </div>
+                    <% } else {%>
+                    <div class="buttons">
+                        <a class="button is-primary" href="/user/panel">
+                            <strong>Dashboard</strong>
+                        </a>
+                        <a class="button is-light" href="/logout">
+                            Logout
+                        </a>
+                    </div>
+
+                    <% } %>
+
+
+
                 </div>
             </div>
         </div>

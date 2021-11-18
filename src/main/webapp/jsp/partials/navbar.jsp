@@ -58,14 +58,29 @@
 
         <div class="navbar-end">
             <div class="navbar-item">
-                <div class="buttons">
-                    <a class="button is-primary" href="/signup">
-                        <strong>Sign up</strong>
-                    </a>
-                    <a class="button is-light" href="/login">
-                        Log in
-                    </a>
-                </div>
+
+                <% if (session.getAttribute("username") == null) { %>
+                    <div class="buttons">
+                        <a class="button is-primary" href="/signup">
+                            <strong>Sign up</strong>
+                        </a>
+                        <a class="button is-light" href="/login">
+                            Log in
+                        </a>
+                    </div>
+                <% } else {%>
+                    <div class="buttons">
+                        <a class="button is-primary" href="/user/panel">
+                            <strong>Dashboard</strong>
+                        </a>
+                        <a class="button is-light" href="/logout">
+                            Logout
+                        </a>
+                    </div>
+
+                <% } %>
+
+
             </div>
         </div>
     </div>
