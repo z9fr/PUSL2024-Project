@@ -53,14 +53,10 @@ public class login extends HttpServlet {
 
                 System.out.println("[+] "+uuid+" "+username+" "+role+" Logged in");
 
-                PrintWriter out = resp.getWriter();
-                out.println("<html>");
-                out.println("<b> hello" +username+"<br>");
-                out.println("<b> you are a " +role+"<br>");
-                out.println("<b> your user id " +uuid+"<br>");
+                resp.sendRedirect("/user/panel?msg=LoginSuccess");
             }
 
-            // req.getRequestDispatcher("/html/home.jsp").forward(req, resp);
+
         }
         else{
             String errorMessage="Invalid Credentials, please login again!";
