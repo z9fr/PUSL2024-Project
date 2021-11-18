@@ -4,7 +4,8 @@
 <%@ page import="java.util.Iterator" %>
 <%@ page import="com.example.xyzhotel.dao.randomQuote" %>
 <%@ page import="com.example.xyzhotel.beans.booking" %>
-<%@ page import="com.example.xyzhotel.dao.getBookings" %><%--
+<%@ page import="com.example.xyzhotel.dao.getBookings" %>
+<%@ page import="com.example.xyzhotel.dao.singleValues" %><%--
   Created by IntelliJ IDEA.
   User: dasith
   Date: 11/18/21
@@ -33,6 +34,7 @@
 <%
 
     getBookings bookingsDao = new getBookings();
+    singleValues singlevalueDao = new singleValues();
 
     List<booking> bookings = bookingsDao.bookingInfo(Integer.parseInt(request.getParameter("number")),(Integer) session.getAttribute("user_id"));
 
@@ -40,62 +42,23 @@
         Iterator<booking> iterator2 = bookings.iterator();
         while (iterator2.hasNext()) {
             booking booking = iterator2.next();
+
+    String imgUrl = singlevalueDao.getRoomImage(booking.getRoom_id());
 %>
 
-    <div class="section">
-        <div class="container mb-5">
-            <div class="columns is-multiline is-centered">
-                <div class="column is-8 has-text-centered">
-                    <nav class="breadcrumb is-centered mb-3" aria-label="breadcrumbs">
-                        <ul>
-                            <li><a href="/home">Home</a></li>
-                            <li><a href="/user/panel">Dashboard</a></li>
-                            <li><a href="#">Order</a></li>
-                        </ul>
-                    </nav>
-
-
-                    <h2 class="mb-4 is-size-1 is-size-3-mobile has-text-weight-bold">Lorem ipsum dolor sit amet
-                        consectutar domor at elis</h2>
-                    <div class="is-flex is-justify-content-center is-align-items-center has-text-left">
-                        <div class="mr-4">
-                            <img class="image is-fullwidth" src="bulma-plain-assets/images/green-400-avatar.png" alt=""
-                                 style="width: 56px; height: 56px">
-                        </div>
-                        <div>
-                            <h4 class="is-size-5 has-text-weight-bold">Danny Bailey</h4>
-                            <p class="has-text-grey-dark mb-0">February 26, 2021</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="mb-5">
-        <img class="image is-fullwidth" src="bulma-plain-assets/images/green-400-horizontal.png" alt="">
-    </div>
-    <div class="section">
+    <section class="section">
         <div class="container">
             <div class="columns is-multiline is-centered">
-                <div class="column is-8 is-6-desktop">
-                    <p class="subtitle has-text-grey mb-5">These types of questions led me to miss numerous deadlines,
-                        and I wasted time and energy in back-and-forth communication. Sadly, this situation could have
-                        been avoided if the wireframes had provided enough detail.</p>
-                    <p class="subtitle has-text-grey mb-5">These types of questions led me to miss numerous deadlines,
-                        and I wasted time and energy in back-and-forth communication. Sadly, this situation could have
-                        been avoided if the wireframes had provided enough detail.</p>
-                    <p class="subtitle has-text-grey mb-5">Now that I am a UX designer, I notice that some designers
-                        tend to forget that wireframes are equally creative and technical. We are responsible for
-                        designing great ideas, but we are also responsible for creating product specifications. I admit
-                        that there can be so many details to remember that it’s easy to lose track. To save time and
-                        energy for myself, I gathered all of my years of wireframing knowledge into a single checklist
-                        that I refer to throughout the process. And now I am sharing this knowledge with you, so that
-                        you can get back to being creative.</p>
+                <div class="column is-8 has-text-centered">
+                    <span class="has-text-grey-dark">New Feature</span>
+                    <h2 class="mt-2 mb-4 is-size-1 is-size-3-mobile has-text-weight-bold">Take quick action that increases your brand's regular profit.</h2>
+                    <p class="subtitle has-text-grey mb-5">If you have ever wondered how to develop your brand, this is the place for you. Take a big step forward in growing your business with this great tool.</p>
+
+                    <img class="image is-fullwidth" src="<%=imgUrl%>" alt="">
                 </div>
             </div>
         </div>
-    </div>
-
+    </section>
 
 <%
     }
