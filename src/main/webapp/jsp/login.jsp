@@ -48,12 +48,9 @@
 
 <jsp:include page="partials/navbar.jsp" />
 
-
-
 <!-- .section -->
 <section class="section is-paddingless-horizontal" style="padding-top: 0;">
     <div class="container grid" style="max-width: 1024px;">
-
 
         <!-- /.media -->
 
@@ -84,41 +81,17 @@
             </form>
 
 
+
             <%
-
-                int error = (int) request.getAttribute("error");
-
-
-                // error 1 is for null username or password
-                if(Objects.equals(error, 1)){  %>
-
-                <div class="notification is-danger is-light" id="theError">
-                    <button class="delete" onclick="hideErr()"></button>
-                    The Username Or Password Was Missing make sure you filled the both fields
-                </div>
-            <%
-                }
-                else if(Objects.equals(error, 2)) {
+                if (request.getAttribute("error") != null) {
             %>
 
             <div class="notification is-danger is-light" id="theError">
                 <button class="delete" onclick="hideErr()"></button>
-                The Username Or password You entered are incorrect Please check your credentials again. If you dont have a account you can always sign up from <a href="/signup"> here</a>
+                <%=request.getAttribute("error")%>
             </div>
-
-
             <%
                 }
-                else{
-            %>
-
-            <div>
-                <!-- success -->
-            </div>
-
-            <%
-                }
-
             %>
 
 
