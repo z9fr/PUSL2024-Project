@@ -44,6 +44,7 @@
             booking booking = iterator2.next();
 
     String imgUrl = singlevalueDao.getRoomImage(booking.getRoom_id());
+    String RoomTitle = singlevalueDao.getRoomTitle(booking.getRoom_id());
 %>
 
     <section class="section">
@@ -51,7 +52,7 @@
             <div class="columns is-multiline is-centered">
                 <div class="column is-8 has-text-centered">
                     <span class="has-text-grey-dark">New Feature</span>
-                    <h2 class="mt-2 mb-4 is-size-1 is-size-3-mobile has-text-weight-bold">Take quick action that increases your brand's regular profit.</h2>
+                    <h2 class="mt-2 mb-4 is-size-1 is-size-3-mobile has-text-weight-bold"><%=RoomTitle%></h2>
                     <p class="subtitle has-text-grey mb-5">If you have ever wondered how to develop your brand, this is the place for you. Take a big step forward in growing your business with this great tool.</p>
 
                     <img class="image is-fullwidth" src="<%=imgUrl%>" alt="">
