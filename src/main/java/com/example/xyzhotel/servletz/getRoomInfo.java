@@ -50,6 +50,31 @@ public class getRoomInfo {
             exception.printStackTrace();
         }
         return room_price;
+    }
+
+    public boolean checkRoomExist(int room_id){
+
+        boolean isValidRoom = false;
+
+        try{
+            Connection connection = dbconnection.getConnectionToDatabase();
+            String sql = "select * from room_info where room_id =?";
+
+            // setting values for parametrized query
+            java.sql.PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, String.valueOf(room_id));
+
+            ResultSet set = statement.executeQuery();
+            while (set.next()) {
+                isValidRoom = true;
+            }
+
+        }
+        catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+
+        return isValidRoom;
 
     }
 }
