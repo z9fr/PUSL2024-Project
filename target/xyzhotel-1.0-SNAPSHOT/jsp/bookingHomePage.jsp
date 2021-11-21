@@ -60,133 +60,135 @@
         <!-- .section -->
         <div class="section is-paddingless-horizontal">
 
-            <%
-                if (request.getAttribute("error") != null) {
-            %>
+            <form action="/user/booknow" method="POST">
 
-            <br><br>
+                <%
+                    if (request.getAttribute("error") != null) {
+                %>
 
-            <div class="notification is-danger is-light" id="theError">
-                <button class="delete" onclick="hideErr()"></button>
-                <%=request.getAttribute("error")%>
-            </div>
+                <br><br>
 
-            <script>
-                document.getElementById("theSubmitBtn").disabled= true
-            </script>
-
-            <%
-                }
-            %>
-
-
-            <%
-                if (request.getAttribute("the_Room_title_for_booking") != null) {
-            %>
-
-            <h1 class="title is-2">
-                Complete Booking For <%=request.getAttribute("the_Room_title_for_booking")%>
-            </h1>
-            <%
-                }
-            %>
-
-            <div class="field">
-                <label class="label">Name</label>
-                <div class="control">
-                    <input class="input" type="text" placeholder="Text input">
+                <div class="notification is-danger is-light" id="theError">
+                    <button class="delete" onclick="hideErr()"></button>
+                    <%=request.getAttribute("error")%>
                 </div>
-            </div>
 
-            <div class="field">
-                <label class="label">Booking Start Date</label>
-                <div class="control">
-                    <input class="input" type="date" placeholder="Date" name="start_date">
+                <script>
+                    document.getElementById("theSubmitBtn").disabled= true
+                </script>
+
+                <%
+                    }
+                %>
+
+
+                <%
+                    if (request.getAttribute("the_Room_title_for_booking") != null) {
+                %>
+
+                <h1 class="title is-2">
+                    Complete Booking For <%=request.getAttribute("the_Room_title_for_booking")%>
+                </h1>
+                <%
+                    }
+                %>
+
+
+
+                <div class="field">
+                    <label class="label">Booking Start Date</label>
+                    <div class="control">
+                        <input class="input" type="date" placeholder="Date" name="start_date">
+                    </div>
                 </div>
-            </div>
 
-            <div class="field">
-                <label class="label">Booking End Date</label>
-                <div class="control">
-                    <input class="input" type="date" placeholder="Date" name="end_date">
+                <div class="field">
+                    <label class="label">Booking End Date</label>
+                    <div class="control">
+                        <input class="input" type="date" placeholder="Date" name="end_date">
+                    </div>
                 </div>
-            </div>
 
 
-            <div class="field">
-                <label class="label">Message</label>
-                <div class="control">
-                    <textarea class="textarea" placeholder="Textarea"></textarea>
+                <div class="field">
+                    <label class="label">Message</label>
+                    <div class="control">
+                        <textarea class="textarea" placeholder="Textarea" name="reason"></textarea>
+                    </div>
                 </div>
-            </div>
 
-            <div class="field">
-                <div class="control">
-                    <label class="checkbox">
-                        <input type="checkbox">
-                        I agree to the <a href="#">terms and conditions</a>
-                    </label>
+                <div class="field">
+                    <div class="control">
+                        <label class="checkbox">
+                            <input type="checkbox">
+                            I agree to the <a href="#">terms and conditions</a>
+                        </label>
+                    </div>
                 </div>
-            </div>
 
-            <br>
-
-
-            <%
-                if (request.getAttribute("the_Room_price_for_booking") != null) {
-            %>
-
-            <div class="field">
-                <label class="label"><%=request.getAttribute("the_Room_price_for_booking")%> USD</label>
-
-            </div>
-
-            <%
-                }
-            %>
+                <input type="hidden" name="room_id", value=<%=request.getAttribute("the_Room_id_to_booking")%>>
 
 
+                <br>
 
-            <%
-                if (request.getAttribute("error") != null) {
-            %>
 
-            <div class="field is-grouped">
-                <div class="buttons">
+                <%
+                    if (request.getAttribute("the_Room_price_for_booking") != null) {
+                %>
 
-                    <a class="button is-light" href="/">
-                        Cancel
-                    </a>
+                <div class="field">
+                    <label class="label"><%=request.getAttribute("the_Room_price_for_booking")%> USD</label>
+
                 </div>
-            </div>
+
+                <%
+                    }
+                %>
+
+                <%
+                    if (request.getAttribute("error") != null) {
+                %>
+
+                <div class="field is-grouped">
+                    <div class="buttons">
+
+                        <a class="button is-light" href="/">
+                            Cancel
+                        </a>
+                    </div>
+                </div>
 
 
-            <%
+                <%
                 }
 
                 else {
-            %>
+                %>
 
 
-            <div class="field is-grouped">
-                <div class="buttons">
-                    <input type="submit" class="button is-primary" value="Complete the Payment" id="theSubmitBtn">
+                <div class="field is-grouped">
+                    <div class="buttons">
+                        <input type="submit" class="button is-primary" value="Complete the Payment" id="theSubmitBtn">
 
-                    <a class="button is-light" href="/">
-                        Cancel
-                    </a>
+                        <a class="button is-light" href="/">
+                            Cancel
+                        </a>
+                    </div>
                 </div>
-            </div>
 
-            <%
-                }
-            %>
-
+                <%
+                    }
+                %>
 
 
-            <br>
+
+                <br>
 
 
+
+            </form>
+
+   
         </div>
 
 

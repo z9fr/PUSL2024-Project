@@ -1,4 +1,4 @@
-package com.example.xyzhotel.servletz;
+package com.example.xyzhotel.dao;
 
 import com.example.xyzhotel.dao.dbconnection;
 
