@@ -35,9 +35,14 @@ public class bookNow extends HttpServlet {
             }
             else{
 
-                req.setAttribute("err","The Room Does Not Exist Please Try Again!");
+                req.setAttribute("error","The Room Does Not Exist Please Try Again!");
                 req.getRequestDispatcher("/jsp/bookingHomePage.jsp").forward(req, resp);
             }
+
+        }
+        else{
+            req.setAttribute("error","Something went Wrong Please Try Again!");
+            req.getRequestDispatcher("/jsp/bookingHomePage.jsp").forward(req, resp);
         }
 
     }

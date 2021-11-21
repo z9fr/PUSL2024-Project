@@ -61,6 +61,26 @@
         <div class="section is-paddingless-horizontal">
 
             <%
+                if (request.getAttribute("error") != null) {
+            %>
+
+            <br><br>
+
+            <div class="notification is-danger is-light" id="theError">
+                <button class="delete" onclick="hideErr()"></button>
+                <%=request.getAttribute("error")%>
+            </div>
+
+            <script>
+                document.getElementById("theSubmitBtn").disabled= true
+            </script>
+
+            <%
+                }
+            %>
+
+
+            <%
                 if (request.getAttribute("the_Room_title_for_booking") != null) {
             %>
 
@@ -127,11 +147,12 @@
 
 
 
-            <br>
+            <%
+                if (request.getAttribute("error") != null) {
+            %>
 
             <div class="field is-grouped">
                 <div class="buttons">
-                    <input type="submit" class="button is-primary" value="Complete the Payment">
 
                     <a class="button is-light" href="/">
                         Cancel
@@ -139,15 +160,46 @@
                 </div>
             </div>
 
+
+            <%
+                }
+
+                else {
+            %>
+
+
+            <div class="field is-grouped">
+                <div class="buttons">
+                    <input type="submit" class="button is-primary" value="Complete the Payment" id="theSubmitBtn">
+
+                    <a class="button is-light" href="/">
+                        Cancel
+                    </a>
+                </div>
+            </div>
+
+            <%
+                }
+            %>
+
+
+
+            <br>
+
+
         </div>
-        <!-- /.section -->
 
-
-        <!-- /.columns -->
 
     </div>
 </section>
 <!-- /.section -->
+
+<script>
+    function hideErr(){
+        document.getElementById("theError").style.display="none";
+    }
+</script>
+
 
 </body>
 

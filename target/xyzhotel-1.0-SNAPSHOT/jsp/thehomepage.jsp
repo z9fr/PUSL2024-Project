@@ -294,7 +294,7 @@
                         </div>
 
                         <div class="content">
-                            <a class="button is-success" href="booknow?room=<%=room.getRoom_id()%>">
+                            <a class="button is-success" href="/user/booknow?room=<%=room.getRoom_id()%>">
                             <span class="icon is-small">
                               <i class="fas fa-check"></i>
                             </span>

@@ -70,6 +70,11 @@
                 <button class="delete" onclick="hideErr()"></button>
                 <%=request.getAttribute("error")%>
             </div>
+
+            <script>
+                document.getElementById("theSubmitBtn").disabled= true
+            </script>
+
             <%
                 }
             %>
@@ -142,17 +147,42 @@
 
 
 
-            <br>
+            <%
+                if (request.getAttribute("error") != null) {
+            %>
 
             <div class="field is-grouped">
                 <div class="buttons">
-                    <input type="submit" class="button is-primary" value="Complete the Payment">
 
                     <a class="button is-light" href="/">
                         Cancel
                     </a>
                 </div>
             </div>
+
+
+            <%
+                }
+
+                else {
+            %>
+
+
+            <div class="field is-grouped">
+                <div class="buttons">
+                    <input type="submit" class="button is-primary" value="Complete the Payment" id="theSubmitBtn">
+
+                    <a class="button is-light" href="/">
+                        Cancel
+                    </a>
+                </div>
+            </div>
+
+            <%
+                }
+            %>
+
+
 
             <br>
 
