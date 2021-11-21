@@ -61,6 +61,21 @@
         <div class="section is-paddingless-horizontal">
 
             <%
+                if (request.getAttribute("error") != null) {
+            %>
+
+            <br><br>
+
+            <div class="notification is-danger is-light" id="theError">
+                <button class="delete" onclick="hideErr()"></button>
+                <%=request.getAttribute("error")%>
+            </div>
+            <%
+                }
+            %>
+
+
+            <%
                 if (request.getAttribute("the_Room_title_for_booking") != null) {
             %>
 
@@ -139,15 +154,22 @@
                 </div>
             </div>
 
+            <br>
+
+
         </div>
-        <!-- /.section -->
 
-
-        <!-- /.columns -->
 
     </div>
 </section>
 <!-- /.section -->
+
+<script>
+    function hideErr(){
+        document.getElementById("theError").style.display="none";
+    }
+</script>
+
 
 </body>
 
