@@ -24,6 +24,9 @@ public class bookNow extends HttpServlet {
             boolean doesRoomExist = roominformation.checkRoomExist(room_id);
 
             if (doesRoomExist) {
+
+
+
                 // getting title
                 String room_title = roominformation.room_title(room_id);
 
@@ -80,22 +83,19 @@ public class bookNow extends HttpServlet {
             int user_id = (int) session.getAttribute("user_id");
 
 
-
             out.println("<h1>" + start_date + "</h1>");
             out.println("<h1>" + end_date + "</h1>");
             out.println("<h1>" + reason + "</h1>");
             out.println("<h1>" + room_id + "</h1>");
             out.println("<h1>" + username + "</h1>");
             out.println("<h1>" + user_id + "</h1>");
+            out.println("<h1>" + session.getAttribute("role") + "</h1>");
             out.println("</body></html>");
 
         }
         else{
             out.println("<h1> room does not exist </h1>");
         }
-
-
-
 
 
     }
