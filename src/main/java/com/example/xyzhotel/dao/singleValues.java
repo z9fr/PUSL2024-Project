@@ -74,5 +74,29 @@ public class singleValues {
         return room_description;
     }
 
+    public String getUserName(int uuid)
+    {
+        String userName = "";
+        try{
+            Connection connection = dbconnection.getConnectionToDatabase();
+            String sql = "select uname from users where uuid=?";
+
+            java.sql.PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, String.valueOf(uuid));
+
+            ResultSet set = statement.executeQuery();
+
+            while (set.next()){
+                userName = set.getString("uname");
+                System.out.println("requested username ->" + userName);
+            }
+        }
+        catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+        return userName;
+
+    }
+
 
 }
