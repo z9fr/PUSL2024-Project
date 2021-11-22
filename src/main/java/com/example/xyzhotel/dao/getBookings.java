@@ -67,18 +67,31 @@ public class getBookings {
 
             ResultSet set = statement.executeQuery();
 
-            while (set.next()) {
-                booking = new booking();
-                booking.setBooking_id(set.getInt("booking_id"));
-                booking.setStart_date(set.getDate("start_date"));
-                booking.setEnd_date(set.getDate("end_date"));
-                booking.setBooked_by(set.getInt("booked_by"));
-                booking.setRoom_id(set.getInt("room_id"));
-                booking.setPaymentAmount(set.getDouble("paymentAmount"));
-                booking.setComplte_payment(set.getBoolean("complte_payment"));
-                booking.setReason(set.getString("reason"));
-                bookings.add(booking);
-            }
+            setBookings(bookings, set);
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return bookings;
+    }
+
+
+    public List<booking> AllBookings(){
+
+        booking booking = null;
+        List<booking> bookings = new ArrayList<>();
+
+        try{
+            // select role from users where uname='admin' and password='password';
+            Connection connection = dbconnection.getConnectionToDatabase();
+            String sql = "select * from bookings";
+
+            java.sql.PreparedStatement statement = connection.prepareStatement(sql);
+
+            ResultSet set = statement.executeQuery();
+
+            setBookings(bookings, set);
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -87,4 +100,22 @@ public class getBookings {
         return bookings;
 
     }
+
+    private void setBookings(List<booking> bookings, ResultSet set) throws SQLException {
+        booking booking;
+        while (set.next()) {
+            booking = new booking();
+            booking.setBooking_id(set.getInt("booking_id"));
+            booking.setStart_date(set.getDate("start_date"));
+            booking.setEnd_date(set.getDate("end_date"));
+            booking.setBooked_by(set.getInt("booked_by"));
+            booking.setRoom_id(set.getInt("room_id"));
+            booking.setPaymentAmount(set.getDouble("paymentAmount"));
+            booking.setComplte_payment(set.getBoolean("complte_payment"));
+            booking.setReason(set.getString("reason"));
+            bookings.add(booking);
+        }
+    }
+
+
 }

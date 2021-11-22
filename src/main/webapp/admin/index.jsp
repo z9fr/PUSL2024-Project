@@ -157,6 +157,9 @@
       <div class="card-content">
         <div class="b-table has-pagination">
           <div class="table-wrapper has-mobile-cards">
+
+            <!-- table to display the booking details -->
+
             <table class="table is-fullwidth is-striped is-hoverable is-sortable is-fullwidth">
               <thead>
               <tr>
@@ -176,15 +179,21 @@
                     <img src="https://avatars.dicebear.com/v2/initials/rebecca-bauch.svg" class="is-rounded">
                   </div>
                 </td>
+
                 <td data-label="Name">Rebecca Bauch</td>
+
                 <td data-label="Company">Daugherty-Daniel</td>
+
                 <td data-label="City">South Cory</td>
+
                 <td data-label="Progress" class="is-progress-cell">
                   <progress max="100" class="progress is-small is-primary" value="79">79</progress>
                 </td>
+
                 <td data-label="Created">
                   <small class="has-text-grey is-abbr-like" title="Oct 25, 2020">Oct 25, 2020</small>
                 </td>
+
                 <td class="is-actions-cell">
                   <div class="buttons is-right">
                     <button class="button is-small is-primary" type="button">
@@ -196,6 +205,7 @@
                   </div>
                 </td>
               </tr>
+
               <tr>
                 <td class="is-image-cell">
                   <div class="image">
