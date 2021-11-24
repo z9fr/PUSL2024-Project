@@ -33,6 +33,7 @@ public class adminHome extends HttpServlet {
             //getting those numbers
             req.setAttribute("userCount", adminhelper.UserCount());
             req.setAttribute("totalBookings", adminhelper.TotalBookings());
+            req.setAttribute("total_room_count", adminhelper.roomCount());
 
             System.out.println(adminhelper.UserCount());
 

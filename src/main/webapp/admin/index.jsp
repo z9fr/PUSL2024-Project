@@ -4,7 +4,8 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Iterator" %>
 <%@ page import="com.example.xyzhotel.dao.singleValues" %>
-<!DOCTYPE html>
+        <%@ page import="com.example.xyzhotel.beans.review" %>
+        <!DOCTYPE html>
 <html lang="en" class="has-aside-left has-aside-mobile-transition has-navbar-fixed-top has-aside-expanded">
 <head>
   <meta charset="utf-8">
@@ -119,10 +120,12 @@
             <div class="level is-mobile">
               <div class="level-item">
                 <div class="is-widget-label"><h3 class="subtitle is-spaced">
-                  Performance
+                  Total rooms
                 </h3>
                   <h1 class="title">
-                    256%
+
+                    <%= request.getAttribute("total_room_count")%>
+
                   </h1>
                 </div>
               </div>
@@ -162,11 +165,12 @@
         </div>
       </div>
     </div>
+
     <div class="card has-table has-mobile-sort-spaced">
       <header class="card-header">
         <p class="card-header-title">
           <span class="icon"><i class="mdi mdi-account-multiple"></i></span>
-          Clients
+          Ongoing Orders
         </p>
         <a href="#" class="card-header-icon">
           <span class="icon"><i class="mdi mdi-reload"></i></span>
@@ -276,7 +280,97 @@
         </div>
       </div>
     </div>
+
+
+    <br>
+
+    <!-- customer feedback -->
+
+    <div class="card has-table has-mobile-sort-spaced">
+      <header class="card-header">
+        <p class="card-header-title">
+          <span class="icon"><i class="mdi mdi-account-multiple"></i></span>
+          Customer FeedBack
+        </p>
+        <a href="#" class="card-header-icon">
+          <span class="icon"><i class="mdi mdi-reload"></i></span>
+        </a>
+      </header>
+      <div class="card-content">
+        <div class="b-table has-pagination">
+          <div class="table-wrapper has-mobile-cards">
+
+            <!-- table to display the customer feed back -->
+
+            <table class="table is-fullwidth is-striped is-hoverable is-sortable is-fullwidth">
+              <thead>
+              <tr>
+                <th></th>
+                <th>Review&nbsp;id&nbsp;</th>
+                <th>Review&nbsp;Content&nbsp;</th>
+                <th>Rating&nbsp;Stars&nbsp;</th>
+                <th>Reviewed&nbsp;By&nbsp;</th>
+
+              </tr>
+              </thead>
+              <tbody>
+
+
+              <%
+
+                AdminHelper adminhelper = new AdminHelper();
+
+
+                List<review> reviews = adminhelper.getAllReviews();
+
+                if (reviews != null) {
+                  Iterator<review> iterator3 = reviews.iterator();
+                  while (iterator3.hasNext()) {
+                    review review = iterator3.next();
+              %>
+
+
+              <tr>
+                <td class="is-image-cell">
+                  <div class="image">
+
+                  </div>
+                </td>
+
+                <td data-label="Review id"> <%=review.getReview_id()%></td>
+
+                <td data-label="Review Content"> <%=review.getReview_content()%></td>
+
+                <td data-label="End Date"> <%=review.getReview_starts()%></td>
+
+                <td data-label="room id"> <%=review.getReview_user()%></td>
+
+
+
+              </tr>
+
+              <%
+                }
+              } else { %>
+
+              <p> no orders found yet. </p>
+              <%
+                }
+              %>
+
+
+
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
   </section>
+
+
   <footer class="footer">
     <div class="container-fluid">
       <div class="level">
