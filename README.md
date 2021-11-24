@@ -15,6 +15,9 @@
 - SMS and Email notification of reservation and cancelling options
 - payment handling
 
+- [x] works
+- [x] works too
+
 ### Project Structure
 
 ```
