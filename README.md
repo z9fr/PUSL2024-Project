@@ -8,15 +8,11 @@
 
 ### Requirements
 
-- online resevatioons
-- online payments
-- avoid booking collisions
-- [x]visualization of customer feedback for management
-- SMS and Email notification of reservation and cancelling options
-- payment handling
-
-- [x] works
-- [x] works too
+- [ ] online reservations
+- [ ] avoid booking collisions
+- [x] visualization of customer feedback for management
+- [ ] SMS and Email notification of reservation and cancelling options
+- [ ] payment handling
 
 ### Project Structure
 
