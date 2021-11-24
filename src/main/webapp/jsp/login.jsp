@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.css" integrity="sha512-7VGuxKU1BFMmA+dC7NiW8jF0YOIe6bibjUBr42unVtEsI/UYzXMS3nkgNvmsY4yqauxeiEs4bXF6fPLsCuxN/A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
     <!-- <link rel="stylesheet" href="styles/debug.css"> -->
+    <link rel="stylesheet" href="/css/custom.css">
     <style>
         .center {
             display: flex;
@@ -48,6 +49,31 @@
 
 <jsp:include page="partials/navbar.jsp" />
 
+<!-- header section -->
+<section class="hero is-halfheight" >
+    <div class="hero-body hero-img">
+        <div class="" style="margin-left: 15%;">
+
+            <% if (session.getAttribute("username") == null) { %>
+            <h1 class="title is-2" style="color: white;">
+                Please Login
+            </h1>
+            <% } else {%>
+            <h1 class="title is-2" style="color: white;">
+                Hello, <%= session.getAttribute("username")%>
+            </h1>
+
+            <% } %>
+
+            <p class="subtitle" style="color: rgb(238, 238, 238);">
+               Please Login to the System
+            </p>
+
+
+        </div>
+    </div>
+</section>
+
 <!-- .section -->
 <section class="section is-paddingless-horizontal" style="padding-top: 0;">
     <div class="container grid" style="max-width: 1024px;">
@@ -56,9 +82,6 @@
 
         <!-- .section -->
         <div class="section is-paddingless-horizontal">
-            <h1 class="title is-2">
-                Please Login
-            </h1>
 
 
             <br>
@@ -93,7 +116,6 @@
             <%
                 }
             %>
-
 
 
         </div>

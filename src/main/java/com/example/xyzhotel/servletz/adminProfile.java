@@ -12,9 +12,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Objects;
 
-@WebServlet(name = "Admin Route", value = "/user/admin")
-public class adminHome extends HttpServlet {
-
+@WebServlet(name = "Admin Profile ", value = "/user/admin/profile")
+public class adminProfile extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -29,6 +28,11 @@ public class adminHome extends HttpServlet {
 
             AdminHelper adminhelper = new AdminHelper();
 
+            String username = (String) session.getAttribute("username");
+
+            //getting those numbers
+            req.setAttribute("admin_username", username);
+            System.out.println("[+] admin access the dashboard " + username);
 
             //getting those numbers
             req.setAttribute("userCount", adminhelper.UserCount());
@@ -36,7 +40,7 @@ public class adminHome extends HttpServlet {
 
             System.out.println(adminhelper.UserCount());
 
-            req.getRequestDispatcher("/admin/index.jsp").forward(req, resp);
+            req.getRequestDispatcher("/admin/profile.jsp").forward(req, resp);
 
 
         }

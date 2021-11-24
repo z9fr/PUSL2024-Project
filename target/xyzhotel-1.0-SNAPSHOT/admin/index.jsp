@@ -33,7 +33,7 @@
       <div class="level-left">
         <div class="level-item">
           <ul>
-            <li>Admin</li>
+            <li><a href="/user/admin">Admin</a> </li>
             <li>Dashboard</li>
           </ul>
         </div>

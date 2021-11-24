@@ -55,8 +55,6 @@ public class login extends HttpServlet {
 
                 resp.sendRedirect("/user/panel?msg=LoginSuccess");
             }
-
-
         }
         else{
             String errorMessage="Invalid Credentials, please login again!";
