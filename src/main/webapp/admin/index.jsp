@@ -20,6 +20,20 @@
   <link rel="dns-prefetch" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.css" integrity="sha512-7VGuxKU1BFMmA+dC7NiW8jF0YOIe6bibjUBr42unVtEsI/UYzXMS3nkgNvmsY4yqauxeiEs4bXF6fPLsCuxN/A==" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/charts.css/dist/charts.min.css'>
+  <link rel="stylesheet" href="/css/chart.css">
+
+  <style>
+    #column-example-16 {
+      height: 200px;
+      max-width: 300px;
+      margin: 0 auto;
+    }
+
+  </style>
+
+
+
 </head>
 <body>
 <div id="app">
@@ -160,7 +174,53 @@
                 <div></div>
               </div>
             </div>
-            <canvas id="big-line-chart" width="2992" height="1000" class="chartjs-render-monitor" style="display: block; height: 400px; width: 1197px;"></canvas>
+
+
+            <table id="animations-example-1" class="charts-css column hide-data show-labels show-primary-axis data-spacing-6">
+              <caption> Animation Example #1 </caption>
+              <thead>
+              <tr>
+                <th scope="col"> Year </th>
+                <th scope="col"> Progress </th>
+              </tr>
+              </thead>
+
+
+              <tbody>
+              <%
+
+                AdminHelper adminhelper = new AdminHelper();
+
+
+                List<review> reviews = adminhelper.getAllReviews();
+
+                if (reviews != null) {
+                  Iterator<review> iterator4 = reviews.iterator();
+                  while (iterator4.hasNext()) {
+                    review review = iterator4.next();
+              %>
+
+
+              <tr>
+                <th scope="row"> <%=review.getReview_user()%> </th>
+                <td style="--size: 0.<%=review.getReview_starts()%>;"><span class="data"> <%=review.getReview_starts()%> </span></td>
+              </tr>
+
+              <%
+                }
+              } else { %>
+
+              <p> no date found. </p>
+              <%
+                }
+              %>
+
+
+
+
+              </tbody>
+            </table>
+
           </div>
         </div>
       </div>
@@ -290,7 +350,7 @@
       <header class="card-header">
         <p class="card-header-title">
           <span class="icon"><i class="mdi mdi-account-multiple"></i></span>
-          Customer FeedBack
+          Ongoing Orders
         </p>
         <a href="#" class="card-header-icon">
           <span class="icon"><i class="mdi mdi-reload"></i></span>
@@ -318,10 +378,6 @@
 
               <%
 
-                AdminHelper adminhelper = new AdminHelper();
-
-
-                List<review> reviews = adminhelper.getAllReviews();
 
                 if (reviews != null) {
                   Iterator<review> iterator3 = reviews.iterator();
@@ -353,7 +409,7 @@
                 }
               } else { %>
 
-              <p> no orders found yet. </p>
+              <p> no oders found yet. </p>
               <%
                 }
               %>

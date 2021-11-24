@@ -11,7 +11,7 @@
 - online resevatioons
 - online payments
 - avoid booking collisions
-- visualization of customer feedback for management
+- visualization of customer feedback for management [x]
 - SMS and Email notification of reservation and cancelling options
 - payment handling
 
