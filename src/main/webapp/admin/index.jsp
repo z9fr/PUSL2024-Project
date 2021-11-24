@@ -350,7 +350,7 @@
       <header class="card-header">
         <p class="card-header-title">
           <span class="icon"><i class="mdi mdi-account-multiple"></i></span>
-          Ongoing Orders
+          Latest FeedBacks
         </p>
         <a href="#" class="card-header-icon">
           <span class="icon"><i class="mdi mdi-reload"></i></span>
@@ -409,7 +409,7 @@
                 }
               } else { %>
 
-              <p> no oders found yet. </p>
+              <p> no orders found yet. </p>
               <%
                 }
               %>
