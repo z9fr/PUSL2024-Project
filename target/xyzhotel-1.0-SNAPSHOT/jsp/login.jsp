@@ -1,140 +1,97 @@
-<%@ page import="java.util.Objects" %><%--
-  Created by IntelliJ IDEA.
-  User: dasith
-  Date: 11/17/21
-  Time: 10:51 PM
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!DOCTYPE html>
-<html>
-
+<!doctype html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>XYZ Hotel | Login</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.css" integrity="sha512-7VGuxKU1BFMmA+dC7NiW8jF0YOIe6bibjUBr42unVtEsI/UYzXMS3nkgNvmsY4yqauxeiEs4bXF6fPLsCuxN/A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
-    <!-- <link rel="stylesheet" href="styles/debug.css"> -->
-    <link rel="stylesheet" href="/css/custom.css">
-    <style>
-        .center {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .is-paddingless-horizontal {
-            padding-left: 0;
-            padding-right: 0;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns:
-                [xl-start] 1fr 1.5rem [md-start] minmax(0, 624px) [md-end] 1.5rem 1fr [xl-end];
-        }
-
-        .grid * {
-            grid-column: md;
-        }
-
-        .grid-xl {
-            grid-column: xl;
-        }
-    </style>
+    <link href="https://unpkg.com/tailwindcss@2.2.4/dist/tailwind.min.css" rel="stylesheet">
 </head>
-
 <body>
+<!-- Create By Joker Banny -->
+<div class="min-h-screen bg-no-repeat bg-cover bg-center"
+     style="background-image: url('/static/img/hero.webp')">
+    <div class="flex justify-end">
+        <div class="bg-white min-h-screen w-1/2 flex justify-center items-center">
+            <div>
 
-<jsp:include page="partials/navbar.jsp" />
+                    <form action="/login" method="POST">
+                        <div>
+                            <span class="text-sm text-gray-900">Welcome back</span>
+                            <h1 class="text-2xl font-bold">Login to your account</h1>
+                        </div>
+                        <div class="mt-5">
+                            <label class="block text-md mb-2" >UserName</label>
+                            <input class="px-4 w-full border-2 py-2 rounded-md text-sm outline-none" type="text" name="username" placeholder="e.g. @alex" required>
+                        </div>
+                        <div class="my-3">
+                            <label class="block text-md mb-2" >Password</label>
+                            <input class="px-4 w-full border-2 py-2 rounded-md text-sm outline-none" type="password" name="password" placeholder="********" required>
+                        </div>
+                        <div class="flex justify-between">
 
-<!-- header section -->
-<section class="hero is-halfheight" >
-    <div class="hero-body hero-img">
-        <div class="" style="margin-left: 15%;">
+                            <span class="text-sm text-blue-700 hover:underline cursor-pointer">Forgot password?</span>
+                        </div>
+                        <div class="">
+                            <input type="submit" value="Login" class="mt-4 mb-3 w-full bg-green-500 hover:bg-green-400 text-white py-2 rounded-md transition duration-100">
+                            <div class="flex  space-x-2 justify-center items-end bg-gray-700 hover:bg-gray-600 text-white py-2 rounded-md transition duration-100"">
 
-            <% if (session.getAttribute("username") == null) { %>
-            <h1 class="title is-2" style="color: white;">
-                Please Login
-            </h1>
-            <% } else {%>
-            <h1 class="title is-2" style="color: white;">
-                Hello, <%= session.getAttribute("username")%>
-            </h1>
+                            <button id="backtoHome" onclick="backtohome()">Back to Home</button>
 
-            <% } %>
+                            <a href="/home" id="takemebacktohome" style="display: none"> backtoehome</a>
 
-            <p class="subtitle" style="color: rgb(238, 238, 238);">
-               Please Login to the System
-            </p>
+                        </div>
 
 
+
+
+                            <%
+                                if (request.getAttribute("error") != null) {
+                            %>
+                        <br><br>
+                                <div class="mb-4" id="theErrMesg">
+                                    <div class="flex max-w-sm w-full bg-white shadow-md rounded-lg overflow-hidden mx-auto">
+                                        <div class="w-2 bg-red-600">
+                                        </div>
+                                        <div class="w-full flex justify-between items-start px-2 py-2">
+                                            <div class="flex flex-col ml-2">
+                                                <label class="text-gray-800">Message!</label>
+                                                <p class="text-gray-500 "> <%=request.getAttribute("error")%>
+                                            </div>
+                                            <a href="#" onclick="hideErr()">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            <%
+                                }
+                            %>
+
+
+
+                </div>
+                </form>
+            <p class="mt-8"> Dont have an account? <span class="cursor-pointer text-sm text-blue-600"> Join free today</span></p>
         </div>
     </div>
-</section>
-
-<!-- .section -->
-<section class="section is-paddingless-horizontal" style="padding-top: 0;">
-    <div class="container grid" style="max-width: 1024px;">
-
-        <!-- /.media -->
-
-        <!-- .section -->
-        <div class="section is-paddingless-horizontal">
-
-
-            <br>
-            <form class="box" action="/login" method="POST">
-                <div class="field">
-                    <label class="label">Name</label>
-                    <div class="control">
-                        <input class="input" type="text" placeholder="e.g. @alex" name="username" required>
-                    </div>
-                </div>
-
-                <div class="field">
-                    <label class="label">Password</label>
-                    <div class="control">
-                        <input class="input" type="password" placeholder="********" name="password" required>
-                    </div>
-                </div>
-
-                <button class="button is-primary" type="submit">Log in</button>
-            </form>
-
-
-
-            <%
-                if (request.getAttribute("error") != null) {
-            %>
-
-            <div class="notification is-danger is-light" id="theError">
-                <button class="delete" onclick="hideErr()"></button>
-                <%=request.getAttribute("error")%>
-            </div>
-            <%
-                }
-            %>
-
-
-        </div>
-        <!-- /.section -->
-
-
-        <!-- /.columns -->
-
-    </div>
-</section>
-<!-- /.section -->
+</div>
+</div>
+</div>
 
 <script>
-    function hideErr(){
-        document.getElementById("theError").style.display="none";
+    
+    function backtohome() {
+        let toclick = document.getElementById("takemebacktohome").click();
     }
+
+    function hideErr(){
+        let model = document.getElementById("theErrMesg").style.display="none";
+    }
+
 </script>
 
 </body>
-
 
 </html>

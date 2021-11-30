@@ -1,4 +1,4 @@
-        <%@ page import="com.example.xyzhotel.dao.AdminHelper" %>
+  <%@ page import="com.example.xyzhotel.dao.AdminHelper" %>
 <%@ page import="com.example.xyzhotel.dao.getBookings" %>
 <%@ page import="com.example.xyzhotel.beans.booking" %>
 <%@ page import="java.util.List" %>
