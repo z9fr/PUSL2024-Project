@@ -14,7 +14,7 @@ public class PaymentService {
     private static final String CLIENT_SECRET = "EPLYQ3f13BQflF0PdnTrnVorlMlDHj_iuWe1Ve-FVkYrjW_t0CZ_TFnp4TRKENapQf6A_giYKDIyj-n8";
     private static final String MODE = "sandbox";
 
-    public String authorizePayment(oderDetails orderDetail) throws PayPalException {
+    public String authorizePayment(oderDetails orderDetail) throws PayPalException, PayPalRESTException {
 
         Payer payer = getUsername(); // get the username
         RedirectUrls redirectUrls = getRedirectURLs();
@@ -29,12 +29,7 @@ public class PaymentService {
 
         APIContext apiContext = new APIContext(CLIENT_ID, CLIENT_SECRET, MODE);
 
-        Payment approvedPayment = null;
-        try {
-            approvedPayment = requestPayment.create(apiContext);
-        } catch (PayPalRESTException e) {
-            e.printStackTrace();
-        }
+        Payment approvedPayment = requestPayment.create(apiContext);
 
         return getApprovalLink(approvedPayment);
 

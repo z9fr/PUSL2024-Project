@@ -4,6 +4,7 @@ import com.example.xyzhotel.beans.oderDetails;
 import com.example.xyzhotel.dao.bookings.getRoomInfo;
 import com.example.xyzhotel.dao.payment.PaymentService;
 import com.paypal.base.exception.PayPalException;
+import com.paypal.base.rest.PayPalRESTException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -61,7 +62,7 @@ public class AuthorizePayment extends HttpServlet {
                 resp.sendRedirect(approvalLink);
 
             }
-            catch (PayPalException e) {
+            catch (PayPalException | PayPalRESTException e) {
                 e.printStackTrace();
                 // display error i guess
             }
