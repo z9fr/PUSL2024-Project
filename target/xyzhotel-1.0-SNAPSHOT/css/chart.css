@@ -1,0 +1,23 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#animations-example-1 {
+    height: 200px;
+    max-width: 500px;
+    margin: 0 auto;
+}
+#animations-example-1 td {
+    animation: jumping-bars 3s linear infinite;
+    animation-delay: 0;
+}
+#animations-example-1 tr:nth-of-type(even) td {
+    animation-delay: 300ms;
+}
+@keyframes jumping-bars {
+    0% { transform: translateY(   0px ); }
+    2% { transform: translateY( -10px ); }
+    4% { transform: translateY(   0px ); }
+}
