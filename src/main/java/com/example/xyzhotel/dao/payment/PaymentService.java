@@ -14,18 +14,19 @@ public class PaymentService {
     private static final String CLIENT_SECRET = "EPLYQ3f13BQflF0PdnTrnVorlMlDHj_iuWe1Ve-FVkYrjW_t0CZ_TFnp4TRKENapQf6A_giYKDIyj-n8";
     private static final String MODE = "sandbox";
 
-    public String authorizePayment(oderDetails orderDetail) throws PayPalException, PayPalRESTException {
 
-        Payer payer = getUsername(); // get the username
+    public String authorizePayment(oderDetails orderDetail)
+            throws PayPalRESTException {
+
+        Payer payer = getPayerInformation();
         RedirectUrls redirectUrls = getRedirectURLs();
-        List<Transaction> listTranscations = getTransactionInfo(orderDetail);
+        List<Transaction> listTransaction = getTransactionInfo(orderDetail);
 
-        Payment requestPayment = new Payment(); // requesting the payment
-
-        // setting the details
-        requestPayment.setTransactions(listTranscations);
+        Payment requestPayment = new Payment();
+        requestPayment.setTransactions(listTransaction);
         requestPayment.setRedirectUrls(redirectUrls);
         requestPayment.setPayer(payer);
+        requestPayment.setIntent("authorize");
 
         APIContext apiContext = new APIContext(CLIENT_ID, CLIENT_SECRET, MODE);
 
@@ -52,44 +53,42 @@ public class PaymentService {
         return approvalLink;
     }
 
-    private List<Transaction> getTransactionInfo(oderDetails orderDetail) {
+    private List<Transaction> getTransactionInfo(oderDetails od) {
+
         Details details = new Details();
-        details.setSubtotal(orderDetail.getRoom_price());
-        details.setTax("0");
+        details.setSubtotal(od.getRoom_price());
+        details.setTax(String.valueOf(0.00));
+        details.setShipping(String.valueOf(0.00));
 
-        System.out.println("[*] Debug : Price = " +orderDetail.getRoom_price());
+        // 12121.00
 
-        // creating the amount ( total )
         Amount amount = new Amount();
         amount.setCurrency("USD");
-        amount.setTotal(orderDetail.getRoom_price());
+        amount.setTotal(od.getRoom_price());
         amount.setDetails(details);
 
-        Transaction transaction = new Transaction(); // creating the new instance of transaction
+        Transaction transaction = new Transaction();
         transaction.setAmount(amount);
 
-        String description = "Your Oder for" +orderDetail.getRoom_id() + " from "+orderDetail.getStart_date() + " to " + orderDetail.getEnd_date()
-                +" for your "+orderDetail.getReason(); // creating a nice description for the transaction
+        String tdesc = "Your Oder for" +od.getRoom_id() + " from "+od.getStart_date() + " to " + od.getEnd_date()
+                +" for your "+od.getReason(); // creating a nice description for the transaction
 
-        transaction.setDescription(description); // set the generated description
+        transaction.setDescription(tdesc);
 
-        // creating the item list
 
         ItemList itemList = new ItemList();
         List<Item> items = new ArrayList<>();
 
-        // set details for item list
         Item item = new Item();
         item.setCurrency("USD");
-        item.setName(orderDetail.getUsername());
-        item.setPrice(orderDetail.getRoom_price());
+        item.setName(String.valueOf(od.getRoom_id()));
+        item.setPrice(od.getRoom_price());
         item.setQuantity("1");
 
-        items.add(item); // adding item to the items list
+        items.add(item);
         itemList.setItems(items);
         transaction.setItemList(itemList);
 
-        // add transactions to list transaction list and return the list
         List<Transaction> listTransaction = new ArrayList<>();
         listTransaction.add(transaction);
 
@@ -97,7 +96,7 @@ public class PaymentService {
 
     }
 
-    private Payer getUsername() {
+    private Payer getPayerInformation() {
         Payer payer = new Payer();
         payer.setPaymentMethod("paypal"); //setting payment Method to PayPal
         PayerInfo payerInfo = new PayerInfo();

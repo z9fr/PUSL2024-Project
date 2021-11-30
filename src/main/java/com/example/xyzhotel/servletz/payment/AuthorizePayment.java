@@ -3,7 +3,6 @@ package com.example.xyzhotel.servletz.payment;
 import com.example.xyzhotel.beans.oderDetails;
 import com.example.xyzhotel.dao.bookings.getRoomInfo;
 import com.example.xyzhotel.dao.payment.PaymentService;
-import com.paypal.base.exception.PayPalException;
 import com.paypal.base.rest.PayPalRESTException;
 
 import javax.servlet.ServletException;
@@ -17,15 +16,13 @@ import java.io.PrintWriter;
 
 @WebServlet(name = "validate payemnts and stff ", value = "/user/authorize_payment")
 public class AuthorizePayment extends HttpServlet {
-
-    // get post values
-
-    // create new oder detail class
-
-    // create instance of payment services and handle the payment
+    private static final long serialVersionUID = 1L;
+    public void AuthorizePaymentServlet() {
+    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
 
         System.out.println("[*] Debug : request got for authorize_payment");
 
@@ -52,20 +49,24 @@ public class AuthorizePayment extends HttpServlet {
             System.out.println("[+] Booking room for "+room_id + " room price is = "+room_price);
             oderDetails od = new oderDetails(start_date, end_date, reason, room_id, room_price , username , user_id);
 
-            try
-            {
-                PaymentService paymentService = new PaymentService();
-                String approvalLink = paymentService.authorizePayment(od);
 
+            try {
+                PaymentService paymentServices = new PaymentService();
+                String approvalLink = paymentServices.authorizePayment(od);
                 System.out.println("[*] Debug : approval Link = "+approvalLink);
 
                 resp.sendRedirect(approvalLink);
 
+
+            } catch (PayPalRESTException ex) {
+                req.setAttribute("errorMessage", ex.getMessage());
+                ex.printStackTrace();
             }
-            catch (PayPalException | PayPalRESTException e) {
-                e.printStackTrace();
-                // display error i guess
-            }
+
+            // {"name":"VALIDATION_ERROR","details":[{"field":"transactions[0].amount","issue":"Transaction amount details (subtotal, tax, shipping)
+            // must add up to specified amount total"}],"message":"Invalid request - see details","information_link":
+            // "https://developer.paypal.com/docs/api/payments/#errors","debug_id":"c5c0c265ee033"}
+
         }
         else{
             PrintWriter out= resp.getWriter();
