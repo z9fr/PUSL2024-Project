@@ -4,7 +4,10 @@ import com.example.xyzhotel.beans.oderDetails;
 import com.paypal.api.payments.Payer;
 import com.paypal.api.payments.PayerInfo;
 import com.paypal.api.payments.RedirectUrls;
+import com.paypal.api.payments.Transaction;
 import com.paypal.base.exception.PayPalException;
+
+import java.util.List;
 
 public class PaymentService {
     private static final String CLIENT_ID = "AZ57ZCggjT13hbVqpMO5N3eGbVOj1bs_mSwUHK7lnU1vWThOaSTxpnn67y7Q_-eOlF2hSUveXNpj859U";
@@ -15,13 +18,24 @@ public class PaymentService {
 
         Payer payer = getUsername(); // get the username
         RedirectUrls redirectUrls = getRedirectURLs();
+        List<Transaction> listTranscations = getTransactionInfo(orderDetail);
+
+    }
+
+    private List<Transaction> getTransactionInfo(oderDetails orderDetail) {
 
     }
 
     private Payer getUsername() {
         Payer payer = new Payer();
-        payer.setPaymentMethod("paypal"); //setting payment Method to paypal
+        payer.setPaymentMethod("paypal"); //setting payment Method to PayPal
         PayerInfo payerInfo = new PayerInfo();
+
+        payerInfo.setFirstName("John")
+                .setLastName("Nigga")
+                .setEmail("compnay@xyzhotel.com"); // add information about the company
+
+        return payer;
     }
 
     private RedirectUrls getRedirectURLs() {
