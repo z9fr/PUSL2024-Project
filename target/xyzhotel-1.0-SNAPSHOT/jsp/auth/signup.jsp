@@ -17,7 +17,7 @@
 </head>
 <body>
 <div class="relative min-h-screen flex items-center justify-center bg-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8 bg-gray-500 bg-no-repeat bg-cover relative items-center"
-     style="background-image: url(https://images.unsplash.com/photo-1532423622396-10a3f979251a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1500&q=80);">
+     style="background-image: url(/static/img/hero.webp);">
 
     <div class="absolute bg-black opacity-60 inset-0 z-0"></div>
         <div class="max-w-md w-full space-y-8 p-10 bg-white shadow-lg z-10" style="border-radius: 10px;">
@@ -56,10 +56,11 @@
 
                             </div>
 
+                            <a href="/home" id="takemebacktohome" style="display: none"> backtoehome</a>
                             <p class="text-xs text-red-500 text-right my-3">Required fields are marked with an
                                 asterisk <abbr title="Required field">*</abbr></p>
                             <div class="mt-5 text-right md:space-x-3 md:block flex flex-col-reverse">
-                                <button class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 hover:shadow-lg hover:bg-gray-100"> Cancel </button>
+                                <button class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 hover:shadow-lg hover:bg-gray-100" onclick="backtohome()"> Cancel </button>
                                 <input type="submit" class="mb-2 md:mb-0 bg-green-400 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white hover:shadow-lg hover:bg-green-500" value="Create Account">
                             </div>
                         </div>
@@ -97,5 +98,19 @@
                 }
             %>
         </div>
+
+    <script>
+
+        function backtohome() {
+            let toclick = document.getElementById("takemebacktohome").click();
+        }
+
+        function hideErr(){
+            let model = document.getElementById("theErrMesg").style.display="none";
+        }
+
+    </script>
+
+
 </body>
 </html>

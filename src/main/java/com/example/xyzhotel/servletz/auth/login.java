@@ -16,7 +16,7 @@ public class login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //dispatch the request to login.jsp resource
-        RequestDispatcher dispatcher = req.getRequestDispatcher("/jsp/login.jsp");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/jsp/auth/login.jsp");
         dispatcher.include(req, resp);
     }
 
@@ -37,7 +37,7 @@ public class login extends HttpServlet {
 
             if(uuid == 0){
                 req.setAttribute("error", "Internal Server Error");
-                req.getRequestDispatcher("/jsp/login.jsp").forward(req, resp);
+                req.getRequestDispatcher("/jsp/auth/login.jsp").forward(req, resp);
             }
 
             else{
@@ -56,7 +56,7 @@ public class login extends HttpServlet {
         else{
             String errorMessage="Invalid Credentials, please login again!";
             req.setAttribute("error", errorMessage);
-            req.getRequestDispatcher("/jsp/login.jsp").forward(req, resp);
+            req.getRequestDispatcher("/jsp/auth/login.jsp").forward(req, resp);
 
 
         }
