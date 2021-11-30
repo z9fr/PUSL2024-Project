@@ -5,7 +5,7 @@ public class oderDetails {
     private String end_date;
     private String reason;
     private int room_id;
-    private String room_price;
+    private float room_price;
     private String username;
     private int user_id;
 
@@ -15,9 +15,11 @@ public class oderDetails {
         this.start_date = start_date;
         this.reason = reason;
         this.room_id = room_id;
-        this.room_price = room_price;
+        this.room_price = Float.parseFloat(room_price) ;
         this.username =username;
         this.user_id = user_id;
+
+
     }
 
 
@@ -40,10 +42,8 @@ public class oderDetails {
 
 
     public String getRoom_price() {
-        return room_price;
+        return String.format("%.2f", room_price);
     }
-
-
 
     public String getUsername() {
         return username;

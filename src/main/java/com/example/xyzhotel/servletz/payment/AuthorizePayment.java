@@ -26,6 +26,8 @@ public class AuthorizePayment extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+        System.out.println("[*] Debug : request got for authorize_payment");
+
         // getting params from post request
         String start_date = req.getParameter("start_date");
         String end_date = req.getParameter("end_date");
@@ -37,8 +39,6 @@ public class AuthorizePayment extends HttpServlet {
         getRoomInfo roominformation = new getRoomInfo();
         boolean doesRoomExist = roominformation.checkRoomExist(room_id);
 
-        PrintWriter out= resp.getWriter();
-        out.println("<html><body>");
 
         if(doesRoomExist){
             // getting other untrusted data from cookies
@@ -55,15 +55,20 @@ public class AuthorizePayment extends HttpServlet {
             {
                 PaymentService paymentService = new PaymentService();
                 String approvalLink = paymentService.authorizePayment(od);
+
+                System.out.println("[*] Debug : approval Link = "+approvalLink);
+
+                resp.sendRedirect(approvalLink);
+
             }
             catch (PayPalException e) {
                 e.printStackTrace();
                 // display error i guess
             }
-
-
         }
         else{
+            PrintWriter out= resp.getWriter();
+            out.println("<html><body>");
             out.println("<h1> room does not exist </h1>");
         }
     }

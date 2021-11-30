@@ -58,15 +58,17 @@ public class PaymentService {
     }
 
     private List<Transaction> getTransactionInfo(oderDetails orderDetail) {
-        // Details details = new Details();
+        Details details = new Details();
+        details.setSubtotal(orderDetail.getRoom_price());
+        details.setTax("0");
+
+        System.out.println("[*] Debug : Price = " +orderDetail.getRoom_price());
 
         // creating the amount ( total )
-
         Amount amount = new Amount();
         amount.setCurrency("USD");
         amount.setTotal(orderDetail.getRoom_price());
-
-        // amount.setDetails() since we dont have details im ignoring this for now
+        amount.setDetails(details);
 
         Transaction transaction = new Transaction(); // creating the new instance of transaction
         transaction.setAmount(amount);
