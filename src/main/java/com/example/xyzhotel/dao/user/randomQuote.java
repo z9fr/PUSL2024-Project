@@ -1,4 +1,6 @@
-package com.example.xyzhotel.dao;
+package com.example.xyzhotel.dao.user;
+
+import com.example.xyzhotel.dao.dbconnection;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

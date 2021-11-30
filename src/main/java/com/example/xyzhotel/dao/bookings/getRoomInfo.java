@@ -1,4 +1,4 @@
-package com.example.xyzhotel.dao;
+package com.example.xyzhotel.dao.bookings;
 
 import com.example.xyzhotel.dao.dbconnection;
 

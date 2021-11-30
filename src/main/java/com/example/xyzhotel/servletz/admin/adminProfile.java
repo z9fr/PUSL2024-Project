@@ -1,6 +1,6 @@
-package com.example.xyzhotel.servletz;
+package com.example.xyzhotel.servletz.admin;
 
-import com.example.xyzhotel.dao.AdminHelper;
+import com.example.xyzhotel.dao.admin.AdminHelper;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

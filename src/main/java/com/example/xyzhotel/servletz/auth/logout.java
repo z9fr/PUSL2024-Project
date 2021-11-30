@@ -1,4 +1,4 @@
-package com.example.xyzhotel.servletz;
+package com.example.xyzhotel.servletz.auth;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

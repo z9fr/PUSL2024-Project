@@ -1,9 +1,9 @@
-<%@ page import="com.example.xyzhotel.dao.AdminHelper" %>
-<%@ page import="com.example.xyzhotel.dao.getBookings" %>
+<%@ page import="com.example.xyzhotel.dao.admin.AdminHelper" %>
+<%@ page import="com.example.xyzhotel.dao.bookings.getBookings" %>
 <%@ page import="com.example.xyzhotel.beans.booking" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Iterator" %>
-<%@ page import="com.example.xyzhotel.dao.singleValues" %>
+<%@ page import="com.example.xyzhotel.dao.user.singleValues" %>
 <!DOCTYPE html>
 <html lang="en" class="has-aside-left has-aside-mobile-transition has-navbar-fixed-top has-aside-expanded">
 <head>

@@ -1,6 +1,6 @@
-package com.example.xyzhotel.servletz;
+package com.example.xyzhotel.servletz.user;
 
-import com.example.xyzhotel.dao.getRoomInfo;
+import com.example.xyzhotel.dao.bookings.getRoomInfo;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

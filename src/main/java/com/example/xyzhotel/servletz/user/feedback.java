@@ -1,6 +1,6 @@
-package com.example.xyzhotel.servletz;
+package com.example.xyzhotel.servletz.user;
 
-import com.example.xyzhotel.dao.submitFeedback;
+import com.example.xyzhotel.dao.user.submitFeedback;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

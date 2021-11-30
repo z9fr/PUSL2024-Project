@@ -1,11 +1,7 @@
-package com.example.xyzhotel.servletz;
+package com.example.xyzhotel.servletz.user;
 
-import com.example.xyzhotel.beans.booking;
-import com.example.xyzhotel.beans.review;
 import com.example.xyzhotel.beans.room;
-import com.example.xyzhotel.dao.getBookings;
 import com.example.xyzhotel.dao.homeInfo;
-import com.example.xyzhotel.dao.randomQuote;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

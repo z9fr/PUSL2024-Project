@@ -2,9 +2,9 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Iterator" %>
-<%@ page import="com.example.xyzhotel.dao.randomQuote" %>
+<%@ page import="com.example.xyzhotel.dao.user.randomQuote" %>
 <%@ page import="com.example.xyzhotel.beans.booking" %>
-<%@ page import="com.example.xyzhotel.dao.getBookings" %><%--
+<%@ page import="com.example.xyzhotel.dao.bookings.getBookings" %><%--
   Created by IntelliJ IDEA.
   User: dasith
   Date: 11/18/21

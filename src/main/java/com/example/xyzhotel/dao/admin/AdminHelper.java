@@ -1,6 +1,7 @@
-package com.example.xyzhotel.dao;
+package com.example.xyzhotel.dao.admin;
 
 import com.example.xyzhotel.beans.review;
+import com.example.xyzhotel.dao.dbconnection;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

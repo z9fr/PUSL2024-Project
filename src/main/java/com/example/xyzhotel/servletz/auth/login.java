@@ -1,6 +1,6 @@
-package com.example.xyzhotel.servletz;
+package com.example.xyzhotel.servletz.auth;
 
-import com.example.xyzhotel.dao.authUser;
+import com.example.xyzhotel.dao.auth.authUser;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,10 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.swing.*;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Objects;
 
 @WebServlet(name = "Loginroute", value = "/login")
 public class login extends HttpServlet {
