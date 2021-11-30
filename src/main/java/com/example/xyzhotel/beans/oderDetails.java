@@ -39,7 +39,7 @@ public class oderDetails {
     }
 
 
-    public int getRoom_price() {
+    public String getRoom_price() {
         return room_price;
     }
 

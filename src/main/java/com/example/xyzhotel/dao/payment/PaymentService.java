@@ -1,10 +1,7 @@
 package com.example.xyzhotel.dao.payment;
 
 import com.example.xyzhotel.beans.oderDetails;
-import com.paypal.api.payments.Payer;
-import com.paypal.api.payments.PayerInfo;
-import com.paypal.api.payments.RedirectUrls;
-import com.paypal.api.payments.Transaction;
+import com.paypal.api.payments.*;
 import com.paypal.base.exception.PayPalException;
 
 import java.util.List;
@@ -23,6 +20,26 @@ public class PaymentService {
     }
 
     private List<Transaction> getTransactionInfo(oderDetails orderDetail) {
+        // Details details = new Details();
+
+        // creating the amount ( total )
+
+        Amount amount = new Amount();
+        amount.setCurrency("USD");
+        amount.setTotal(orderDetail.getRoom_price());
+
+        // amount.setDetails() since we dont have details im ignoring this for now
+
+        Transaction transaction = new Transaction(); // creating the new instance of transaction
+        transaction.setAmount(amount);
+
+        String description = "Your Oder for" +orderDetail.getRoom_id() + " from "+orderDetail.getStart_date() + " to " + orderDetail.getEnd_date()
+                +" for your "+orderDetail.getReason(); // creating a nice description for the transaction
+
+        transaction.setDescription(description);
+
+
+
 
     }
 
