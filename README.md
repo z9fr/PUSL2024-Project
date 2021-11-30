@@ -128,3 +128,5 @@ CREATE TABLE reviews(
 ALTER TABLE reviews MODIFY COLUMN review_id INT auto_increment;
 
 ```
+
+test
