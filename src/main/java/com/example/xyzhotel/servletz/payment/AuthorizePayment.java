@@ -1,6 +1,9 @@
 package com.example.xyzhotel.servletz.payment;
 
+import com.example.xyzhotel.beans.oderDetails;
 import com.example.xyzhotel.dao.bookings.getRoomInfo;
+import com.example.xyzhotel.dao.payment.PaymentService;
+import com.paypal.base.exception.PayPalException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -43,19 +46,21 @@ public class AuthorizePayment extends HttpServlet {
             HttpSession session =req.getSession();
             String username = (String) session.getAttribute("username");
             int user_id = (int) session.getAttribute("user_id");
-            int room_price = roominformation.room_price(room_id);
+            String room_price = String.valueOf(roominformation.room_price(room_id));
 
             System.out.println("[+] Booking room for "+room_id + " room price is = "+room_price);
+            oderDetails od = new oderDetails(start_date, end_date, reason, room_id, room_price , username , user_id);
 
-            out.println("<h1>" + start_date + "</h1>");
-            out.println("<h1> price -> " + room_price  + "</h1>");
-            out.println("<h1>" + end_date + "</h1>");
-            out.println("<h1> reason -> " + reason + "</h1>");
-            out.println("<h1>" + room_id + "</h1>");
-            out.println("<h1>" + username + "</h1>");
-            out.println("<h1>" + user_id + "</h1>");
-            out.println("<h1>" + session.getAttribute("role") + "</h1>");
-            out.println("</body></html>");
+            try
+            {
+                PaymentService paymentService = new PaymentService();
+                String approvalLink = paymentService.authorizePayment(od);
+            }
+            catch (PayPalException e) {
+                e.printStackTrace();
+                // display error i guess
+            }
+
 
         }
         else{

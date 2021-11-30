@@ -119,8 +119,12 @@ public class PaymentService {
         RedirectUrls redirectUrls = new RedirectUrls();
         redirectUrls.setCancelUrl("http://localhost:8080/cancel.jsp");
         redirectUrls.setReturnUrl("http://localhost:8080/user/review_payment");
-
         return redirectUrls;
+    }
+
+    public Payment getPaymentDetails(String paymentId) throws PayPalException, PayPalRESTException {
+        APIContext apiContext = new APIContext(CLIENT_ID, CLIENT_SECRET, MODE);
+        return  Payment.get(apiContext, paymentId);
     }
 
 }
