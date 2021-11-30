@@ -3,7 +3,10 @@ package com.example.xyzhotel.dao.payment;
 import com.example.xyzhotel.beans.oderDetails;
 import com.paypal.api.payments.*;
 import com.paypal.base.exception.PayPalException;
+import com.paypal.base.rest.APIContext;
+import com.paypal.base.rest.PayPalRESTException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PaymentService {
@@ -17,6 +20,41 @@ public class PaymentService {
         RedirectUrls redirectUrls = getRedirectURLs();
         List<Transaction> listTranscations = getTransactionInfo(orderDetail);
 
+        Payment requestPayment = new Payment(); // requesting the payment
+
+        // setting the details
+        requestPayment.setTransactions(listTranscations);
+        requestPayment.setRedirectUrls(redirectUrls);
+        requestPayment.setPayer(payer);
+
+        APIContext apiContext = new APIContext(CLIENT_ID, CLIENT_SECRET, MODE);
+
+        Payment approvedPayment = null;
+        try {
+            approvedPayment = requestPayment.create(apiContext);
+        } catch (PayPalRESTException e) {
+            e.printStackTrace();
+        }
+
+        return getApprovalLink(approvedPayment);
+
+    }
+
+    private String getApprovalLink(Payment approvedPayment) {
+
+        // getting the approval link and return it
+
+        List<Links> links = approvedPayment.getLinks();
+        String approvalLink = null;
+
+        for (Links link : links) {
+            if (link.getRel().equalsIgnoreCase("approval_url")) {
+                approvalLink = link.getHref();
+                break;
+            }
+        }
+
+        return approvalLink;
     }
 
     private List<Transaction> getTransactionInfo(oderDetails orderDetail) {
@@ -36,10 +74,29 @@ public class PaymentService {
         String description = "Your Oder for" +orderDetail.getRoom_id() + " from "+orderDetail.getStart_date() + " to " + orderDetail.getEnd_date()
                 +" for your "+orderDetail.getReason(); // creating a nice description for the transaction
 
-        transaction.setDescription(description);
+        transaction.setDescription(description); // set the generated description
 
+        // creating the item list
 
+        ItemList itemList = new ItemList();
+        List<Item> items = new ArrayList<>();
 
+        // set details for item list
+        Item item = new Item();
+        item.setCurrency("USD");
+        item.setName(orderDetail.getUsername());
+        item.setPrice(orderDetail.getRoom_price());
+        item.setQuantity("1");
+
+        items.add(item); // adding item to the items list
+        itemList.setItems(items);
+        transaction.setItemList(itemList);
+
+        // add transactions to list transaction list and return the list
+        List<Transaction> listTransaction = new ArrayList<>();
+        listTransaction.add(transaction);
+
+        return listTransaction;
 
     }
 
@@ -65,8 +122,5 @@ public class PaymentService {
 
         return redirectUrls;
     }
-
-
-
 
 }

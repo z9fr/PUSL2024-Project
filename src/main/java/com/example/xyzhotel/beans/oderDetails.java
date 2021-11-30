@@ -5,11 +5,11 @@ public class oderDetails {
     private String end_date;
     private String reason;
     private int room_id;
-    private int room_price;
+    private String room_price;
     private String username;
     private int user_id;
 
-    public oderDetails(String start_date, String end_date, String reason, int room_id, int room_price, String username, int user_id)
+    public oderDetails(String start_date, String end_date, String reason, int room_id, String room_price, String username, int user_id)
     {
         this.end_date = end_date;
         this.start_date = start_date;
