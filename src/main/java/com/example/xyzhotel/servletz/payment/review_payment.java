@@ -40,7 +40,7 @@ public class review_payment extends HttpServlet {
             req.setAttribute("payer", payerInfo);
             req.setAttribute("transaction", transaction);
 
-            String url = "/review.jsp?pay="+paymentId+"&payerid="+payerId;
+            String url = "/jsp/payment/review.jsp?pay="+paymentId+"&payerid="+payerId;
 
             req.getRequestDispatcher(url).forward(req, resp);
 
