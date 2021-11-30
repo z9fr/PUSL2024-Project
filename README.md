@@ -12,7 +12,7 @@
 - [ ] avoid booking collisions
 - [x] visualization of customer feedback for management
 - [ ] SMS and Email notification of reservation and cancelling options
-- [ ] payment handling
+- [x] payment handling
 
 ### Project Structure
 
@@ -129,4 +129,3 @@ ALTER TABLE reviews MODIFY COLUMN review_id INT auto_increment;
 
 ```
 
-test
