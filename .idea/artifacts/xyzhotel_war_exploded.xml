@@ -14,6 +14,11 @@
         <element id="directory" name="classes">
           <element id="module-output" name="xyzhotel" />
         </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: com.paypal.sdk:rest-api-sdk:1.14.0" />
+          <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.21" />
+          <element id="library" level="project" name="Maven: com.google.code.gson:gson:2.2.2" />
+        </element>
       </element>
       <element id="directory" name="META-INF">
         <element id="file-copy" path="$PROJECT_DIR$/target/xyzhotel-1.0-SNAPSHOT/META-INF/MANIFEST.MF" />

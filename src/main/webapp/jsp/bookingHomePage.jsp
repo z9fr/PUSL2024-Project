@@ -60,7 +60,7 @@
         <!-- .section -->
         <div class="section is-paddingless-horizontal">
 
-            <form action="/user/booknow" method="POST">
+            <form action="/user/authorize_payment" method="POST">
 
                 <%
                     if (request.getAttribute("error") != null) {
