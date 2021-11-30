@@ -123,4 +123,17 @@ public class PaymentService {
         return  Payment.get(apiContext, paymentId);
     }
 
+    public Payment doPayment(String paymentId, String payerId)
+            throws PayPalRESTException {
+        PaymentExecution paymentExecution = new PaymentExecution();
+        paymentExecution.setPayerId(payerId);
+
+        Payment payment = new Payment().setId(paymentId);
+
+        APIContext apiContext = new APIContext(CLIENT_ID, CLIENT_SECRET, MODE);
+
+        return payment.execute(apiContext, paymentExecution);
+    }
+
 }
+// 12121
