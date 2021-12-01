@@ -76,7 +76,6 @@
             <%
                 if (request.getAttribute("error") != null) {
             %>
-            <br><br>
             <div class="mb-4" id="theErrMesg">
                 <div class="flex max-w-sm w-full bg-white shadow-md rounded-lg overflow-hidden mx-auto">
                     <div class="w-2 bg-red-600">

@@ -40,9 +40,9 @@ public class register extends HttpServlet {
             Boolean userExist = checkuinfo.checkUsername(uname);
             Boolean mailExist = checkuinfo.checkemailExist(email);
 
-
             if(userExist || mailExist){
-                writer.println("<code> user exist </code>");
+                req.setAttribute("error", "The Username or Email Already Taken");
+                req.getRequestDispatcher("/jsp/auth/signup.jsp").forward(req, resp);
             }
 
             else {
@@ -58,7 +58,8 @@ public class register extends HttpServlet {
 
         }
         else{
-            writer.println("<code> email is not valid </code>");
+            req.setAttribute("error", "Please Enter a Valid Email");
+            req.getRequestDispatcher("/jsp/auth/signup.jsp").forward(req, resp);
         }
 
 
