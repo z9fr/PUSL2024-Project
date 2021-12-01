@@ -2,6 +2,7 @@ package com.example.xyzhotel.servletz.auth;
 
 import com.example.xyzhotel.dao.auth.createUser.AddNewUser;
 import com.example.xyzhotel.dao.auth.createUser.checkUserExist;
+import com.example.xyzhotel.dao.client.SendMailConfirmation;
 import io.github.cdimascio.dotenv.Dotenv;
 import org.apache.commons.codec.digest.DigestUtils;
 
@@ -62,6 +63,7 @@ public class register extends HttpServlet {
                     // adding tokens to the token db
                     Boolean addtoken = addNewUser.addTokentodb(verificationid, token);
 
+
                     if(addtoken){
                         System.out.println("[*] Info : Token added to the db = "+verificationid);
 
@@ -69,13 +71,22 @@ public class register extends HttpServlet {
                         Boolean userCreated = addNewUser.createUser(uname, email, password, verificationid);
 
                         if(userCreated){
-                            req.setAttribute("success_msg", "Account Created Success Please check your email");
-                            req.getRequestDispatcher("/jsp/auth/signup.jsp").forward(req, resp);
+
+                            SendMailConfirmation smc = new SendMailConfirmation();
+                            boolean sendMail = smc.sendConfirmation(token, email , uname, token);
+
+                            System.out.println(sendMail);
+
+                            if(sendMail){
+                                req.setAttribute("success_msg", "Account Created Success Please check your email");
+                                req.getRequestDispatcher("/jsp/auth/signup.jsp").forward(req, resp);
+                            }
+                            req.setAttribute("error", "Sending confirmation email failed :( ");
                         }
                         else{
                             req.setAttribute("error", "Something went wrong while creating a account :( ");
-                            req.getRequestDispatcher("/jsp/auth/signup.jsp").forward(req, resp);
                         }
+                        req.getRequestDispatcher("/jsp/auth/signup.jsp").forward(req, resp);
                     }
                 }
                 catch (SQLException e) {
