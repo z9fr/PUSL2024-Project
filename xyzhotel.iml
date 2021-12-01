@@ -50,5 +50,7 @@
     <orderEntry type="library" name="Maven: io.github.cdimascio:dotenv-java:2.2.0" level="project" />
     <orderEntry type="library" name="Maven: com.sun.mail:javax.mail:1.6.2" level="project" />
     <orderEntry type="library" name="Maven: javax.activation:activation:1.1" level="project" />
+    <orderEntry type="library" name="Maven: commons-codec:commons-codec:20041127.091804" level="project" />
+    <orderEntry type="library" name="Maven: junit:junit:3.8.1" level="project" />
   </component>
 </module>

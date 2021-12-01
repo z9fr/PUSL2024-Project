@@ -21,6 +21,8 @@
           <element id="library" level="project" name="Maven: io.github.cdimascio:dotenv-java:2.2.0" />
           <element id="library" level="project" name="Maven: com.sun.mail:javax.mail:1.6.2" />
           <element id="library" level="project" name="Maven: javax.activation:activation:1.1" />
+          <element id="library" level="project" name="Maven: commons-codec:commons-codec:20041127.091804" />
+          <element id="library" level="project" name="Maven: junit:junit:3.8.1" />
         </element>
       </element>
       <element id="directory" name="META-INF">

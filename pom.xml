@@ -57,6 +57,13 @@
             <version>1.6.2</version>
         </dependency>
 
+        <!-- https://www.baeldung.com/sha-256-hashing-java -->
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>20041127.091804</version>
+        </dependency>
+
     </dependencies>
 
     <build>
