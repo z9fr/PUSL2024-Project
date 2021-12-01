@@ -1,6 +1,8 @@
 package com.example.xyzhotel.dao.client;
 
 
+import io.github.cdimascio.dotenv.Dotenv;
+
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -10,6 +12,9 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+
+import io.github.cdimascio.dotenv.Dotenv;
+import io.github.cdimascio.dotenv.DotenvException;
 
 public class SendMail {
     public static void main(String[] args) {
@@ -29,7 +34,14 @@ public class SendMail {
         // get session obj and pass username and password
         Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("xyzhotel@mail.com", "Y3M3$NMig^BTPjKdrMDH");
+
+                // getting username and password from .env
+                Dotenv dotenv = null;
+                dotenv = Dotenv.configure().load();
+                String emailUsername =dotenv.get("EMAIL_USERNAME");
+                String emailPassowrd =dotenv.get("EMAIL_PASSWORD");
+
+                return new PasswordAuthentication(emailUsername, emailPassowrd);
             }
         });
 
