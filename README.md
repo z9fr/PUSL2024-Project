@@ -13,6 +13,7 @@
 - [x] visualization of customer feedback for management
 - [ ] SMS and Email notification of reservation and cancelling options
 - [x] payment handling
+- [x] Email Verification 
 
 ### Project Structure
 
