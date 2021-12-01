@@ -22,10 +22,10 @@ public class privateRoutes implements Filter {
             HttpSession session = request.getSession();
 
             if(session.getAttribute("username")==null){
-                request.getRequestDispatcher("/jsp/login.jsp").forward(request, arg1);
+                request.getRequestDispatcher("/jsp/auth/login.jsp").forward(request, arg1);
             }
             else if(session.getAttribute("role") == null){
-                request.getRequestDispatcher("/jsp/login.jsp").forward(request, arg1);
+                request.getRequestDispatcher("/jsp/auth/login.jsp").forward(request, arg1);
             }
         }
         arg2.doFilter(request, arg1);

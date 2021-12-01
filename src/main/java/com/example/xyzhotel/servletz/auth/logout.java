@@ -16,7 +16,7 @@ public class logout extends HttpServlet {
         session.invalidate();
         String errorMessage="You have Logged out Successfully!";
         req.setAttribute("error", errorMessage);
-        req.getRequestDispatcher("/jsp/login.jsp").forward(req, resp);
+        req.getRequestDispatcher("/jsp/auth/login.jsp").forward(req, resp);
 
     }
 }

@@ -17,7 +17,7 @@ public class confirmEmail extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        // http://localhost:8080/confirm?token=d136ba64-b258-471a-a01b-b8e645163663&tokeid=d136ba64-b258-471a-a01b-b8e645163663
+        // http://localhost:8080/confirm?token=d136ba64-b258-471a-a01b-b8e645163663&tokeid=f41f6bae-c5f4-4e92-a534-c4e49c7a704a
 
         String token = req.getParameter("token");
         String tokenId = req.getParameter("tokeid");
@@ -32,6 +32,11 @@ public class confirmEmail extends HttpServlet {
 
             if(isAlive){
                 io.println("token valid");
+
+                // check the user own the token
+
+                // make user valid
+
             }
             else{
                 io.println("token invalid");
