@@ -16,6 +16,15 @@ import javax.mail.internet.MimeMessage;
 import io.github.cdimascio.dotenv.Dotenv;
 import io.github.cdimascio.dotenv.DotenvException;
 
+
+/*
+
+    THIS IS A TEST FILE NOT A PART OF THE PROJECT
+    THIS FILE IS FOR TESTING FOR THE EMAIL WORKINGS
+
+ */
+
+
 public class SendMail {
     public static void main(String[] args) {
 
