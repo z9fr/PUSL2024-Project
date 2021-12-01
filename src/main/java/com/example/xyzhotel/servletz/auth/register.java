@@ -35,28 +35,32 @@ public class register extends HttpServlet {
 
         Boolean isValidmail = isValidEmailAddress(email);
 
-        if(!isValidmail){
+        if(isValidmail){
+
+            Boolean userExist = checkuinfo.checkUsername(uname);
+            Boolean mailExist = checkuinfo.checkemailExist(email);
+
+
+            if(userExist || mailExist){
+                writer.println("<code> user exist </code>");
+            }
+
+            else {
+                writer.println("<code> valid user </code>");
+            }
+
+            // verify username
+
+            // send the mail with the hash
+
+            // add to the database saying not confirmed
+
+
+        }
+        else{
             writer.println("<code> email is not valid </code>");
         }
 
-        Boolean userExist = checkuinfo.checkUsername(uname);
-        Boolean mailExist = checkuinfo.checkemailExist(email);
-
-
-        if(userExist || mailExist){
-
-            writer.println("<code> user exist </code>");
-        }
-        else {
-
-
-        }
-
-        // verify username
-
-        // send the mail with the hash
-
-        // add to the database saying not confirmed
 
     }
 
