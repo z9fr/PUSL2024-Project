@@ -29,7 +29,7 @@ public class SendMail {
         // get session obj and pass username and password
         Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("xyzhotel@mail.com", "");
+                return new PasswordAuthentication("xyzhotel@mail.com", "Y3M3$NMig^BTPjKdrMDH");
             }
         });
 
