@@ -1,5 +1,6 @@
 package com.example.xyzhotel.servletz.auth;
 
+import com.example.xyzhotel.dao.auth.createUser.AddNewUser;
 import com.example.xyzhotel.dao.auth.createUser.checkUserExist;
 import io.github.cdimascio.dotenv.Dotenv;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
 import java.util.UUID;
 
 @WebServlet(name = "sign up" , value = "/signup")
@@ -54,18 +56,32 @@ public class register extends HttpServlet {
                 String verificationid = getUniqueKey();
                 String token = getUniqueKey();
 
-                writer.println("<code> valid user </code>");
-                writer.println("<code> id = "+verificationid+ "</code> <br>");
-                writer.println("<code> token = "+token+ "</code> <br>");
+                AddNewUser addNewUser = new AddNewUser();
+
+                try {
+                    // adding tokens to the token db
+                    Boolean addtoken = addNewUser.addTokentodb(verificationid, token);
+
+                    if(addtoken){
+                        System.out.println("[*] Info : Token added to the db = "+verificationid);
+
+                        // adding the user to the db
+                        Boolean userCreated = addNewUser.createUser(uname, email, password, verificationid);
+
+                        if(userCreated){
+                            req.setAttribute("success_msg", "Account Created Success Please check your email");
+                            req.getRequestDispatcher("/jsp/auth/signup.jsp").forward(req, resp);
+                        }
+                        else{
+                            req.setAttribute("error", "Something went wrong while creating a account :( ");
+                            req.getRequestDispatcher("/jsp/auth/signup.jsp").forward(req, resp);
+                        }
+                    }
+                }
+                catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
-
-            // verify username
-
-            // send the mail with the hash
-
-            // add to the database saying not confirmed
-
-
         }
         else{
             req.setAttribute("error", "Please Enter a Valid Email");

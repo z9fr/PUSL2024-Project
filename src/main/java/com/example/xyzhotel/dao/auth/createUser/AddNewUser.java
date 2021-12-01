@@ -40,7 +40,7 @@ public class AddNewUser {
         java.sql.PreparedStatement statement = connection.prepareStatement(sql);
         statement.setString(1 , verificationid);
         statement.setString(2, token);
-        statement.setString(3 , String.valueOf(true));
+        statement.setString(3 , String.valueOf(1));
 
         // execute the statement and check whether user exists
         int set = statement.executeUpdate();
