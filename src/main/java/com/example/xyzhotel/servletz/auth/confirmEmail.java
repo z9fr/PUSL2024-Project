@@ -38,8 +38,6 @@ public class confirmEmail extends HttpServlet {
             PrintWriter io = resp.getWriter();
 
             if(isAlive){
-                io.println("token valid");
-
                 // check the user own the token
                 String tokenOwner = reqtoken.getUser(tokenId);
 
@@ -53,17 +51,27 @@ public class confirmEmail extends HttpServlet {
 
                     if(isDead){
                         // all good token dead and user validated
-
+                        // emailVerification
+                        req.getRequestDispatcher("/jsp/emailVerification/confirmed.jsp").forward(req, resp);
+                    }
+                    else{
+                        // confirm_error_detail_log
+                        // confirmed.jsp
+                        req.setAttribute("confirm_error_detail_log", "while creating the account we were not able to kill your session, something went wrong our side please contact a admin");
+                        req.getRequestDispatcher("/jsp/emailVerification/failedtoVerify.jsp").forward(req, resp);
                     }
 
                 }
             }
             else{
-                io.println("token invalid");
+                req.setAttribute("confirm_error_detail_log","The token you submitted was invalid please check your token again");
+                req.getRequestDispatcher("/jsp/emailVerification/failedtoVerify.jsp").forward(req, resp);
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
+            req.setAttribute("confirm_error_detail_log","Something went wrong from the server side");
+            req.getRequestDispatcher("/jsp/emailVerification/failedtoVerify.jsp").forward(req, resp);
         }
 
     }
