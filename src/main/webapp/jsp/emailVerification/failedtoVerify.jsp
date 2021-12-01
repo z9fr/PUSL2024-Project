@@ -465,7 +465,7 @@
                                                                             <div style="text-align: center; margin-bottom: 36px">
                                                                                 <img align="none" src="https://img.icons8.com/external-kiranshastry-lineal-color-kiranshastry/64/000000/external-coffee-interface-kiranshastry-lineal-color-kiranshastry.png">
                                                                             </div>
-                                                                            <div style="text-align: left; word-wrap: break-word;">Something went Wrong while Confirming your account :( can you try again ?
+                                                                            <div style="text-align: left; word-wrap: break-word;">Something went Wrong while Confirming your account :(
                                                                                 <br />
                                                                                 <br />If you want to see more about the error , click the below button
                                                                                 <br />

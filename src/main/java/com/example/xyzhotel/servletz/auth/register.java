@@ -73,7 +73,7 @@ public class register extends HttpServlet {
                         if(userCreated){
 
                             SendMailConfirmation smc = new SendMailConfirmation();
-                            boolean sendMail = smc.sendConfirmation(token, email , uname, token);
+                            boolean sendMail = smc.sendConfirmation(token, email , uname, verificationid);
 
                             System.out.println(sendMail);
 

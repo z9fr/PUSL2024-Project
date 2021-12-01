@@ -10,7 +10,7 @@ public class KilltheToken {
         Boolean isDead = false;
 
         Connection connection = dbconnection.getConnectionToDatabase();
-        String sql = "UPDATE users set isvalid=false WHERE verificationid=? AND token=? ";
+        String sql = "UPDATE verfication_token set isvalid=false WHERE verificationid=? AND token=? ";
         java.sql.PreparedStatement statement = connection.prepareStatement(sql);
         statement.setString(1 , tokenid);
         statement.setString(2 , token);

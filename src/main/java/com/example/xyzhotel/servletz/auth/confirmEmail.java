@@ -22,6 +22,7 @@ public class confirmEmail extends HttpServlet {
 
         // http://localhost:8080/confirm?token=d136ba64-b258-471a-a01b-b8e645163663&tokeid=f41f6bae-c5f4-4e92-a534-c4e49c7a704a
 
+
         String token = req.getParameter("token");
         String tokenId = req.getParameter("tokeid");
 
@@ -70,7 +71,7 @@ public class confirmEmail extends HttpServlet {
 
         } catch (SQLException e) {
             e.printStackTrace();
-            req.setAttribute("confirm_error_detail_log","Something went wrong from the server side");
+            req.setAttribute("confirm_error_detail_log",e);
             req.getRequestDispatcher("/jsp/emailVerification/failedtoVerify.jsp").forward(req, resp);
         }
 
