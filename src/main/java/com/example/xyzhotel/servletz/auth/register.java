@@ -1,5 +1,9 @@
 package com.example.xyzhotel.servletz.auth;
 
+import com.example.xyzhotel.dao.auth.createUser.checkUserExist;
+
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,25 +24,50 @@ public class register extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+        PrintWriter writer = resp.getWriter();
+        writer.println("<html> <body>");
+
         String uname = req.getParameter("username");
         String email = req.getParameter("email");
         String password = req.getParameter("password");
 
-        PrintWriter io = resp.getWriter();
-        io.println("<html> <body>");
-        io.println("[+] Username = " + uname +"<br>");
-        io.println("[+] email = " + email);
+        checkUserExist checkuinfo = new checkUserExist();
+
+        Boolean isValidmail = isValidEmailAddress(email);
+
+        if(!isValidmail){
+            writer.println("<code> email is not valid </code>");
+        }
+
+        Boolean userExist = checkuinfo.checkUsername(uname);
+        Boolean mailExist = checkuinfo.checkemailExist(email);
+
+
+        if(userExist || mailExist){
+
+            writer.println("<code> user exist </code>");
+        }
+        else {
+
+
+        }
 
         // verify username
 
-        // make email with hash
+        // send the mail with the hash
 
-        // send email
+        // add to the database saying not confirmed
 
-        // confirm email
+    }
 
-        //
-
-
+    public static boolean isValidEmailAddress(String email) {
+        boolean result = true;
+        try {
+            InternetAddress emailAddr = new InternetAddress(email);
+            emailAddr.validate();
+        } catch (AddressException ex) {
+            result = false;
+        }
+        return result;
     }
 }
