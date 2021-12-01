@@ -1,5 +1,6 @@
 package com.example.xyzhotel.servletz.auth;
 
+import com.example.xyzhotel.dao.auth.ConfirmToken.getUserRequestedToken;
 import com.example.xyzhotel.dao.auth.ConfirmToken.validateToken;
 
 import javax.servlet.ServletException;
@@ -26,6 +27,8 @@ public class confirmEmail extends HttpServlet {
         System.out.println("[+] Info : Token id request = "+tokenId);
 
         validateToken vt = new validateToken();
+        getUserRequestedToken reqtoken = new getUserRequestedToken();
+
         try {
             boolean isAlive = vt.isTokenAlive(tokenId, token);
             PrintWriter io = resp.getWriter();
@@ -34,8 +37,14 @@ public class confirmEmail extends HttpServlet {
                 io.println("token valid");
 
                 // check the user own the token
+                String tokenOwner = reqtoken.getUser(tokenId);
 
                 // make user valid
+
+
+
+
+                // kill the token
 
             }
             else{
