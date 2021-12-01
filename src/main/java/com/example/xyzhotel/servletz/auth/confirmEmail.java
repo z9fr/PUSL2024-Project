@@ -1,5 +1,6 @@
 package com.example.xyzhotel.servletz.auth;
 
+import com.example.xyzhotel.dao.auth.ConfirmToken.UpdateUserVerification;
 import com.example.xyzhotel.dao.auth.ConfirmToken.getUserRequestedToken;
 import com.example.xyzhotel.dao.auth.ConfirmToken.validateToken;
 
@@ -28,6 +29,7 @@ public class confirmEmail extends HttpServlet {
 
         validateToken vt = new validateToken();
         getUserRequestedToken reqtoken = new getUserRequestedToken();
+        UpdateUserVerification updateUserVerification = new UpdateUserVerification();
 
         try {
             boolean isAlive = vt.isTokenAlive(tokenId, token);
@@ -41,11 +43,12 @@ public class confirmEmail extends HttpServlet {
 
                 // make user valid
 
+                boolean userUpdated = updateUserVerification.updateVerification(tokenOwner, tokenId);
 
+                if(userUpdated){
+                    // kill the token
 
-
-                // kill the token
-
+                }
             }
             else{
                 io.println("token invalid");
