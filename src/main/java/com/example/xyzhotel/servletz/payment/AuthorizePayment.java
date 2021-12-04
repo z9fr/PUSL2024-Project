@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 
 @WebServlet(name = "validate payemnts and stff ", value = "/user/authorize_payment")
 public class AuthorizePayment extends HttpServlet {
@@ -58,7 +59,7 @@ public class AuthorizePayment extends HttpServlet {
                 resp.sendRedirect(approvalLink);
 
 
-            } catch (PayPalRESTException ex) {
+            } catch (PayPalRESTException | SQLException ex) {
                 req.setAttribute("errorMessage", ex.getMessage());
                 ex.printStackTrace();
             }

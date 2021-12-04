@@ -8,8 +8,8 @@ public class booking {
     private Date end_date;
     private int booked_by;
     private int room_id;
-    private Double paymentAmount;
-    private boolean complte_payment;
+    private float paymentAmount;
+    private boolean isComplete;
     private String reason;
 
 
@@ -53,20 +53,20 @@ public class booking {
         this.room_id = room_id;
     }
 
-    public Double getPaymentAmount() {
+    public float getPaymentAmount() {
         return paymentAmount;
     }
 
-    public void setPaymentAmount(Double paymentAmount) {
+    public void setPaymentAmount(float paymentAmount) {
         this.paymentAmount = paymentAmount;
     }
 
-    public boolean isComplte_payment() {
-        return complte_payment;
+    public boolean isComplete() {
+        return isComplete;
     }
 
-    public void setComplte_payment(boolean complte_payment) {
-        this.complte_payment = complte_payment;
+    public void isComplete(boolean complte_payment) {
+        this.isComplete = complte_payment;
     }
 
     public String getReason() {

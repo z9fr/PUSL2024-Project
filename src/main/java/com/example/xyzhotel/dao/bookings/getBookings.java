@@ -35,8 +35,8 @@ public class getBookings {
                 booking.setEnd_date(set.getDate("end_date"));
                 booking.setBooked_by(set.getInt("booked_by"));
                 booking.setRoom_id(set.getInt("room_id"));
-                booking.setPaymentAmount(set.getDouble("paymentAmount"));
-                booking.setComplte_payment(set.getBoolean("complte_payment"));
+                booking.setPaymentAmount(set.getFloat("paymentAmount"));
+                booking.isComplete(set.getBoolean("isComplete"));
                 booking.setReason(set.getString("reason"));
                 bookings.add(booking);
             }
@@ -111,8 +111,8 @@ public class getBookings {
             booking.setEnd_date(set.getDate("end_date"));
             booking.setBooked_by(set.getInt("booked_by"));
             booking.setRoom_id(set.getInt("room_id"));
-            booking.setPaymentAmount(set.getDouble("paymentAmount"));
-            booking.setComplte_payment(set.getBoolean("complte_payment"));
+            booking.setPaymentAmount(set.getFloat("paymentAmount"));
+            booking.isComplete(set.getBoolean("isComplete"));
             booking.setReason(set.getString("reason"));
             bookings.add(booking);
         }

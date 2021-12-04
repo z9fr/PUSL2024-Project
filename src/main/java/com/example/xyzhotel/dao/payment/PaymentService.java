@@ -1,6 +1,7 @@
 package com.example.xyzhotel.dao.payment;
 
 import com.example.xyzhotel.beans.oderDetails;
+import com.example.xyzhotel.dao.bookings.AddBooking;
 import com.paypal.api.payments.*;
 import com.paypal.base.exception.PayPalException;
 import com.paypal.base.rest.APIContext;
@@ -8,6 +9,7 @@ import com.paypal.base.rest.PayPalRESTException;
 import io.github.cdimascio.dotenv.Dotenv;
 
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +21,7 @@ public class PaymentService {
 
 
     public String authorizePayment(oderDetails orderDetail)
-            throws PayPalRESTException {
+            throws PayPalRESTException, SQLException {
         Payer payer = getPayerInformation();
         RedirectUrls redirectUrls = getRedirectURLs();
         List<Transaction> listTransaction = getTransactionInfo(orderDetail); // taking order details here
@@ -31,9 +33,16 @@ public class PaymentService {
         requestPayment.setIntent("authorize");
         APIContext apiContext = new APIContext(CLIENT_ID, CLIENT_SECRET, MODE);
         Payment approvedPayment = requestPayment.create(apiContext);
-        System.out.println("[***] Debug Request Payment id =>" + approvedPayment.getId().toString());
-        return getApprovalLink(approvedPayment);
+        String payment_id = approvedPayment.getId().toString();
+        System.out.println("[***] Debug Request Payment id =>" + payment_id);
 
+        AddBooking addbooking = new AddBooking();
+        boolean checkBooking = addbooking.addBooking(orderDetail.getStart_date(), orderDetail.getEnd_date(), orderDetail.getReason(),
+                orderDetail.getRoom_id(), Float.parseFloat(orderDetail.getRoom_price()), orderDetail.getUsername(), orderDetail.getUser_id(),
+                payment_id);
+        System.out.println("[***] Check Booking Status => "+checkBooking);
+
+        return getApprovalLink(approvedPayment);
     }
 
     private String getApprovalLink(Payment approvedPayment) {
