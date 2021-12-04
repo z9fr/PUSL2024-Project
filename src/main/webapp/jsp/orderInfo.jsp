@@ -86,15 +86,12 @@
                     </div>
 
                     <div class="box">
-                        <b> Payment Status : <%= booking.isComplte_payment() %> </b>
+                        <b> Payment Status : <%= booking.isComplete() %> </b>
                     </div>
 
                     <div class="box">
                         <b> Order Reason  : <%= booking.getReason() %> </b>
                     </div>
-
-
-
                 </div>
             </div>
         </div>
