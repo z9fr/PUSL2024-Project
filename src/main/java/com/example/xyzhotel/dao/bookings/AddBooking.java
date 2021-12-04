@@ -18,7 +18,7 @@ public class AddBooking {
         java.sql.PreparedStatement statement = connection.prepareStatement(sql);
         statement.setString(1, start_date);
         statement.setString(2, end_date);
-        statement.setString(3, String.valueOf(user_id));
+        statement.setString(3, String.valueOf(user_id)); // fixed Data truncation error sql
         statement.setInt(4, room_id);
         statement.setFloat(5, room_price);
         statement.setString(6 , reason);
