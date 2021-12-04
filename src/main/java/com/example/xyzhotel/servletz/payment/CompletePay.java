@@ -27,7 +27,6 @@ public class CompletePay extends HttpServlet {
         System.out.println("[*] Debug : Payment ID = " + paymentid);
         System.out.println("[*] Debug : Payer ID = " + payerid);
 
-
         try{
             PaymentService ps = new PaymentService();
             Payment payment = ps.doPayment(paymentid, payerid); // executing the payment

@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;
-import java.sql.SQLException;
+import java.sql.SQLException; 
 import java.util.UUID;
 
 @WebServlet(name = "sign up" , value = "/signup")

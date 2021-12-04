@@ -50,11 +50,11 @@ public class AuthorizePayment extends HttpServlet {
             oderDetails od = new oderDetails(start_date, end_date, reason, room_id, room_price , username , user_id);
 
 
+
             try {
                 PaymentService paymentServices = new PaymentService();
                 String approvalLink = paymentServices.authorizePayment(od);
                 System.out.println("[*] Debug : approval Link = "+approvalLink);
-
                 resp.sendRedirect(approvalLink);
 
 

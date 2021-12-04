@@ -20,22 +20,18 @@ public class PaymentService {
 
     public String authorizePayment(oderDetails orderDetail)
             throws PayPalRESTException {
-
-
         Payer payer = getPayerInformation();
         RedirectUrls redirectUrls = getRedirectURLs();
-        List<Transaction> listTransaction = getTransactionInfo(orderDetail);
+        List<Transaction> listTransaction = getTransactionInfo(orderDetail); // taking order details here
 
         Payment requestPayment = new Payment();
         requestPayment.setTransactions(listTransaction);
         requestPayment.setRedirectUrls(redirectUrls);
         requestPayment.setPayer(payer);
         requestPayment.setIntent("authorize");
-
         APIContext apiContext = new APIContext(CLIENT_ID, CLIENT_SECRET, MODE);
-
         Payment approvedPayment = requestPayment.create(apiContext);
-
+        System.out.println("[***] Debug Request Payment id =>" + approvedPayment.getId().toString());
         return getApprovalLink(approvedPayment);
 
     }
@@ -106,7 +102,7 @@ public class PaymentService {
         PayerInfo payerInfo = new PayerInfo();
 
         payerInfo.setFirstName("John")
-                .setLastName("Nigga")
+                .setLastName("client")
                 .setEmail("compnay@xyzhotel.com"); // add information about the company
 
         return payer;

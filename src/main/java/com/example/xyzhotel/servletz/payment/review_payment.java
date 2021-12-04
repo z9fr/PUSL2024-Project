@@ -41,14 +41,14 @@ public class review_payment extends HttpServlet {
             req.setAttribute("transaction", transaction);
 
             System.out.println("[*] Debug : Generating the Url to Complete Payment ");
-            System.out.println("[*] Debug : Payment ID = " + paymentId);
+            System.out.println("[*] Debug : Payment ID from auth payment  = " + paymentId);
             System.out.println("[*] Debug : Payer ID = " + payerId);
 
 
             String url = "/jsp/payment/review.jsp?paymentid="+paymentId+"&payerid="+payerId;
 
+            System.out.println("[***] Debug : complete payment id = " + paymentId);
             System.out.println("[*] Debug : Redirect URL = " + url);
-
             req.getRequestDispatcher(url).forward(req, resp);
 
 
