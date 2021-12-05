@@ -82,18 +82,17 @@ public class authUser {
         return userId;
     }
 
-    public String getUserMail(String username, String password){
+    public String getUserMail(String username){
 
         String role = null;
 
         try{
             // select role from users where uname='admin' and password='password';
             Connection connection = dbconnection.getConnectionToDatabase();
-            String sql = "select email from users where uname=? and password=?";
+            String sql = "select email from users where uname=?";
 
             java.sql.PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, username);
-            statement.setString(2, password);
 
             ResultSet set = statement.executeQuery();
 

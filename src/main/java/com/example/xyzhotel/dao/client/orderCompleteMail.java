@@ -43,7 +43,7 @@ public class orderCompleteMail {
         try{
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress(mailFrom));
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(sendTo));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress("z9fr@pm.me"));
 
 
             String mailBody = String.format("""
@@ -116,7 +116,7 @@ public class orderCompleteMail {
                             """,username,PaymentId );
 
             // set subject and content
-            message.setSubject("Please Confirm Your Account");
+            message.setSubject("Order Complete! ");
             message.setContent( mailBody
                     ,
                     "text/html");

@@ -33,7 +33,7 @@ public class login extends HttpServlet {
         if(isValidUser){
 
             String role = dao.getUserRole(username, password);
-            String email = dao.getUserMail(username, password);
+            String email = dao.getUserMail(username );
             int uuid = dao.getUserID(username, password);
 
             if(uuid == 0){

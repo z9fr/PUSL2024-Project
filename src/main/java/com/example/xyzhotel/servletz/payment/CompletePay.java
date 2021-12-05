@@ -1,6 +1,9 @@
 package com.example.xyzhotel.servletz.payment;
 
 import com.example.xyzhotel.dao.bookings.AddBooking;
+import com.example.xyzhotel.dao.client.SendMail;
+import com.example.xyzhotel.dao.client.SendMailConfirmation;
+import com.example.xyzhotel.dao.client.orderCompleteMail;
 import com.example.xyzhotel.dao.payment.PaymentService;
 import com.paypal.api.payments.PayerInfo;
 import com.paypal.api.payments.Payment;
@@ -50,7 +53,20 @@ public class CompletePay extends HttpServlet {
             boolean bookingComplete = bookings.completeBooking(paymentid);
 
             if(bookingComplete){
-                req.getRequestDispatcher("/jsp/payment/complete.jsp").forward(req, resp);
+                System.out.println(mail);
+
+                orderCompleteMail smc = new orderCompleteMail();
+                boolean sendMail = smc.orderDoneMail(mail, paymentid, uname);
+
+
+
+                if(sendMail){
+                    req.getRequestDispatcher("/jsp/payment/complete.jsp").forward(req, resp);
+                }else{
+                    req.getRequestDispatcher("/jsp/payment/failedoutside.jsp?msg=Sending+mail+failed");
+                }
+
+
             }
             else{
                 req.getRequestDispatcher("/jsp/payment/failedoutside.jsp");
