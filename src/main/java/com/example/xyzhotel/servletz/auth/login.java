@@ -33,6 +33,7 @@ public class login extends HttpServlet {
         if(isValidUser){
 
             String role = dao.getUserRole(username, password);
+            String email = dao.getUserMail(username, password);
             int uuid = dao.getUserID(username, password);
 
             if(uuid == 0){
@@ -47,6 +48,7 @@ public class login extends HttpServlet {
                 session.setAttribute("role", role);
                 session.setAttribute("password", password);
                 session.setAttribute("user_id", uuid);
+                session.setAttribute("user_email", email);
 
                 System.out.println("[+] "+uuid+" "+username+" "+role+" Logged in");
 

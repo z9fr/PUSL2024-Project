@@ -41,10 +41,7 @@
         <br><br>
         <a href="/home" class="button is-primary is-inverted"> Back to Home</a>
 
-
     </div>
-
-
 
 </div>
 
