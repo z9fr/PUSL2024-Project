@@ -38,7 +38,6 @@ public class CompletePay extends HttpServlet {
         try{
             PaymentService ps = new PaymentService();
             Payment payment = ps.doPayment(paymentid, payerid); // executing the payment
-
             PayerInfo payerInfo  = payment.getPayer().getPayerInfo();
             Transaction transaction = payment.getTransactions().get(0);
 
