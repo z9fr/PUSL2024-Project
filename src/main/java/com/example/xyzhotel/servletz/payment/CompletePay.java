@@ -1,5 +1,6 @@
 package com.example.xyzhotel.servletz.payment;
 
+import com.example.xyzhotel.dao.bookings.AddBooking;
 import com.example.xyzhotel.dao.payment.PaymentService;
 import com.paypal.api.payments.PayerInfo;
 import com.paypal.api.payments.Payment;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 
 @WebServlet(name = "Complete The Payment" , value = "/user/complete_pay")
 public class CompletePay extends HttpServlet {
@@ -36,10 +38,17 @@ public class CompletePay extends HttpServlet {
             req.setAttribute("payer", payerInfo);
             req.setAttribute("transaction", transaction);
 
-            req.getRequestDispatcher("/jsp/payment/complete.jsp").forward(req, resp);
+            AddBooking bookings = new AddBooking();
+            boolean bookingComplete = bookings.completeBooking(paymentid);
 
+            if(bookingComplete){
+                req.getRequestDispatcher("/jsp/payment/complete.jsp").forward(req, resp);
+            }
+            else{
+                req.getRequestDispatcher("/jsp/payment/failedoutside.jsp");
+            }
 
-        } catch (PayPalRESTException e) {
+        } catch (PayPalRESTException | SQLException e) {
             e.printStackTrace();
         }
 

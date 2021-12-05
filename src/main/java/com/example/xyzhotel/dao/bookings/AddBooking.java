@@ -3,6 +3,7 @@ package com.example.xyzhotel.dao.bookings;
 import com.example.xyzhotel.dao.dbconnection;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class AddBooking {
@@ -34,6 +35,25 @@ public class AddBooking {
         }
 
         return isAdded;
+    }
+
+    public boolean completeBooking(String payment_id) throws SQLException {
+
+        boolean isComplete = false;
+
+        Connection connection = dbconnection.getConnectionToDatabase();
+        String sql = "update bookings set isComplete=1 where pay_id=?";
+
+        java.sql.PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setString(1,payment_id);
+
+        int set= statement.executeUpdate();
+
+        if(set ==1){
+            isComplete= true;
+        }
+
+        return isComplete;
     }
 
 }
