@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -25,6 +26,8 @@ public class CompletePay extends HttpServlet {
         String paymentid = req.getParameter("payid");
         String payerid = req.getParameter("payerid");
 
+        HttpSession session = req.getSession();
+
         System.out.println("[*] Debug : Payment Information for Complete payment ");
         System.out.println("[*] Debug : Payment ID = " + paymentid);
         System.out.println("[*] Debug : Payer ID = " + payerid);
@@ -35,6 +38,11 @@ public class CompletePay extends HttpServlet {
 
             PayerInfo payerInfo  = payment.getPayer().getPayerInfo();
             Transaction transaction = payment.getTransactions().get(0);
+
+            String mail = (String) session.getAttribute("user_email");
+            String uname = (String) session.getAttribute("username");
+
+
             req.setAttribute("payer", payerInfo);
             req.setAttribute("transaction", transaction);
 

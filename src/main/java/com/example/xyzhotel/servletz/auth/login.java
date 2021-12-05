@@ -49,6 +49,7 @@ public class login extends HttpServlet {
                 session.setAttribute("password", password);
                 session.setAttribute("user_id", uuid);
                 session.setAttribute("user_email", email);
+                
 
                 System.out.println("[+] "+uuid+" "+username+" "+role+" Logged in");
 
