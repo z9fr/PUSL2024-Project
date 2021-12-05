@@ -45,7 +45,6 @@ public class CompletePay extends HttpServlet {
             String mail = (String) session.getAttribute("user_email");
             String uname = (String) session.getAttribute("username");
 
-
             req.setAttribute("payer", payerInfo);
             req.setAttribute("transaction", transaction);
 
