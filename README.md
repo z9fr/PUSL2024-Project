@@ -8,12 +8,12 @@
 
 ### Requirements
 
-- [ ] online reservations
+- [x] online reservations
 - [ ] avoid booking collisions
 - [x] visualization of customer feedback for management
 - [ ] SMS and Email notification of reservation and cancelling options
 - [x] payment handling
-- [x] Email Verification 
+- [x] Email Verification when sign up
 
 ### Project Structure
 
