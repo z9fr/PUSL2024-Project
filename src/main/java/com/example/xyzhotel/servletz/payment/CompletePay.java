@@ -1,5 +1,6 @@
 package com.example.xyzhotel.servletz.payment;
 
+import com.example.xyzhotel.dao.auth.authUser;
 import com.example.xyzhotel.dao.bookings.AddBooking;
 import com.example.xyzhotel.dao.client.SendMail;
 import com.example.xyzhotel.dao.client.SendMailConfirmation;
@@ -41,8 +42,11 @@ public class CompletePay extends HttpServlet {
             PayerInfo payerInfo  = payment.getPayer().getPayerInfo();
             Transaction transaction = payment.getTransactions().get(0);
 
-            String mail = (String) session.getAttribute("user_email");
+            authUser authroute= new authUser();
+
+
             String uname = (String) session.getAttribute("username");
+            String uemail = authroute.getUserMail(uname);
 
             req.setAttribute("payer", payerInfo);
             req.setAttribute("transaction", transaction);
@@ -51,10 +55,10 @@ public class CompletePay extends HttpServlet {
             boolean bookingComplete = bookings.completeBooking(paymentid);
 
             if(bookingComplete){
-                System.out.println(mail);
+                System.out.println(uemail);
 
                 orderCompleteMail smc = new orderCompleteMail();
-                boolean sendMail = smc.orderDoneMail(mail, paymentid, uname);
+                boolean sendMail = smc.orderDoneMail(uemail, paymentid, uname);
 
 
 

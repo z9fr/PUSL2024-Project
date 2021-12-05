@@ -43,7 +43,7 @@ public class orderCompleteMail {
         try{
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress(mailFrom));
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress("z9fr@pm.me"));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(sendTo));
 
 
             String mailBody = String.format("""

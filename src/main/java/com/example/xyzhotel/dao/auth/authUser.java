@@ -97,7 +97,7 @@ public class authUser {
             ResultSet set = statement.executeQuery();
 
             while (set.next()){
-                role = set.getString("role");
+                role = set.getString("email");
             }
         }
         catch (SQLException exception) {
