@@ -6,7 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class AddBooking {
+public class AddBooking{
 
     public Boolean addBooking(String start_date, String end_date, String reason, int room_id, float room_price , String
                               username , int user_id, String payid) throws SQLException {
@@ -57,3 +57,4 @@ public class AddBooking {
     }
 
 }
+

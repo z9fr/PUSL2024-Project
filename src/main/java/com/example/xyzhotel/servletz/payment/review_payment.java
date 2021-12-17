@@ -27,6 +27,14 @@ public class review_payment extends HttpServlet {
         String paymentId = req.getParameter("paymentId");
         String payerId = req.getParameter("PayerID");
 
+        theBookingstuff t1 = new theBookingstuff();
+        t1.run(paymentId, payerId, req, resp);
+
+
+    }
+}
+class theBookingstuff implements Runnable{
+    public void run(String paymentId,String payerId, HttpServletRequest req, HttpServletResponse resp) {
         try
         {
             PaymentService paymentService = new PaymentService();
@@ -52,12 +60,14 @@ public class review_payment extends HttpServlet {
             req.getRequestDispatcher(url).forward(req, resp);
 
 
-        } catch (PayPalRESTException e) {
-            e.printStackTrace();
-        } catch (PayPalException e) {
+        } catch (PayPalRESTException | ServletException | PayPalException | IOException e) {
             e.printStackTrace();
         }
 
+    }
+
+    @Override
+    public void run() {
 
     }
 }
