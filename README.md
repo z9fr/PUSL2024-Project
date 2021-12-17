@@ -14,6 +14,8 @@
 - [ ] SMS and Email notification of reservation and cancelling options
 - [x] payment handling
 - [x] Email Verification when sign up
+- [ ] Background Jobs to Clean up the Tokens
+- [ ] Background JOb to check Reservations 
 
 ### Project Structure
 
