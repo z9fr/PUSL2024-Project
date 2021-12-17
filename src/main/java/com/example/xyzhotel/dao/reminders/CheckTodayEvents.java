@@ -26,7 +26,7 @@ public class CheckTodayEvents {
 
             while (set.next()) {
                 // update the values from here
-                events = new events;
+                events = new EventsToday();
                 events.setStart_date(set.getString("start_date"));
                 events.setEnd_date(set.getString("end_date"));
                 events.setBooking_id(set.getInt("booking_id"));
@@ -54,7 +54,6 @@ public class CheckTodayEvents {
 
             while (set.next()) {
                 // update the values from here
-
                 String start_date = set.getString("start_date");
                 String end_date = set.getString("end_date");
                 int booking_id = set.getInt("booking_id");
