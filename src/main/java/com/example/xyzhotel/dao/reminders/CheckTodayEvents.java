@@ -1,6 +1,7 @@
 package com.example.xyzhotel.dao.reminders;
 
 import com.example.xyzhotel.beans.EventsToday;
+import com.example.xyzhotel.dao.client.orderReminder;
 import com.example.xyzhotel.dao.dbconnection;
 
 import java.sql.Connection;
@@ -9,6 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.ConsoleHandler;
 
 public class CheckTodayEvents {
     public List<EventsToday> getAlleventsFortheDay(String todaysDate){
@@ -47,14 +49,12 @@ public class CheckTodayEvents {
         try{
             Connection connection = dbconnection.getConnectionToDatabase();
             // possible sql injection here but since there's no way someone can exploit it we are safe
-            // the reason why im doing it was prepared statements wasnt working maybe because of the date format ?
+            // the reason why im doing it was prepared statements wasn't working maybe because of the date format ?
             String sql = "SELECT * FROM bookings where start_date=\"" +todaysDate+ "\";";
 
 
             Statement statement = connection.createStatement();
             ResultSet set = statement.executeQuery(sql);
-
-
 
             while (set.next()) {
                 // update the values from here
@@ -62,6 +62,7 @@ public class CheckTodayEvents {
                 String end_date = set.getString("end_date");
                 int booking_id = set.getInt("booking_id");
 
+                System.out.println("[1] Calling updatetheValuesto Table ");
                 Boolean status = updatetheValuestoTable(start_date, end_date, booking_id);
                 isComplete=true;
             }
@@ -79,6 +80,7 @@ public class CheckTodayEvents {
         boolean isSuccess = false;
 
         // check if the value is alr available
+        System.out.println("[2] Calling checkValuesAvailable");
         boolean isAvailible = checkValuesAvailable(booking_id);
 
         if(isAvailible){ return true;}
@@ -94,9 +96,45 @@ public class CheckTodayEvents {
 
         int set = statement.executeUpdate();
 
+        // init the mail here
+        System.out.println("[2] Calling mailInit");
+        boolean mailinitStatus = mailInit(booking_id);
 
-        if(set == 1){ isSuccess = true; }
+        if(mailinitStatus){ isSuccess = true; }
         return isSuccess;
+    }
+
+    public Boolean mailInit(int booking_id) throws SQLException {
+        // select * from booking_reminders where booking_id=4& isDone=false;
+
+        boolean mailinitok = false;
+
+        Connection connection = dbconnection.getConnectionToDatabase();
+
+        String sql = "select booking_id from booking_reminders where booking_id="+booking_id+"&isDone=false;";
+
+        Statement statement = connection.createStatement();
+        ResultSet set = statement.executeQuery(sql);
+
+        while (set.next()) {
+            // update the values from here
+            int theid = set.getInt("booking_id");
+
+            System.out.println("[4] mail senidng ...");
+            Boolean status = sendMail(booking_id);
+
+            if(status)
+            {
+                String updateSQl = "UPDATE booking_reminders SET isDone=true WHERE booking_id="+booking_id;
+                Statement updateStatement = connection.createStatement();
+                updateStatement.execute(updateSQl);
+
+                mailinitok= true;
+            }
+        }
+
+        return mailinitok;
+
     }
 
 
@@ -114,6 +152,39 @@ public class CheckTodayEvents {
             isValid = true;
         }
         return isValid;
+
+    }
+
+    public Boolean sendMail(int booking_id) throws SQLException {
+        // get order id booked by from the db and the email
+
+        // select uname,email,booking_id from bookings  inner join users on bookings.booked_by=users.uuid where bookings.booking_id=4;
+
+        boolean isDoneRemind = false;
+        Connection connection = dbconnection.getConnectionToDatabase();
+
+        String sql = "select uname,email,booking_id from bookings  inner join users on bookings.booked_by=users.uuid where bookings.booking_id="+booking_id;
+        Statement statement = connection.createStatement();
+
+
+        // mail
+        // username
+        // booking id
+        ResultSet set = statement.executeQuery(sql);
+
+        while (set.next()) {
+            // update the values from here
+            String uname = set.getString("uname");
+            String email = set.getString("email");
+
+            orderReminder op = new orderReminder();
+
+            boolean doneMail = op.theReminder(email, String.valueOf(booking_id), uname);
+
+            if( doneMail) { return  true; }
+            System.out.println("email didnt success");
+        }
+        return false;
 
     }
 }
