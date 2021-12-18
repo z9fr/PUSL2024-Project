@@ -11,11 +11,12 @@
 - [x] online reservations
 - [x] avoid booking collisions
 - [x] visualization of customer feedback for management
-- [ ] SMS and Email notification of reservation and cancelling options
+- [x] Email notification of reservation and cancelling options
+- [x] SMS notification of reservation and cancelling options
 - [x] payment handling
 - [x] Email Verification when sign up
 - [ ] Background Jobs to Clean up the Tokens
-- [ ] Background JOb to check Reservations 
+- [x] Background Job to check Reservations ( sending mails to daily orders )
 
 ### Project Structure
 
