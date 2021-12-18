@@ -64,6 +64,16 @@
             <version>20041127.091804</version>
         </dependency>
 
+        <!-- to sending emails -->
+
+        <!-- https://mvnrepository.com/artifact/com.vonage/client -->
+        <dependency>
+            <groupId>com.vonage</groupId>
+            <artifactId>client</artifactId>
+            <version>6.1.0</version>
+        </dependency>
+
+
     </dependencies>
 
     <build>

@@ -48,6 +48,15 @@
                                     <p class="text-red text-xs hidden">Please fill out this field.</p>
                                 </div>
                             </div>
+
+                            <div class="mb-3 space-y-2 w-full text-xs">
+                                <label class="font-semibold text-gray-600 py-2">Your phone Number <abbr title="required">*</abbr></label>
+                                <div class="flex flex-wrap items-stretch w-full mb-4 relative">
+                                    <input placeholder="94761234567" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter h-10 px-4" required="required" type="text" name="phoneNumber">
+                                    <p class="text-red text-xs hidden">Please fill out this field.</p>
+                                </div>
+                            </div>
+
                             <div class="md:flex md:flex-row md:space-x-4 w-full text-xs">
                                 <div class="w-full flex flex-col mb-3">
                                     <label class="font-semibold text-gray-600 py-2">password <abbr title="required">*</abbr> </label>

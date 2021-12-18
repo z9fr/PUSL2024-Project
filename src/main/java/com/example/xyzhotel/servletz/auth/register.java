@@ -37,6 +37,7 @@ public class register extends HttpServlet {
         String uname = req.getParameter("username");
         String email = req.getParameter("email");
         String password = req.getParameter("password");
+        String phoneNumber = req.getParameter("phoneNumber");
 
         checkUserExist checkuinfo = new checkUserExist();
 
@@ -68,7 +69,7 @@ public class register extends HttpServlet {
                         System.out.println("[*] Info : Token added to the db = "+verificationid);
 
                         // adding the user to the db
-                        Boolean userCreated = addNewUser.createUser(uname, email, password, verificationid);
+                        Boolean userCreated = addNewUser.createUser(uname, email, password, verificationid, phoneNumber);
 
                         if(userCreated){
 

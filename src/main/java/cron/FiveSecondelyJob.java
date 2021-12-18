@@ -5,6 +5,7 @@ import com.example.xyzhotel.dao.reminders.CheckTodayEvents;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+// the thread to run job every 20 secs ( initial plan was to run it every 5 then thats tooo much bs so im running on 20
 public class FiveSecondelyJob implements Runnable{
     @Override
     public void run() {

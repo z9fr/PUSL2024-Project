@@ -7,27 +7,26 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class AddNewUser {
-    public boolean createUser(String uname , String email , String password, String verificationid ) throws SQLException {
+    public boolean createUser(String uname , String email , String password, String verificationid, String pNumber ) throws SQLException {
         Boolean UserAdded = false;
         System.out.println("[*] Requested adding a new User = "+uname);
 
         Connection connection = dbconnection.getConnectionToDatabase();
-        String sql = "INSERT INTO users(uname, email , password, verificationid) VALUES(? , ? , ?, ?)";
+        String sql = "INSERT INTO users(uname, email , password, verificationid, phoneNumber) VALUES(? , ? , ?, ?,?)";
 
         java.sql.PreparedStatement statement = connection.prepareStatement(sql);
         statement.setString(1 , uname);
         statement.setString(2, email);
         statement.setString(3 , password);
         statement.setString(4, verificationid);
+        statement.setString(5,pNumber);
 
         // execute the statement and check whether user exists
         int set = statement.executeUpdate();
 
         System.out.println("[+] info : User Added = " + set );
 
-        if(set == 1){
-            UserAdded = true;
-        }
+        if(set == 1){ UserAdded = true; }
 
         return UserAdded;
     }
