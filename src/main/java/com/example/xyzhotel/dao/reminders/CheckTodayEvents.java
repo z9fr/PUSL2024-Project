@@ -6,6 +6,7 @@ import com.example.xyzhotel.dao.dbconnection;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +17,7 @@ public class CheckTodayEvents {
 
         try{
             Connection connection = dbconnection.getConnectionToDatabase();
-            String sql = "SELECT * FROM bookig_remindrs where start_date=?";
+            String sql = "SELECT * FROM booking_reminders where start_date=?;";
 
             // setting values for parametrized query
             java.sql.PreparedStatement statement = connection.prepareStatement(sql);
@@ -42,28 +43,33 @@ public class CheckTodayEvents {
     public Boolean startUpdatingData(String todaysDate){
         boolean isComplete = false;
 
+
         try{
             Connection connection = dbconnection.getConnectionToDatabase();
-            String sql = "SELECT * FROM bookings where start_date=?";
+            // possible sql injection here but since there's no way someone can exploit it we are safe
+            // the reason why im doing it was prepared statements wasnt working maybe because of the date format ?
+            String sql = "SELECT * FROM bookings where start_date=\"" +todaysDate+ "\";";
 
-            // setting values for parametrized query
-            java.sql.PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, todaysDate);
 
+            Statement statement = connection.createStatement();
             ResultSet set = statement.executeQuery(sql);
+
+
 
             while (set.next()) {
                 // update the values from here
                 String start_date = set.getString("start_date");
                 String end_date = set.getString("end_date");
                 int booking_id = set.getInt("booking_id");
+
                 Boolean status = updatetheValuestoTable(start_date, end_date, booking_id);
-                if(status){ isComplete=true; }
+                isComplete=true;
             }
         }
         catch (SQLException exception) {
             exception.printStackTrace();
         }
+
         return isComplete;
     }
 
@@ -72,8 +78,13 @@ public class CheckTodayEvents {
     public Boolean updatetheValuestoTable(String start_date, String end_date , int booking_id) throws SQLException {
         boolean isSuccess = false;
 
+        // check if the value is alr available
+        boolean isAvailible = checkValuesAvailable(booking_id);
+
+        if(isAvailible){ return true;}
+
         Connection connection = dbconnection.getConnectionToDatabase();
-        String sql = "INSERT INTO bookig_remindrs(start_date, end_date , booking_id, isDone) VALUES(? , ? , ?, ?)";
+        String sql = "INSERT INTO booking_reminders(start_date, end_date , booking_id, isDone) VALUES(? , ? , ?, ?)";
 
         java.sql.PreparedStatement statement = connection.prepareStatement(sql);
         statement.setString(1 , start_date);
@@ -81,17 +92,28 @@ public class CheckTodayEvents {
         statement.setInt(3 , booking_id);
         statement.setBoolean(4, false);
 
-
         int set = statement.executeUpdate();
 
-        System.out.println("[+] info : got the today's events= " + set );
 
-        if(set == 1){
-            isSuccess = true;
-        }
-
+        if(set == 1){ isSuccess = true; }
         return isSuccess;
     }
 
 
+    public Boolean checkValuesAvailable(int booking_id) throws SQLException {
+        boolean isValid = false;
+        Connection connection = dbconnection.getConnectionToDatabase();
+
+        String sql = "select * from booking_reminders where booking_id=?";
+
+        java.sql.PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setString(1, String.valueOf(booking_id));
+
+        ResultSet set = statement.executeQuery();
+        while (set.next()) {
+            isValid = true;
+        }
+        return isValid;
+
+    }
 }
