@@ -16,6 +16,7 @@ public class CheckTodayEvents {
     public List<EventsToday> getAlleventsFortheDay(String todaysDate){
         EventsToday events = null;
         List<EventsToday> allevents = new ArrayList<>();
+        System.out.println("[*] Calling getAlleventsFortheDay Table ");
 
         try{
             Connection connection = dbconnection.getConnectionToDatabase();
@@ -163,7 +164,7 @@ public class CheckTodayEvents {
         boolean isDoneRemind = false;
         Connection connection = dbconnection.getConnectionToDatabase();
 
-        String sql = "select uname,email,booking_id from bookings  inner join users on bookings.booked_by=users.uuid where bookings.booking_id="+booking_id;
+        String sql = "select uname,email,booking_id,phoneNumber from bookings  inner join users on bookings.booked_by=users.uuid where bookings.booking_id="+booking_id;
         Statement statement = connection.createStatement();
 
 
@@ -176,10 +177,15 @@ public class CheckTodayEvents {
             // update the values from here
             String uname = set.getString("uname");
             String email = set.getString("email");
+            String pnum = set.getString("phoneNumber");
 
             orderReminder op = new orderReminder();
+            sendSMSmessage sendsms = new sendSMSmessage();
 
             boolean doneMail = op.theReminder(email, String.valueOf(booking_id), uname);
+
+            String smsBody = "Hi "+uname+" we are waiting for you to come today for your oder number "+booking_id;
+            sendsms.sendMessage(smsBody, pnum);
 
             if( doneMail) { return  true; }
             System.out.println("email didnt success");

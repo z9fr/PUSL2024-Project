@@ -113,7 +113,7 @@ public class orderReminder {
                             """, username,order_id );
 
             // set subject and content
-            message.setSubject("Order Complete! ");
+            message.setSubject("Reminder to Come Today! ");
             message.setContent( mailBody
                     ,
                     "text/html");
