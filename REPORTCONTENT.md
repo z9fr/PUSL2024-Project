@@ -217,3 +217,135 @@ also we sign the token with a secret on the .env file and then we create the use
 ---
 
 ### Payment 
+
+so payment iniciates in the autorize payment servlet by calling the PaymentService Class
+
+```java
+
+PaymentService paymentServices = new PaymentService();
+String approvalLink = paymentServices.authorizePayment(od);
+System.out.println("[*] Debug : approval Link = "+approvalLink);
+resp.sendRedirect(approvalLink);
+
+```
+
+
+first to init the transcation we are requesting the authorizePayment and we are requesting approvalLink, in the autorizePayment function it does lot of things
+
+```jaVA
+
+    public String authorizePayment(oderDetails orderDetail)
+            throws PayPalRESTException, SQLException {
+        Payer payer = getPayerInformation();
+        RedirectUrls redirectUrls = getRedirectURLs();
+        List<Transaction> listTransaction = getTransactionInfo(orderDetail); // taking order details here
+
+        Payment requestPayment = new Payment();
+        requestPayment.setTransactions(listTransaction);
+        requestPayment.setRedirectUrls(redirectUrls);
+        requestPayment.setPayer(payer);
+        requestPayment.setIntent("authorize");
+        APIContext apiContext = new APIContext(CLIENT_ID, CLIENT_SECRET, MODE);
+
+        Payment approvedPayment = requestPayment.create(apiContext);
+        String payment_id = approvedPayment.getId().toString();
+        System.out.println("[***] Debug Request Payment id =>" + payment_id);
+
+        AddBooking addbooking = new AddBooking();
+        boolean checkBooking = addbooking.addBooking(orderDetail.getStart_date(), orderDetail.getEnd_date(), orderDetail.getReason(),
+                orderDetail.getRoom_id(), Float.parseFloat(orderDetail.getRoom_price()), orderDetail.getUsername(), orderDetail.getUser_id(),
+                payment_id);
+        System.out.println("[***] Check Booking Status => "+checkBooking);
+
+        return getApprovalLink(approvedPayment);
+    }
+    ```
+and getting the aproval link is also private function which contain
+
+```java
+    private String getApprovalLink(Payment approvedPayment) {
+
+        // getting the approval link and return it
+
+        List<Links> links = approvedPayment.getLinks();
+        String approvalLink = null;
+
+        for (Links link : links) {
+            if (link.getRel().equalsIgnoreCase("approval_url")) {
+                approvalLink = link.getHref();
+                break;
+            }
+        }
+
+        return approvalLink;
+    }
+
+```
+after getting the aproval link from the servlet we are redirecting the user to the approval link basically when the payment is ok and so it will call to our callbackurl 
+
+```java
+
+    private RedirectUrls getRedirectURLs() {
+
+        // create redirect urls for paypal after payment complete and if user cancel the payment and then return the urls
+
+        RedirectUrls redirectUrls = new RedirectUrls();
+        redirectUrls.setCancelUrl("http://localhost:8080/cancel.jsp");
+        redirectUrls.setReturnUrl("http://localhost:8080/user/review_payment");
+        return redirectUrls;
+    }
+
+```
+
+which you can see here if the user click on cancel we are sending them to cancel page which just tells that the order was not complete and info but if the order was okay we are sending him to review-payment servlet 
+
+which runs on a new thread to avoid booking collisions we dont wanted to do that on auth payment because it was just sending the redirect to the database but this is the part where we need to be careful with collisions so this process runs on different thread 
+
+```java
+
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        // getting payment and payer id
+        String paymentId = req.getParameter("paymentId");
+        String payerId = req.getParameter("PayerID");
+        theBookingstuff t1 = new theBookingstuff();
+        t1.run(paymentId, payerId, req, resp);
+    }
+```
+
+as you can see here we call the run here which contain the logic 
+
+```java
+
+  public void run(String paymentId,String payerId, HttpServletRequest req, HttpServletResponse resp) {
+        try
+        {
+            PaymentService paymentService = new PaymentService();
+            Payment payment = paymentService.getPaymentDetails(paymentId);
+
+            // getting the payment details
+
+            PayerInfo payerInfo = payment.getPayer().getPayerInfo();
+            Transaction transaction = payment.getTransactions().get(0);
+
+            req.setAttribute("payer", payerInfo);
+            req.setAttribute("transaction", transaction);
+
+            System.out.println("[*] Debug : Generating the Url to Complete Payment ");
+            System.out.println("[*] Debug : Payment ID from auth payment  = " + paymentId);
+            System.out.println("[*] Debug : Payer ID = " + payerId);
+
+
+            String url = "/jsp/payment/review.jsp?paymentid="+paymentId+"&payerid="+payerId;
+
+            System.out.println("[***] Debug : complete payment id = " + paymentId);
+            System.out.println("[*] Debug : Redirect URL = " + url);
+            req.getRequestDispatcher(url).forward(req, resp);
+
+
+        } catch (PayPalRESTException | ServletException | PayPalException | IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+    ```
