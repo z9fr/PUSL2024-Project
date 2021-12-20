@@ -259,7 +259,7 @@ first to init the transcation we are requesting the authorizePayment and we are 
 
         return getApprovalLink(approvedPayment);
     }
-    ```
+```
 and getting the aproval link is also private function which contain
 
 ```java
