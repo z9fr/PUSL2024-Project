@@ -213,3 +213,7 @@ and so we generate a token
 
 also we sign the token with a secret on the .env file and then we create the user and send him a email
 
+
+---
+
+### Payment 
