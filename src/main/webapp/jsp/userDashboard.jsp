@@ -117,8 +117,7 @@
         <div class="column is-4-desktop">
           <form action="#">
             <div class="is-flex">
-
-              <button class="button is-primary" style="margin-left: 40%;">Leave A FeedBack</button>
+              <a href="/user/feedback" class="button is-primary" style="margin-left: 40%;">Leave A FeedBack </a>
             </div>
           </form>
         </div>

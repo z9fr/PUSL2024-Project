@@ -44,7 +44,7 @@ public class feedback extends HttpServlet {
             Boolean isOkay = sf.updateFeedBack(feedback, Rating, uname);
 
             if(isOkay){
-                out.println("Values udpated");
+                resp.sendRedirect("/user/panel?msg=Review+added");
             }else{
                 out.println("error");
             }
