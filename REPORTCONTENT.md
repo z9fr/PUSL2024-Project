@@ -167,3 +167,49 @@ MariaDB [xyzhotel]>
 ```
 
 like so after that we send mails to these and we update isDone table after a day we are doing a clean up to clean the databse and remove the junk
+
+#### Email verification 
+
+Email verification is a feature we implemented on our application. when user registers and enter the email first we verify the email if its a corret email or not 
+
+```java
+  public static boolean isValidEmailAddress(String email) {
+        boolean result = true;
+        try {
+            InternetAddress emailAddr = new InternetAddress(email);
+            emailAddr.validate();
+        } catch (AddressException ex) {
+            result = false;
+        }
+        return result;
+    }
+```
+
+after we verify the emal is okay we will generate a uniqute uuid 
+
+```java
+ public String getUniqueKey() {
+        String uniqueKey = String.valueOf(UUID.randomUUID());
+        return uniqueKey;
+    }
+```
+and so we generate a token
+
+```java
+    public String getToken(String email , String uname) throws NoSuchAlgorithmException {
+        Dotenv dotenv = null;
+        dotenv = Dotenv.configure().load();
+        String secret =dotenv.get("SIGN_UP_SECRET");
+
+        String tohashString = email+uname+secret;
+        String sha256hex = DigestUtils.shaHex(tohashString);
+
+        System.out.println("[*] Debug : Secret Generated for User "+uname+ "\nToken => "+sha256hex);
+
+        return sha256hex;
+    }
+
+```
+
+also we sign the token with a secret on the .env file and then we create the user and send him a email
+
