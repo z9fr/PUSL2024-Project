@@ -12,7 +12,8 @@
 - [x] commons-codec ( for hashing - when sending tokens )
 - [x] com.vonage ( sending sms messages )
 
-## features 
+features 
+--------
 
 - [x] online reservations
 - [x] avoid booking collisions
