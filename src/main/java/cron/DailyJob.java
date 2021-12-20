@@ -1,9 +1,17 @@
 package cron;
 
+import java.sql.SQLException;
+
 public class DailyJob implements Runnable{
 
     @Override
     public void run() {
-        // Do your daily job here.
+        // clean the db here a bit
+        cleanupTokens ct = new cleanupTokens();
+        try {
+            ct.docleanTokens();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

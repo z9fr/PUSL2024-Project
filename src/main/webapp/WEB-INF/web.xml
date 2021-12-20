@@ -3,4 +3,17 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
+
+    <servlet>
+        <description>
+        </description>
+        <display-name>hidden</display-name>
+        <servlet-name>hidden</servlet-name>
+        <jsp-file>/admin/index.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>hidden</servlet-name>
+        <url-pattern>/hidden</url-pattern>
+    </servlet-mapping>
 </web-app>
+

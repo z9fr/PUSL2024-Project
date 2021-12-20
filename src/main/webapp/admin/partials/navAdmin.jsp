@@ -35,9 +35,9 @@
                         <span class="icon"><i class="mdi mdi-account"></i></span>
                         <span>My Profile</span>
                     </a>
-                    <a class="navbar-item">
+                    <a class="navbar-item" href="/user/admin/add/room/">
                         <span class="icon"><i class="mdi mdi-settings"></i></span>
-                        <span>Settings</span>
+                        <span>Add a new Room</span>
                     </a>
                     <a class="navbar-item">
                         <span class="icon"><i class="mdi mdi-email"></i></span>

@@ -16,6 +16,7 @@
 - [x] payment handling
 - [x] Email Verification when sign up
 - [ ] Background Jobs to Clean up the Tokens
+- [x] Admins can add rooms from the backend 
 - [x] Background Job to check Reservations ( sending mails to daily orders )
 
 ### Project Structure
