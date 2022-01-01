@@ -18,6 +18,7 @@
 - [x] Background Jobs to Clean up the Tokens
 - [x] Admins can add rooms from the backend 
 - [x] Background Job to check Reservations ( sending mails to daily orders )
+- [x] Password Hashing MD5
 
 ### Project Structure
 
