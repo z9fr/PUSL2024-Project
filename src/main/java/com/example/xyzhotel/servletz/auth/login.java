@@ -23,18 +23,23 @@ public class login extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //get the username from the login form
+        HashPassword hp = new HashPassword();
         String username = req.getParameter("username");
         String password = req.getParameter("password");
+        String hashedPassword = hp.getHash(password);
+
+        System.out.println(hashedPassword);
 
         //call DAO for validation logic
         authUser dao= new authUser();
-        boolean isValidUser = dao.validateUser(username, password);
+        boolean isValidUser = dao.validateUser(username, hashedPassword);
 
         if(isValidUser){
 
-            String role = dao.getUserRole(username, password);
+            String role = dao.getUserRole(username, hashedPassword);
             String email = dao.getUserMail(username );
-            int uuid = dao.getUserID(username, password);
+            int uuid = dao.getUserID(username, hashedPassword);
+
 
             if(uuid == 0){
                 req.setAttribute("error", "Internal Server Error");

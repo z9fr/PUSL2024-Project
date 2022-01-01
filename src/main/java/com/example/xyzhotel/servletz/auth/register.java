@@ -31,12 +31,14 @@ public class register extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+        HashPassword hp = new HashPassword();
         PrintWriter writer = resp.getWriter();
         writer.println("<html> <body>");
 
         String uname = req.getParameter("username");
         String email = req.getParameter("email");
         String password = req.getParameter("password");
+        String hashPassword = hp.getHash(password);
         String phoneNumber = req.getParameter("phoneNumber");
 
         checkUserExist checkuinfo = new checkUserExist();
@@ -69,7 +71,7 @@ public class register extends HttpServlet {
                         System.out.println("[*] Info : Token added to the db = "+verificationid);
 
                         // adding the user to the db
-                        Boolean userCreated = addNewUser.createUser(uname, email, password, verificationid, phoneNumber);
+                        Boolean userCreated = addNewUser.createUser(uname, email, hashPassword, verificationid, phoneNumber);
 
                         if(userCreated){
 
