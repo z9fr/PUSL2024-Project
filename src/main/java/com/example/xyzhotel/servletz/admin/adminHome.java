@@ -36,9 +36,7 @@ public class adminHome extends HttpServlet {
             req.setAttribute("total_room_count", adminhelper.roomCount());
 
             System.out.println(adminhelper.UserCount());
-
             req.getRequestDispatcher("/admin/index.jsp").forward(req, resp);
-
 
         }
         else{
