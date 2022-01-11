@@ -28,42 +28,44 @@ public class review_payment extends HttpServlet {
         String payerId = req.getParameter("PayerID");
 
         theBookingstuff t1 = new theBookingstuff();
-        t1.run(paymentId, payerId, req, resp);
+        try {
+            t1.run(paymentId, payerId, req, resp);
+        } catch (PayPalRESTException e) {
+            e.printStackTrace();
+        } catch (PayPalException e) {
+            e.printStackTrace();
+        }
 
 
     }
 }
 class theBookingstuff implements Runnable{
-    public void run(String paymentId,String payerId, HttpServletRequest req, HttpServletResponse resp) {
-        try
-        {
-            PaymentService paymentService = new PaymentService();
-            Payment payment = paymentService.getPaymentDetails(paymentId);
+    public void run(String paymentId,String payerId, HttpServletRequest req, HttpServletResponse resp) throws PayPalRESTException, PayPalException, ServletException, IOException {
+        booknow(paymentId, payerId, req, resp);
+    }
 
-            // getting the payment details
+    public synchronized void booknow(String paymentId,String payerId, HttpServletRequest req, HttpServletResponse resp) throws PayPalRESTException, PayPalException, ServletException, IOException {
+        PaymentService paymentService = new PaymentService();
+        Payment payment = paymentService.getPaymentDetails(paymentId);
 
-            PayerInfo payerInfo = payment.getPayer().getPayerInfo();
-            Transaction transaction = payment.getTransactions().get(0);
+        // getting the payment details
 
-            req.setAttribute("payer", payerInfo);
-            req.setAttribute("transaction", transaction);
+        PayerInfo payerInfo = payment.getPayer().getPayerInfo();
+        Transaction transaction = payment.getTransactions().get(0);
 
-            System.out.println("[*] Debug : Generating the Url to Complete Payment ");
-            System.out.println("[*] Debug : Payment ID from auth payment  = " + paymentId);
-            System.out.println("[*] Debug : Payer ID = " + payerId);
+        req.setAttribute("payer", payerInfo);
+        req.setAttribute("transaction", transaction);
 
-
-            String url = "/jsp/payment/review.jsp?paymentid="+paymentId+"&payerid="+payerId;
-
-            System.out.println("[***] Debug : complete payment id = " + paymentId);
-            System.out.println("[*] Debug : Redirect URL = " + url);
-            req.getRequestDispatcher(url).forward(req, resp);
+        System.out.println("[*] Debug : Generating the Url to Complete Payment ");
+        System.out.println("[*] Debug : Payment ID from auth payment  = " + paymentId);
+        System.out.println("[*] Debug : Payer ID = " + payerId);
 
 
-        } catch (PayPalRESTException | ServletException | PayPalException | IOException e) {
-            e.printStackTrace();
-        }
+        String url = "/jsp/payment/review.jsp?paymentid="+paymentId+"&payerid="+payerId;
 
+        System.out.println("[***] Debug : complete payment id = " + paymentId);
+        System.out.println("[*] Debug : Redirect URL = " + url);
+        req.getRequestDispatcher(url).forward(req, resp);
     }
 
     @Override
