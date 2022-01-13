@@ -271,6 +271,7 @@ first to init the transcation we are requesting the authorizePayment and we are 
         return getApprovalLink(approvedPayment);
     }
 ```
+
 and getting the aproval link is also private function which contain
 
 ```java
@@ -409,7 +410,6 @@ redirectUrls.setReturnUrl("http://localhost:8080/user/review_payment");
 here we are starting the process on a thread
 
 ```java
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -606,10 +606,6 @@ public class login extends HttpServlet {
 }
 
 ```
-
-user id, username, email are fetched from the dao layer from the database and we set these information to session so that we can use them to identify the user later.
-
-and something special to notice. we are using parametarized queries. we are using this to make our website more secure. because of we using parameraized queries we are preventing the attack vectors like sql injection which could lead to a authetncation bypass in this case. 
 
 ```java
 
@@ -939,7 +935,11 @@ MariaDB [xyzhotel]> select * from verfication_token;
 MariaDB [xyzhotel]> 
 ```
 
-and we can check this to see if the user validated the token
+and we can check this to see if the user validated the tokenuser id, username, email are fetched from the dao layer from the database and we set these information to session so that we can use them to identify the user later.
+
+and something special to notice. we are using parametarized queries. we are using this to make our website more secure. because of we using parameraized queries we are preventing the attack vectors like sql injection which could lead to a authetncation bypass in this case. 
+
+
 
 ```
 MariaDB [xyzhotel]> select * from users;
