@@ -39,7 +39,7 @@ features
 - payment
 - booking - booking collistions
 - user login and roles
-- 
+- Registration Tokens.
 
 #### sending sms though vonage
 
@@ -757,3 +757,50 @@ public class adminHome extends HttpServlet {
 }
 
 ```
+
+and admin has the features like admin the rooms to the database. and below is the servlet for the Addmin Rooms.
+`/user/admin/add/room` and if we send the to this route we first check if user hash the role admin. we are adding it to the database. 
+
+```java
+@WebServlet(name = "add rooms", value = "/user/admin/add/room/")
+public class addRooms extends HttpServlet {
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/admin/addRoom.jsp");
+        dispatcher.include(req, resp);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        HttpSession session =req.getSession();
+        String role = (String) session.getAttribute("role");
+
+        PrintWriter out = resp.getWriter();
+
+        if(Objects.equals(role, "admin"))
+        {
+            String title = (String) req.getParameter("title");
+            String price = (String) req.getParameter("price");
+            String room_img = (String) req.getParameter("room_image");
+            String room_desc = (String) req.getParameter("room_description");
+
+            // add stuff here
+            addroomsdao addroom = new addroomsdao();
+            try {
+                boolean result  = addroom.addroomsdb(title, price , room_img, room_desc);
+                resp.sendRedirect("/user/admin?msg=room+added+okay");
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+    }
+}
+
+```
+
+

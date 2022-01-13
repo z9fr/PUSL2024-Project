@@ -9,9 +9,7 @@ import java.sql.SQLException;
 public class getUserRequestedToken {
 
     public String getUser(String tokenId){
-
         String tokenOwner = null;
-
         try{
             // select role from users where uname='admin' and password='password';
             Connection connection = dbconnection.getConnectionToDatabase();
