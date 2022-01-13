@@ -32,6 +32,13 @@ features
 
 ## important code lines
 
+- sending sms
+- sending emails
+- backrgoud task
+- email verification
+- payment
+- 
+
 #### sending sms though vonage
 
 ```java
@@ -350,3 +357,45 @@ as you can see here we call the run here which contain the logic
 
     }
 ```
+
+### Handeling Booking collistions 
+
+so for handelling booking collistions we are basically checking if the room is already booked on the same date when authorizing the payment we are first checking if the room exist 
+
+```java
+        // very the room_id
+        getRoomInfo roominformation = new getRoomInfo();
+        boolean doesRoomExist = roominformation.checkRoomExist(room_id);
+
+
+        if(doesRoomExist){
+            // getting other untrusted data from cookies
+
+            HttpSession session =req.getSession();
+            String username = (String) session.getAttribute("username");
+            int user_id = (int) session.getAttribute("user_id");
+            String room_price = String.valueOf(roominformation.room_price(room_id));
+
+            System.out.println("[+] Booking room for "+room_id + " room price is = "+room_price);
+            oderDetails od = new oderDetails(start_date, end_date, reason, room_id, room_price , username , user_id);
+
+
+
+            try {
+                PaymentService paymentServices = new PaymentService();
+                String approvalLink = paymentServices.authorizePayment(od);
+                System.out.println("[*] Debug : approval Link = "+approvalLink);
+                resp.sendRedirect(approvalLink);
+
+
+            } catch (PayPalRESTException | SQLException ex) {
+                req.setAttribute("errorMessage", ex.getMessage());
+                ex.printStackTrace();
+            }
+        }
+```
+
+and the way this whole booking works is first the client sends a request to book the room when he does that we are sendning the request to AuthorizePayment class ( the above servlet ) and from that we init the payment service and request to aproval link from paypal. and then we redirect the user to that link.
+
+
+after he confirms the payment we 
