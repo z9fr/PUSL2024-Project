@@ -463,6 +463,9 @@ and we are using a synchronized function here because it helps us to prevent mem
 
 in our application we do have two roles. one role is for the normal user, and the other role is for the admin users. how we manage routes for these users are normal users can access everything in `/user/*/` while admin users has access to `/admin/*` endpoints. 
 
+
+### Using Filers
+
 and since its really not practical to use check if user is valid everytime we are using sessions to keep the state of the application. and in the same case we have a we filter setup for `/*` and in that filter we check if user is authenticated. and since there's small amount of roles for the admin. we are checking that on the servlet 
 
 ```java
