@@ -37,7 +37,8 @@ features
 - backrgoud task
 - email verification
 - payment
-- 
+- booking - booking collistions
+- user login and roles
 
 #### sending sms though vonage
 
@@ -240,8 +241,7 @@ resp.sendRedirect(approvalLink);
 
 first to init the transcation we are requesting the authorizePayment and we are requesting approvalLink, in the autorizePayment function it does lot of things
 
-```jaVA
-
+```java
     public String authorizePayment(oderDetails orderDetail)
             throws PayPalRESTException, SQLException {
         Payer payer = getPayerInformation();
@@ -358,7 +358,7 @@ as you can see here we call the run here which contain the logic
     }
 ```
 
-### Handeling Booking collistions 
+### Handeling Bookings 
 
 so for handelling booking collistions we are basically checking if the room is already booked on the same date when authorizing the payment we are first checking if the room exist 
 
@@ -457,3 +457,46 @@ and in the run metord we are passing some args which and from the run metord we 
 ```
 
 and we are using a synchronized function here because it helps us to prevent memory consistency errors. and in this case thata curusal. 
+
+
+## User Roles
+
+in our application we do have two roles. one role is for the normal user, and the other role is for the admin users. how we manage routes for these users are normal users can access everything in `/user/*/` while admin users has access to `/admin/*` endpoints. 
+
+and since its really not practical to use check if user is valid everytime we are using sessions to keep the state of the application. and in the same case we have a we filter setup for `/*` and in that filter we check if user is authenticated. and since there's small amount of roles for the admin. we are checking that on the servlet 
+
+```java
+@WebFilter("/*")
+public class privateRoutes implements Filter {
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+        // todo
+    }
+
+    @Override
+    public void doFilter(ServletRequest arg0, ServletResponse arg1, FilterChain arg2) throws IOException, ServletException {
+        HttpServletRequest request = (HttpServletRequest)arg0;
+
+        if(request.getRequestURI().startsWith("/user") || request.getRequestURI().startsWith("/admin")){
+
+            HttpSession session = request.getSession();
+
+            if(session.getAttribute("username")==null){
+                request.getRequestDispatcher("/jsp/auth/login.jsp").forward(request, arg1);
+            }
+            else if(session.getAttribute("role") == null){
+                request.getRequestDispatcher("/jsp/auth/login.jsp").forward(request, arg1);
+            }
+        }
+        arg2.doFilter(request, arg1);
+        //post-processing
+
+    }
+
+    @Override
+    public void destroy() {
+        // todo
+    }
+}
+
+```
