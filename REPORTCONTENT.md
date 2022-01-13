@@ -397,5 +397,63 @@ so for handelling booking collistions we are basically checking if the room is a
 
 and the way this whole booking works is first the client sends a request to book the room when he does that we are sendning the request to AuthorizePayment class ( the above servlet ) and from that we init the payment service and request to aproval link from paypal. and then we redirect the user to that link.
 
+after he confirms the payment we are sending the client back to the review payment servlet. this happens from the paypal side. and this servlet is the redirect url 
 
-after he confirms the payment we 
+```java
+redirectUrls.setReturnUrl("http://localhost:8080/user/review_payment");
+```
+
+here we are starting the process on a thread
+
+```java
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        // getting payment and payer id
+        String paymentId = req.getParameter("paymentId");
+        String payerId = req.getParameter("PayerID");
+
+        theBookingstuff t1 = new theBookingstuff();
+        try {
+            t1.run(paymentId, payerId, req, resp);
+        } catch (PayPalRESTException e) {
+            e.printStackTrace();
+        } catch (PayPalException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+```
+
+
+and in the run metord we are passing some args which and from the run metord we pass request to our booking function which is a syncranized function
+
+```java
+    public synchronized void booknow(String paymentId,String payerId, HttpServletRequest req, HttpServletResponse resp) throws PayPalRESTException, PayPalException, ServletException, IOException {
+        PaymentService paymentService = new PaymentService();
+        Payment payment = paymentService.getPaymentDetails(paymentId);
+
+        // getting the payment details
+
+        PayerInfo payerInfo = payment.getPayer().getPayerInfo();
+        Transaction transaction = payment.getTransactions().get(0);
+
+        req.setAttribute("payer", payerInfo);
+        req.setAttribute("transaction", transaction);
+
+        System.out.println("[*] Debug : Generating the Url to Complete Payment ");
+        System.out.println("[*] Debug : Payment ID from auth payment  = " + paymentId);
+        System.out.println("[*] Debug : Payer ID = " + payerId);
+
+
+        String url = "/jsp/payment/review.jsp?paymentid="+paymentId+"&payerid="+payerId;
+
+        System.out.println("[***] Debug : complete payment id = " + paymentId);
+        System.out.println("[*] Debug : Redirect URL = " + url);
+        req.getRequestDispatcher(url).forward(req, resp);
+    }
+```
+
+and we are using a synchronized function 
