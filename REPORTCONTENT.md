@@ -456,4 +456,4 @@ and in the run metord we are passing some args which and from the run metord we 
     }
 ```
 
-and we are using a synchronized function 
+and we are using a synchronized function here because it helps us to prevent memory consistency errors. and in this case thata curusal. 
