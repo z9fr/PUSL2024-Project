@@ -940,29 +940,6 @@ and we can check this to see if the user validated the tokenuser id, username, e
 and something special to notice. we are using parametarized queries. we are using this to make our website more secure. because of we using parameraized queries we are preventing the attack vectors like sql injection which could lead to a authetncation bypass in this case. 
 
 
-
-```
-MariaDB [xyzhotel]> select * from users;
-+------+--------------------+-----------------------------+----------------------------------+-------+------------+--------------------------------------+-------------+
-| uuid | uname              | email                       | password                         | role  | isVerified | verificationid                       | phoneNumber |
-+------+--------------------+-----------------------------+----------------------------------+-------+------------+--------------------------------------+-------------+
-|    1 | admin              | admin@dasith.local          | 5f4dcc3b5aa765d61d8327deb882cf99 | admin |          1 | NULL                                 | 94764641397 |
-|    2 | user               | user@dasith.local           | 5f4dcc3b5aa765d61d8327deb882cf99 | user  |          1 | NULL                                 | 94764641397 |
-|   12 | test               | dasithsv@gmail.com          | 5f4dcc3b5aa765d61d8327deb882cf99 | user  |          1 | ff682b65-9ed3-453a-9c32-050001820a18 | 94764641397 |
-|   14 | hello              | dogehi8530@pyrelle.com      | 5f4dcc3b5aa765d61d8327deb882cf99 | user  |          1 | df86f919-11e3-4c46-ae48-45811f5dc5a8 | 94764641397 |
-|   16 | exampleuser        | suydefufye@vusra.com        | 5f4dcc3b5aa765d61d8327deb882cf99 | user  |          1 | 23b79606-3580-4840-983d-9480fa93f20e | 0764641397  |
-|   22 | helloworld         | scoffey834@gmail.com        | 5f4dcc3b5aa765d61d8327deb882cf99 | user  |          0 | 61028f5d-13db-47b1-a3e3-897bf311459f | 0764641397  |
-|   23 | sfsdfsdjfhdskjhfkj | madef70622@whecode.com      | f68cef4297ac7b5ea159d173730ab358 | user  |          0 | e676fa8d-4ee5-4163-bf3a-9a8f2afac33f | 12123       |
-|   24 | mivalic146         | mivalic146@wusehe.com       | 5f4dcc3b5aa765d61d8327deb882cf99 | user  |          0 | eea80af0-f675-49c1-b340-249570bf893a | 0764641397  |
-|   26 | sdlkfjlksdf        | z9fr@pm.me                  | 5f4dcc3b5aa765d61d8327deb882cf99 | user  |          0 | 6d1cac8c-71e1-4694-b805-489be03cc426 | 0764641397  |
-|   27 | kavindurupasinghe  | kavindurupasinghe@gmail.com | 5f4dcc3b5aa765d61d8327deb882cf99 | user  |          0 | 49a9e09a-8e10-440d-b6e2-1b0d36d67dca | 0764641397  |
-|   28 | myuser2            | z9fr@protonmail.com         | 5f4dcc3b5aa765d61d8327deb882cf99 | user  |          0 | fa20f1de-1c37-4c98-ba2a-3d46caead243 | 0764641397  |
-+------+--------------------+-----------------------------+----------------------------------+-------+------------+--------------------------------------+-------------+
-11 rows in set (0.000 sec)
-
-MariaDB [xyzhotel]> 
-```
-
 and each user gets a verification_id so that we can check if the user is verified or not
 
 
