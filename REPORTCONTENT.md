@@ -39,7 +39,9 @@ features
 - payment
 - booking - booking collistions
 - user login and roles
-- Registration Tokens.
+- Registration Tokens
+- verify the tokens
+- kill the tokens
 
 #### sending sms though vonage
 
