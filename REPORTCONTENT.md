@@ -468,6 +468,8 @@ in our application we do have two roles. one role is for the normal user, and th
 
 and since its really not practical to use check if user is valid everytime we are using sessions to keep the state of the application. and in the same case we have a we filter setup for `/*` and in that filter we check if user is authenticated. and since there's small amount of roles for the admin. we are checking that on the servlet 
 
+`src\main\java\com\example\xyzhotel\filters\privateRoutes.java`
+
 ```java
 @WebFilter("/*")
 public class privateRoutes implements Filter {
