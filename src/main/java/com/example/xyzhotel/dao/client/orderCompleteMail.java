@@ -32,8 +32,6 @@ public class orderCompleteMail {
                 //String emailUsername =dotenv.get("EMAIL_USERNAME");
                 //String emailPassowrd =dotenv.get("EMAIL_PASSWORD");
 
-                // for some reason dotenv is not working
-
                 return new PasswordAuthentication("xyzhotel@mail.com", "Y3M3$NMig^BTPjKdrMDH");
             }
         });

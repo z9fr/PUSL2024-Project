@@ -62,8 +62,8 @@ public class AuthorizePayment extends HttpServlet {
             } catch (PayPalRESTException | SQLException ex) {
                 req.setAttribute("errorMessage", ex.getMessage());
                 ex.printStackTrace();
-            }
-
+            }   
+            // fixed this issue
             // {"name":"VALIDATION_ERROR","details":[{"field":"transactions[0].amount","issue":"Transaction amount details (subtotal, tax, shipping)
             // must add up to specified amount total"}],"message":"Invalid request - see details","information_link":
             // "https://developer.paypal.com/docs/api/payments/#errors","debug_id":"c5c0c265ee033"}
