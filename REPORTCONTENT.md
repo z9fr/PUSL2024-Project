@@ -39,6 +39,7 @@ features
 - payment
 - booking - booking collistions
 - user login and roles
+- 
 
 #### sending sms though vonage
 
@@ -501,6 +502,257 @@ public class privateRoutes implements Filter {
     @Override
     public void destroy() {
         // todo
+    }
+}
+
+```
+
+login is handled mainly by the login.java servlet. in here we are taking the usernames from the request. and then we are generating a hash out of this which happens by the `HashPassword` class 
+
+HashPassword.java 
+```java
+public class HashPassword {
+    public String getHash(String password){
+        String generatedHash = null;
+        try
+        {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            md.update(password.getBytes());
+            byte[] bytes = md.digest();
+
+            // This bytes[] has bytes in decimal format. Convert it to hexadecimal format
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < bytes.length; i++) {
+                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+            }
+
+            // Get complete hashed password in hex format
+            generatedHash = sb.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        return generatedHash;
+    }
+
+}
+
+```
+
+Login.java
+```java
+
+@WebServlet(name = "Loginroute", value = "/login")
+public class login extends HttpServlet {
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        //dispatch the request to login.jsp resource
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/jsp/auth/login.jsp");
+        dispatcher.include(req, resp);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        //get the username from the login form
+        HashPassword hp = new HashPassword();
+        String username = req.getParameter("username");
+        String password = req.getParameter("password");
+        String hashedPassword = hp.getHash(password);
+
+        System.out.println(hashedPassword);
+
+        //call DAO for validation logic
+        authUser dao= new authUser();
+        boolean isValidUser = dao.validateUser(username, hashedPassword);
+
+        if(isValidUser){
+
+            String role = dao.getUserRole(username, hashedPassword);
+            String email = dao.getUserMail(username );
+            int uuid = dao.getUserID(username, hashedPassword);
+
+
+            if(uuid == 0){
+                req.setAttribute("error", "Internal Server Error");
+                req.getRequestDispatcher("/jsp/auth/login.jsp").forward(req, resp);
+            }
+
+            else{
+                HttpSession session = req.getSession();
+
+                session.setAttribute("username", username);
+                session.setAttribute("role", role);
+                session.setAttribute("password", password);
+                session.setAttribute("user_id", uuid);
+                session.setAttribute("user_email", email);
+                
+
+                System.out.println("[+] "+uuid+" "+username+" "+role+" Logged in");
+
+                resp.sendRedirect("/user/panel?msg=LoginSuccess");
+            }
+        }
+        else{
+            String errorMessage="Invalid Credentials, please login again!";
+            req.setAttribute("error", errorMessage);
+            req.getRequestDispatcher("/jsp/auth/login.jsp").forward(req, resp);
+
+
+        }
+
+    }
+}
+
+```
+
+user id, username, email are fetched from the dao layer from the database and we set these information to session so that we can use them to identify the user later.
+
+and something special to notice. we are using parametarized queries. we are using this to make our website more secure. because of we using parameraized queries we are preventing the attack vectors like sql injection which could lead to a authetncation bypass in this case. 
+
+```java
+
+public class authUser {
+    public boolean validateUser(String username, String password) {
+        boolean isValidUser = false;
+        try {
+
+            Connection connection = dbconnection.getConnectionToDatabase();
+
+            String sql = "select * from users where uname=? and password=?";
+
+            // setting values for parametrized query
+            java.sql.PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, username);
+            statement.setString(2, password);
+
+            // execute the statement and check whether user exists
+
+            ResultSet set = statement.executeQuery();
+            while (set.next()) {
+                isValidUser = true;
+            }
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+        return isValidUser;
+    }
+
+    public String getUserRole(String username, String password){
+
+        String role = null;
+
+        try{
+            // select role from users where uname='admin' and password='password';
+            Connection connection = dbconnection.getConnectionToDatabase();
+            String sql = "select role from users where uname=? and password=?";
+
+            java.sql.PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, username);
+            statement.setString(2, password);
+
+            ResultSet set = statement.executeQuery();
+
+            while (set.next()){
+                role = set.getString("role");
+            }
+        }
+        catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+        return role;
+    }
+
+    public int getUserID(String username, String password){
+
+        int userId = 0;
+
+        try{
+            // select role from users where uname='admin' and password='password';
+            Connection connection = dbconnection.getConnectionToDatabase();
+            String sql = "select uuid from users where uname=? and password=?";
+
+            java.sql.PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, username);
+            statement.setString(2, password);
+
+            ResultSet set = statement.executeQuery();
+
+            while (set.next()){
+                userId = set.getInt("uuid");
+            }
+        }
+        catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+        return userId;
+    }
+
+    public String getUserMail(String username){
+
+        String role = null;
+
+        try{
+            // select role from users where uname='admin' and password='password';
+            Connection connection = dbconnection.getConnectionToDatabase();
+            String sql = "select email from users where uname=?";
+
+            java.sql.PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, username);
+
+            ResultSet set = statement.executeQuery();
+
+            while (set.next()){
+                role = set.getString("email");
+            }
+        }
+        catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+        return role;
+    }
+
+}
+
+```
+
+## Admin dashboard
+
+so the main difference between the admin users. and the normal users. is that the admin users has access to a dashboard which they can use to view / monitor the information about the website as a example visualize the admin dashboard and so and so 
+
+```java
+@WebServlet(name = "Admin Route", value = "/user/admin")
+public class adminHome extends HttpServlet {
+
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session =req.getSession();
+        String role = (String) session.getAttribute("role");
+
+        PrintWriter out = resp.getWriter();
+
+
+        if(Objects.equals(role, "admin")){
+            // give the admin dashboard
+
+            AdminHelper adminhelper = new AdminHelper();
+
+
+            //getting those numbers
+            req.setAttribute("userCount", adminhelper.UserCount());
+            req.setAttribute("totalBookings", adminhelper.TotalBookings());
+            req.setAttribute("total_room_count", adminhelper.roomCount());
+
+            System.out.println(adminhelper.UserCount());
+            req.getRequestDispatcher("/admin/index.jsp").forward(req, resp);
+
+        }
+        else{
+            out.println("<html><body>");
+            out.println("<h1> not admin</h1>");
+        }
+        out.println(session.getAttribute("role"));
+        out.println("</body></html>");
     }
 }
 
