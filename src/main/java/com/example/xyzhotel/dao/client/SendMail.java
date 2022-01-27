@@ -29,7 +29,7 @@ public class SendMail {
     public static void main(String[] args) {
 
         String sendTo = "z9fr@pm.me";
-        String mailFrom = "xyzhotel@mail.com";
+        String mailFrom = "xyzhotel2@mail.com";
         String mailHost = "smtp.mail.com";
 
         Properties properties = System.getProperties();

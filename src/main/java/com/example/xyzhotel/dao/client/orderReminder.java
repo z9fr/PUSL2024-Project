@@ -10,7 +10,7 @@ public class orderReminder {
     public boolean theReminder(String sendTo, String order_id,String username){
         boolean isSuccess = false;
 
-        String mailFrom = "xyzhotel@mail.com";
+        String mailFrom = "xyzhotel2@mail.com";
         String mailHost = "smtp.mail.com";
         Properties properties = System.getProperties();
 
@@ -33,7 +33,7 @@ public class orderReminder {
 
                 // for some reason dotenv is not working
 
-                return new PasswordAuthentication("xyzhotel@mail.com", "Y3M3$NMig^BTPjKdrMDH");
+                return new PasswordAuthentication("xyzhotel2@mail.com", "hJnGxHE7c4Gty7XX4");
             }
         });
 
