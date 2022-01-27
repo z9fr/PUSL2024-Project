@@ -11,7 +11,7 @@ public class orderCompleteMail {
     public boolean orderDoneMail(String sendTo, String PaymentId,String username){
         Boolean isSuccess = false;
 
-        String mailFrom = "xyzhotel@mail.com";
+        String mailFrom = "xyzhotel2@mail.com";
         String mailHost = "smtp.mail.com";
         Properties properties = System.getProperties();
 
@@ -34,7 +34,7 @@ public class orderCompleteMail {
 
                 // for some reason dotenv is not working
 
-                return new PasswordAuthentication("xyzhotel@mail.com", "Y3M3$NMig^BTPjKdrMDH");
+                return new PasswordAuthentication("xyzhotel2@mail.com", "hJnGxHE7c4Gty7XX4");
             }
         });
 

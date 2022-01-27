@@ -13,7 +13,7 @@ public class SendMailConfirmation {
     public Boolean sendConfirmation(String token, String sendTo, String name , String token_id){
         Boolean isSuccess = false;
 
-        String mailFrom = "xyzhotel@mail.com";
+        String mailFrom = "xyzhotel2@mail.com";
         String mailHost = "smtp.mail.com";
         Properties properties = System.getProperties();
 
@@ -35,8 +35,7 @@ public class SendMailConfirmation {
                 //String emailPassowrd =dotenv.get("EMAIL_PASSWORD");
 
                 // for some reason dotenv is not working
-
-                return new PasswordAuthentication("xyzhotel@mail.com", "Y3M3$NMig^BTPjKdrMDH");
+                return new PasswordAuthentication("xyzhotel2@mail.com", "hJnGxHE7c4Gty7XX4");
             }
         });
 
