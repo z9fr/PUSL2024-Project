@@ -11,7 +11,6 @@ public class dbconnection {
         try {
 
             Class.forName("com.mysql.jdbc.Driver");
-            // the fucking stupid jdbc driver
             // https://dev.mysql.com/downloads/connector/j/
             // install this driver to make it work
             // add the driver from file > project-structure > modules > import the jar file
