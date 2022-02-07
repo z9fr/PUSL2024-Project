@@ -34,45 +34,60 @@ public class AuthorizePayment extends HttpServlet {
         int room_id = Integer.parseInt(req.getParameter("room_id"));
 
 
-        // very the room_id
         getRoomInfo roominformation = new getRoomInfo();
-        boolean doesRoomExist = roominformation.checkRoomExist(room_id);
+        /*
+        check if the room already booked here
+         */
+
+        boolean isRoomAlreadyBooked = roominformation.checkifRoomAlreadyBooked(room_id, start_date , end_date);
+        System.out.println("is room alerady booked : "+ isRoomAlreadyBooked);
+
+        if(!isRoomAlreadyBooked){
+            boolean doesRoomExist = roominformation.checkRoomExist(room_id);
+
+            if(doesRoomExist){
+                // getting other untrusted data from cookies
+
+                HttpSession session =req.getSession();
+                String username = (String) session.getAttribute("username");
+                int user_id = (int) session.getAttribute("user_id");
+                String room_price = String.valueOf(roominformation.room_price(room_id));
+
+                System.out.println("[+] Booking room for "+room_id + " room price is = "+room_price);
+                oderDetails od = new oderDetails(start_date, end_date, reason, room_id, room_price , username , user_id);
 
 
-        if(doesRoomExist){
-            // getting other untrusted data from cookies
 
-            HttpSession session =req.getSession();
-            String username = (String) session.getAttribute("username");
-            int user_id = (int) session.getAttribute("user_id");
-            String room_price = String.valueOf(roominformation.room_price(room_id));
-
-            System.out.println("[+] Booking room for "+room_id + " room price is = "+room_price);
-            oderDetails od = new oderDetails(start_date, end_date, reason, room_id, room_price , username , user_id);
+                try {
+                    PaymentService paymentServices = new PaymentService();
+                    String approvalLink = paymentServices.authorizePayment(od);
+                    System.out.println("[*] Debug : approval Link = "+approvalLink);
+                    resp.sendRedirect(approvalLink);
 
 
+                } catch (PayPalRESTException | SQLException ex) {
+                    req.setAttribute("errorMessage", ex.getMessage());
+                    ex.printStackTrace();
+                }
+                // fixed this issue
+                // {"name":"VALIDATION_ERROR","details":[{"field":"transactions[0].amount","issue":"Transaction amount details (subtotal, tax, shipping)
+                // must add up to specified amount total"}],"message":"Invalid request - see details","information_link":
+                // "https://developer.paypal.com/docs/api/payments/#errors","debug_id":"c5c0c265ee033"}
 
-            try {
-                PaymentService paymentServices = new PaymentService();
-                String approvalLink = paymentServices.authorizePayment(od);
-                System.out.println("[*] Debug : approval Link = "+approvalLink);
-                resp.sendRedirect(approvalLink);
-
-
-            } catch (PayPalRESTException | SQLException ex) {
-                req.setAttribute("errorMessage", ex.getMessage());
-                ex.printStackTrace();
-            }   
-            // fixed this issue
-            // {"name":"VALIDATION_ERROR","details":[{"field":"transactions[0].amount","issue":"Transaction amount details (subtotal, tax, shipping)
-            // must add up to specified amount total"}],"message":"Invalid request - see details","information_link":
-            // "https://developer.paypal.com/docs/api/payments/#errors","debug_id":"c5c0c265ee033"}
+            }
+            else{
+                PrintWriter out= resp.getWriter();
+                out.println("<html><body>");
+                out.println("<h1> room does not exist </h1>");
+            }
 
         }
-        else{
+        else {
             PrintWriter out= resp.getWriter();
             out.println("<html><body>");
-            out.println("<h1> room does not exist </h1>");
+            out.println("<h1> this room is already booked in this date please look a new one <a href='/home'> home </a> </h1>");
         }
+
+
     }
 }

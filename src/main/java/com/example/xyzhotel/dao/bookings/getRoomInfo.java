@@ -77,4 +77,37 @@ public class getRoomInfo {
         return isValidRoom;
 
     }
+
+
+    public boolean checkifRoomAlreadyBooked(int room_id, String start_date, String end_date ){
+
+        boolean theroomtaken = false;
+
+        try{
+            Connection connection = dbconnection.getConnectionToDatabase();
+            String sql = "select * from bookings where room_id=? and start_date between ? and ? and end_date between ? and ?;";
+            // select * from bookings where room_id=5 and start_date between '2022-02-08' and '2022-02-09' and end_date between '2022-02-08' and '2022-02-09';
+
+            // setting values for parametrized query
+            java.sql.PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, String.valueOf(room_id));
+            statement.setString(2, start_date);
+            statement.setString(3, end_date);
+            statement.setString(4, start_date);
+            statement.setString(5, end_date);
+
+            ResultSet set = statement.executeQuery();
+            while (set.next()) {
+                theroomtaken = true;
+            }
+        }
+        catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+
+        return theroomtaken;
+
+    }
+
+
 }

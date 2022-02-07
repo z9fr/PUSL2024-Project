@@ -16,7 +16,7 @@ public class dbconnection {
             // add the driver from file > project-structure > modules > import the jar file
             System.out.println("stupid driver loaded");
 
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/xyzhotel", "newuser", "");
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/xyzhotel", "newuser", "password");
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }

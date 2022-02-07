@@ -25,8 +25,6 @@ public class bookNow extends HttpServlet {
 
             if (doesRoomExist) {
 
-
-
                 // getting title
                 String room_title = roominformation.room_title(room_id);
 
@@ -41,7 +39,6 @@ public class bookNow extends HttpServlet {
                 req.getRequestDispatcher("/jsp/bookingHomePage.jsp").forward(req, resp);
             }
             else{
-
                 req.setAttribute("error","The Room Does Not Exist Please Try Again!");
                 req.getRequestDispatcher("/jsp/bookingHomePage.jsp").forward(req, resp);
             }
