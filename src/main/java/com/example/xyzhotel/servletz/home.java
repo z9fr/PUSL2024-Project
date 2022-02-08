@@ -25,7 +25,6 @@ public class home extends HttpServlet {
         req.setAttribute("topreviews", reviews);
 
         // need the last three rooms
-
         List<room> rooms = dao.getAllRooms();
 
         req.setAttribute("latestRooms", rooms);

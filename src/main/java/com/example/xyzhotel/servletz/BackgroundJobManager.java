@@ -16,6 +16,7 @@ public class BackgroundJobManager implements ServletContextListener {
 
     private ScheduledExecutorService scheduler;
 
+    // using factory pattern here to create new factories
     @Override
     public void contextInitialized(ServletContextEvent event) {
         scheduler = Executors.newSingleThreadScheduledExecutor();
