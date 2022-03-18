@@ -66,13 +66,6 @@
 └── xyzhotel.iml
 ```
 
-### Desgin Diagrams
-
-![ArcoLinux_2021-11-17_17-15-26.png](content/img/ArcoLinux_2021-11-17_17-15-26.png)
-
-![ArcoLinux_2021-11-17_17-16-04.png](content/img/ArcoLinux_2021-11-17_17-16-04.png)
-
-
 
 ### Database Structure
 
